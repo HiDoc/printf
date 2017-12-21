@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:03:39 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 17:04:05 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/21 16:54:18 by fmadura           #+#    #+#             */
+/*   Updated: 2017/12/21 16:54:51 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	*ft_memalloc(size_t size)
+int		ft_abs(int c)
 {
-	void	*alloc;
-
-	if (size == 0 || (alloc = (void *)malloc(size)) == NULL)
-		return (NULL);
-	ft_bzero(alloc, size + 2);
-	return (alloc);
+	return (c < 0 ? -c : c);
 }

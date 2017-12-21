@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 10:36:11 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 14:24:33 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/21 16:27:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,11 @@ void	ft_free_arg(t_args *arg)
 {
 	if (arg->line != NULL)
 		free(arg->line);
-	if (arg->flags != NULL)
-		free(arg->flags);
+	if (arg->format != NULL)
+		free(arg->format);
 	if (arg->argument != NULL)
 		free(arg->argument);
 	free(arg);
-}
-
-void	ft_map_args(t_args *list, va_list ap)
-{
-	t_args	*map;
-
-	map = list;
-	while (map)
-	{
-		set_argument(map, ap);
-		set_precision(map);
-		set_field(map);
-		map = map->next;
-	}
 }
 
 char	*ft_join_arg(t_args *list)
@@ -55,8 +41,7 @@ char	*ft_join_arg(t_args *list)
 		{
 			tmp = ft_strjoin(next->argument, next->line);
 			str = ft_strljoin(str, tmp);
-			if (tmp != NULL)
-				free(tmp);
+			free(tmp);
 		}
 		else
 			str = ft_strljoin(str, next->line);
@@ -69,27 +54,14 @@ char	*ft_join_arg(t_args *list)
 
 t_args	*ft_new_arg(char *str)
 {
-	t_args *new;
-	int count;
+	t_args	*new;
 
-	count = 0;
 	if ((new = (t_args *)malloc(sizeof(t_args))) == NULL)
 		return (NULL);
-	if (ft_isargument(str[0]))
-		count++;
-	if (count == 0)
-	{
-		new->line = ft_strdup(str);
-		new->flags = NULL;
-		new->attribut = '0';
-	}
-	else
-	{
-		new->line = ft_strsub(str, count, (int)ft_strlen(str));
-		new->flags = ft_strsub(str, 0, count);
-		new->attribut = str[0];
-	}
+	new->attribut = '0';
+	new->line = ft_strdup(str);
 	new->argument = NULL;
+	new->format = NULL;
 	new->precision = -1;
 	new->field = -1;
 	free(str);

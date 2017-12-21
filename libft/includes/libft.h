@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/07 12:51:10 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/21 17:06:43 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <string.h>
 
+char			*ft_strset(char *str, char c, size_t size);
+int				ft_abs(int c);
 char			*ft_strljoin(char *s1, char *s2);
 int				ft_strchri(char *str, char c);
 char			*ft_strdupcat(const char *s1, const char *s2);
@@ -82,6 +84,7 @@ int				ft_tolower(int c);
 size_t			ft_strlen(const char *str);
 int				ft_atoi(const char *str);
 char			*ft_itoa(int n);
+char			*ft_uitoa(unsigned int n);
 char			*ft_strcat(char *restrict s1, const char *restrict s2);
 typedef struct	s_list
 {

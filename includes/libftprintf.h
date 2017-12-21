@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 12:39:36 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/21 16:05:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 typedef struct	s_args
 {
 	char			*line;
-	char			*flags;
+	char			*format;
 	char			*argument;
 	char			attribut;
 	int				precision;
@@ -36,6 +36,6 @@ char			ft_isargument(char c);
 int				ft_haveflag(char *str);
 char			ft_isflag(char c);
 void			set_precision(t_args *arg);
-void			set_argument(t_args *arg, va_list ap);
+int				set_attribute(t_args *arg, va_list ap);
 void			set_field(t_args *arg);
 #endif
