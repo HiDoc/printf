@@ -6,73 +6,34 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 11:04:29 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/21 12:39:15 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static char		*join(char *s1, char *s2, int tab)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin((tab ? s1 : &s1[1]), s2);
-	if (s1)
-	{
-		free(s1);
-		s1 = NULL;
-	}
-	s1 = ft_strdup(tmp);
-	free(tmp);
-	return (s1);
-}
-
-static char		*join_tab(char **tab)
-{
-	int		count;
-	char 	*store;
-
-	count = 0;
-	store = NULL;
-	if (tab[count])
-	{
-		store = ft_strdup(tab[0]);
-		free(tab[0]);
-		count++;
-		while (tab[count])
-		{
-			store = join(store, tab[count], 1);
-			free(tab[count]);
-			count++;
-		}
-		free(tab);
-	}
-	return (store);
-}
-
-char			*ft_format(const char *format, va_list ap)
+char		*ft_format(const char *format, va_list ap)
 {
 	char	**store;
 	int		count;
-	char	*tmp;
+	t_args	*args;
+	t_args	*start;
 
 	count = 0;
 	store = ft_strsplit(format, '%');
-	while (store[count] && store[count + 1])
+	if (store[count])
 	{
-		if (store[count + 1][0] == 's')
-			store[count] = join(store[count], va_arg(ap, char *), (count == 0));
-		else if (store[count + 1][0] == 'd')
-		{
-			tmp = ft_itoa(va_arg(ap,const int));
-			store[count] = join(store[count], tmp, 1);
-			free(tmp);
-		}
+		args = ft_new_arg(store[count]);
+		start = args;
 		count++;
 	}
-	tmp = ft_strdup(&store[count][1]);
-	free(store[count]);
-	store[count] = ft_strdup(tmp);
-	free(tmp);
-	return (join_tab(store));
+	while (store[count])
+	{	
+		args->next = ft_new_arg(store[count]);
+		args = args->next;
+		count++;
+	}
+	free(store);
+	ft_map_args(start, ap);
+	return (ft_join_arg(start));
 }

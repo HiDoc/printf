@@ -6,13 +6,20 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 13:59:12 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 11:02:03 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/21 12:47:27 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_isprecision(char *str)
+void	set_precision(t_args *arg)
 {
-	return (ft_atoi(str));
+	int index;
+
+	if (arg->flags != NULL)
+	{
+		index = ft_strchri(arg->flags, '.');
+		if (index != -1)
+			arg->precision = ft_atoi(&(arg->flags[index]));
+	}
 }

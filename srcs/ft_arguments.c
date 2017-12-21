@@ -6,11 +6,17 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:03:33 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 11:02:56 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/21 12:55:53 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+void		set_argument(t_args *arg, va_list ap)
+{
+	if (ft_isargument(arg->attribut))
+		arg->argument = (char *)ft_switch(arg->attribut, ap);
+}
 
 char		ft_isargument(char c)
 {
@@ -20,27 +26,24 @@ char		ft_isargument(char c)
 			? c : 0);
 }
 
-const char	*ft_switch(char *line, char c, va_list ap)
+const char	*ft_switch(char c, va_list ap)
 {
-	char		swi;
 	const char	*tmp;
 
 	tmp = NULL;
-	if (!(swi = ft_isargument(c)))
-		return (line);
-	else if (swi == 's' || swi == 'S')
+	if (c == 's' || c == 'S')
 		tmp =  va_arg(ap, const char *);
-	else if (swi == 'p')
+	else if (c == 'p')
 		tmp = ft_itoa(va_arg(ap, int));
-	else if (swi == 'e' || swi == 'E')
+	else if (c == 'e' || c == 'E')
 		tmp = ft_itoa(va_arg(ap, int));
-	else if (swi == 'o' || swi == 'O')
+	else if (c == 'o' || c == 'O')
 		tmp = ft_itoa(va_arg(ap, unsigned int));
-	else if (swi == 'd' || swi == 'i')
+	else if (c == 'd' || c == 'i')
 		tmp = ft_itoa(va_arg(ap, int));
-	else if (swi == 'g' || swi == 'G')
+	else if (c == 'g' || c == 'G')
 		tmp = va_arg(ap, const char *);
-	else if (swi == 'u' || swi == 'U')
+	else if (c == 'u' || c == 'U')
 		tmp = va_arg(ap, const char *);
 	return (tmp);
 }

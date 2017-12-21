@@ -6,18 +6,24 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:00:37 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 10:56:02 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/21 12:49:10 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_get_field(char *str)
+void	set_field(t_args *arg)
 {
-	int	index;
-	int ret;
+	int		index;
+	int		count;
 
-	index = ft_strchri(str, '.');
-	ret = (index >= 0 ? ft_atoi(&str[index]) : (int)ft_strlen(str));
-	return (ret);
+	count = 0;
+	if (arg->flags != NULL)
+	{
+		index = ft_strchri(arg->flags, '.');
+		while (arg->flags[count] && count < index && !ft_isdigit(arg->flags[count]))
+			count++;
+		if (count < index)
+			arg->field = ft_atoi(arg->flags);
+	}
 }
