@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/02 13:52:58 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 11:02:11 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/21 10:36:11 by fmadura           #+#    #+#             */
+/*   Updated: 2017/12/21 11:04:05 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_haveflag(char *str)
+t_args	*ft_new_arg(char *str)
 {
+	t_args *new;
 	int count;
-	int ret;
 
 	count = 0;
-	ret = 0;
-	while (str[count])
-	{
-		if (ft_isflag(str[count]))
-			ret += (int)str[count];
+	if ((new = (t_args *)malloc(sizeof(t_args))) == NULL)
+		return NULL;
+	while (!ft_isargument(str[count]))
 		count++;
+	if (count == (int)ft_strlen(str))
+	{
+		new->line = ft_strdup(str);
+		new->flags = NULL;
+		new->attribut = '0';
 	}
-	return (ret);
-}
-
-char	ft_isflag(char c)
-{
-	return (c == '-' || c == '0' || c == '+');
+	else
+	{
+		new->line = ft_strsub(str, count + 1, (int)ft_strlen(str));
+		new->flags = ft_strsub(str, 0, count);
+		new->attribut = str[count];
+	}
+	new->precision = -1;
+	new->length = -1;
+	return (new);
 }

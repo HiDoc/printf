@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/12 12:56:07 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/21 11:04:29 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char		*join(char *s1, char *s2, int tab)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin((tab ? s1: &s1[1]), s2);
+	tmp = ft_strjoin((tab ? s1 : &s1[1]), s2);
 	if (s1)
 	{
 		free(s1);
@@ -64,7 +64,7 @@ char			*ft_format(const char *format, va_list ap)
 			store[count] = join(store[count], va_arg(ap, char *), (count == 0));
 		else if (store[count + 1][0] == 'd')
 		{
-			tmp = ft_itoa(va_arg(ap, int));
+			tmp = ft_itoa(va_arg(ap,const int));
 			store[count] = join(store[count], tmp, 1);
 			free(tmp);
 		}
