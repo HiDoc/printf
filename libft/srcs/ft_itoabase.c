@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 17:29:52 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/26 17:46:15 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/26 17:50:35 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char			*ft_itoabase(int n)
 		count--;
 		n /= 10;
 	}
+	int x = ft_getbase(0);
+	(void)x;
 	if (!ispos)
 		nbr[0] = '-';
 	return (nbr);
