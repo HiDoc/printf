@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 10:36:11 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 16:27:45 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/26 16:58:46 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_args	*ft_new_arg(char *str)
 	new->argument = NULL;
 	new->format = NULL;
 	new->precision = -1;
-	new->field = -1;
+	new->field = 0;
 	free(str);
 	return (new);
 }

@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strljoin.c                                      :+:      :+:    :+:   */
+/*   ft_strcount_if.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/02 17:22:18 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/26 17:16:42 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/26 16:04:20 by fmadura           #+#    #+#             */
+/*   Updated: 2017/12/26 16:14:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strljoin(char *s1, char *s2)
+int		ft_strcount_if(char *s, int (f)(int))
 {
-	char	*join;
+	int	count;
+	int ret;
 
-	join = ft_strjoin(s1, s2);
-	if (s1)
+	count = 0;
+	ret = 0;
+	while (s[count])
 	{
-		free(s1);
-		s1 = NULL;
+		if (f((int)s[count]))
+			ret++;
+		count++;
 	}
-	return (join);
+	return (ret);
 }

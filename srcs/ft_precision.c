@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 13:59:12 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 14:35:21 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/26 16:58:32 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	set_precision(t_args *arg)
 	{
 		index = ft_strchri(arg->format, '.');
 		if (index != -1)
-			arg->precision = ft_atoi(&(arg->format[index]));
+			arg->precision = ft_atoi(&(arg->format[index + 1]));
 	}
 }

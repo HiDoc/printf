@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strljoin.c                                      :+:      :+:    :+:   */
+/*   ft_strrjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/02 17:22:18 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/26 17:16:42 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/26 17:13:04 by fmadura           #+#    #+#             */
+/*   Updated: 2017/12/26 17:16:57 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strljoin(char *s1, char *s2)
+char	*ft_strrjoin(char *s1, char *s2)
 {
-	char	*join;
+	char	*new;
 
-	join = ft_strjoin(s1, s2);
-	if (s1)
+	new = NULL;
+	if (s1 != NULL && s2 != NULL)
 	{
-		free(s1);
-		s1 = NULL;
+		new = ft_strjoin(s1, s2);
+		free(s2);
 	}
-	return (join);
+	return (new);
 }

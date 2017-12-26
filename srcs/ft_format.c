@@ -6,13 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 16:43:15 by fmadura          ###   ########.fr       */
+/*   Updated: 2017/12/26 17:18:54 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_map_args(t_args *list, va_list ap)
+t_args		*ft_map_args(t_args *list, va_list ap)
 {
 	t_args	*map;
 	int		index;
@@ -21,9 +21,10 @@ void	ft_map_args(t_args *list, va_list ap)
 	map = list;
 	while (map)
 	{
-		index = set_attribute(map, ap);
+		index = set_attribute(map);
 		if (index > -1)
 		{
+			map->argument = set_argument(map, ap);
 			tmp = ft_strdup(map->line);
 			map->format = ft_strsub(tmp, 0, index);
 			free(map->line);
@@ -31,9 +32,12 @@ void	ft_map_args(t_args *list, va_list ap)
 			free(tmp);
 			set_precision(map);
 			set_field(map);
+			printf("precision : %d\n", map->precision);
+			printf("field : %d\n", map->field);
 		}
 		map = map->next;
 	}
+	return (list);
 }
 
 char		*ft_format(const char *format, va_list ap)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoabase.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 17:16:59 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/26 17:29:26 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/26 17:29:52 by fmadura           #+#    #+#             */
+/*   Updated: 2017/12/26 17:46:15 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ static int		ft_getlen(int n, int c)
 	return ((n != 0 ? ft_getlen(n / 10, c + 1) : c));
 }
 
-char			*ft_itoa(int n)
+static char		ft_getbase(int c)
+{
+	return ((c < 10 ? c : c - 10) + 'A');
+}
+
+char			*ft_itoabase(int n)
 {
 	char	*nbr;
 	int		count;

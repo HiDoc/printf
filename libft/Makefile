@@ -11,8 +11,12 @@ complete = @echo "\033[92mComplete\033[0m\n"
 SRC_NAME = ft_putchar.c \
 		   ft_strset.c \
 		   ft_abs.c \
+		   ft_strcount_if.c \
 		   ft_uitoa.c \
+		   ft_itoabase.c \
 		   ft_strljoin.c \
+		   ft_strrjoin.c \
+		   ft_strdjoin.c \
 		   ft_strchri.c \
 		   ft_strdupcat.c \
 		   ft_lstsize.c \
