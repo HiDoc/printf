@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chrindex.c                                      :+:      :+:    :+:   */
+/*   ft_strcount_if.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/28 11:59:48 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 12:40:00 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/26 16:04:20 by fmadura           #+#    #+#             */
+/*   Updated: 2017/12/26 16:14:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strchri(char *str, char c)
+int		ft_strcount_if(char *s, int (f)(int))
 {
-	int count;
+	int	count;
+	int ret;
 
 	count = 0;
-	while (str[count])
+	ret = 0;
+	while (s[count])
 	{
-		if (str[count] == c)
-			return (count);
+		if (f((int)s[count]))
+			ret++;
 		count++;
 	}
-	return (-1);
+	return (ret);
 }
