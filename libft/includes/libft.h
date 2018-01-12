@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/26 17:40:44 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/12 15:47:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <limits.h>
+# include <stdio.h>
 
 char			*ft_strcat(char *restrict s1, const char *restrict s2);
 char			*ft_strchr(const char *s, int c);
@@ -48,7 +50,7 @@ char			*ft_strrjoin(char *s1, char *s2);
 
 char			*ft_uitoa(unsigned int n);
 char			*ft_itoa(int n);
-char			*ft_itoabase(int n);
+char			*ft_itoabase(int n, int base);
 int				ft_atoi(const char *str);
 
 int				ft_isalnum(int c);
