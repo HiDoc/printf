@@ -127,4 +127,7 @@ fclean: clean
 	$(cleaning)
 	@echo "**************************************"
 
+test: all
+	gcc main.c $(INC) -L ./ -lftprintf 
+
 re: fclean all
