@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:03:33 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/26 17:21:24 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:00:32 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,9 @@ const char	*ft_switch(char c, va_list ap)
 		tmp = ft_strdup((char *)va_arg(ap, const char *));
 	else if (c == 'u' || c == 'U')
 		tmp = ft_uitoa(va_arg(ap, unsigned int));
+	else if (c == 'x')
+		tmp = ft_itoabase(va_arg(ap, int), 16, "0123456789abcdef");
+	else if (c == 'X')
+		tmp = ft_itoabase(va_arg(ap, int), 16, "0123456789ABCDEF");
 	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 10:36:11 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/26 16:58:46 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:04:50 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_join_arg(t_args *list)
 	t_args	*next;
 
 	if (list->argument != NULL)
-		str = ft_strjoin(list->line, list->argument);
+		str = ft_strjoin(list->argument, list->line);
 	else
 		str = ft_strdup(list->line);
 	next = list->next;

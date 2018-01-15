@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/26 17:18:54 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:04:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ t_args		*ft_map_args(t_args *list, va_list ap)
 			free(tmp);
 			set_precision(map);
 			set_field(map);
-			printf("precision : %d\n", map->precision);
-			printf("field : %d\n", map->field);
 		}
 		map = map->next;
 	}

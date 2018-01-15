@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/12 15:47:45 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/15 12:36:59 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char			*ft_strrjoin(char *s1, char *s2);
 
 char			*ft_uitoa(unsigned int n);
 char			*ft_itoa(int n);
-char			*ft_itoabase(int n, int base);
+char			*ft_itoabase(int n, int base, char *basefrom);
 int				ft_atoi(const char *str);
 
 int				ft_isalnum(int c);
