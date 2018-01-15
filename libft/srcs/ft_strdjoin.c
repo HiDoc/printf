@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chrindex.c                                      :+:      :+:    :+:   */
+/*   ft_strdjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/28 11:59:48 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 12:40:00 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/26 17:10:23 by fmadura           #+#    #+#             */
+/*   Updated: 2017/12/26 17:16:30 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strchri(char *str, char c)
-{
-	int count;
+#include "libft.h"
 
-	count = 0;
-	while (str[count])
+char	*ft_strdjoin(char *s1, char *s2)
+{
+	char *new;
+
+	new = NULL;
+	if (s1 != NULL && s2 != NULL)
 	{
-		if (str[count] == c)
-			return (count);
-		count++;
+		new = ft_strjoin(s1, s2);
+		if (s1)
+			free(s1);
+		if (s2)
+			free(s2);
 	}
-	return (-1);
+	return (new);
 }

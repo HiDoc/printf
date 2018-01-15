@@ -14,7 +14,8 @@ SRC_NAME  = ft_format.c \
 			ft_printf.c \
 			ft_flags.c \
 			ft_precision.c \
-			ft_field.c
+			ft_field.c \
+			struct.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

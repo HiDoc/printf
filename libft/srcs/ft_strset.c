@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chrindex.c                                      :+:      :+:    :+:   */
+/*   ft_strset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/28 11:59:48 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/21 12:40:00 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/21 17:04:42 by fmadura           #+#    #+#             */
+/*   Updated: 2017/12/21 17:06:13 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strchri(char *str, char c)
+#include "libft.h"
+
+char	*ft_strset(char *str, char c, size_t size)
 {
 	int count;
 
 	count = 0;
-	while (str[count])
+	while (count < (int)size)
 	{
-		if (str[count] == c)
-			return (count);
+		str[count] = c;
 		count++;
 	}
-	return (-1);
+	return (str);
 }

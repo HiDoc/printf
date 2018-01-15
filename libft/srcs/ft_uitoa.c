@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strljoin.c                                      :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/02 17:22:18 by fmadura           #+#    #+#             */
-/*   Updated: 2017/12/26 17:16:42 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/21 14:45:18 by fmadura           #+#    #+#             */
+/*   Updated: 2017/12/21 15:01:34 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strljoin(char *s1, char *s2)
+static int		ft_getlen(int n, int c)
 {
-	char	*join;
+	return ((n != 0 ? ft_getlen(n / 10, c + 1) : c));
+}
 
-	join = ft_strjoin(s1, s2);
-	if (s1)
+char			*ft_uitoa(unsigned int n)
+{
+	char	*nbr;
+	int		count;
+
+	count = ft_getlen(n, -1);
+	if (n == 0)
+		return (ft_strdup("0"));
+	if ((nbr = (char *)malloc((sizeof(char) * (count + 2)))) == NULL)
+		return (NULL);
+	nbr[count + 1] = '\0';
+	while (count >= 0)
 	{
-		free(s1);
-		s1 = NULL;
+		nbr[count] = (n % 10) + '0';
+		count--;
+		n /= 10;
 	}
-	return (join);
+	return (nbr);
 }
