@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_ltoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:32:10 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 14:08:09 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/20 15:35:34 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/20 15:40:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+static int		ft_getlen(int n, int c)
 {
-	int		len;
-	char	*dup;
-	int		count;
+	return ((n != 0 ? ft_getlen(n / 10, c + 1) : c));
+}
 
-	count = 0;
-	len = ft_strlen(s1);
-	if ((dup = (char *)malloc(((sizeof(char) * len) + 1))) == NULL)
+char			*ft_ltoa(long n)
+{
+	char	*nbr;
+	int		count;
+	int		ispos;
+
+	ispos = (n >= 0);
+	count = ft_getlen(n, 0) - (n > 0);
+	if ((nbr = (char *)malloc((sizeof(char) * (count + 2)))) == NULL)
 		return (NULL);
-	while (count < len)
+	nbr[count + 1] = '\0';
+	while (count >= 0)
 	{
-		dup[count] = s1[count];
-		count++;
+		nbr[count] = ABS((n % 10)) + '0';
+		count--;
+		n /= 10;
 	}
-	dup[count] = s1[count];
-	return (dup);
+	if (!ispos)
+		nbr[0] = '-';
+	return (nbr);
 }

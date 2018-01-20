@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:03:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/15 13:00:32 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/20 16:23:53 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,34 @@ int			set_attribute(t_args *arg)
 
 char		*set_argument(t_args *arg, va_list ap)
 {
-	return (char *)ft_switch(arg->attribut, ap);
+	return (char *)ft_switch(arg->attribut,'l', ap);
 }
 
 char		ft_isargument(char c)
 {
 	return (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' ||
 			c == 'i' || c == 'o' || c == 'O' || c == 'u' || c == 'U' ||
-			c == 'x' || c == 'X' || c == 'c' || c == 'C' || c == '%'
+			c == 'x' || c == 'X' || c == 'c' || c == 'C'
 			? c : 0);
 }
 
-const char	*ft_switch(char c, va_list ap)
+const char	*ft_switch(char c, char size, va_list ap)
 {
 	const char		*tmp;
 
 	tmp = NULL;
 	if (c == 's' || c == 'S')
-		tmp = ft_strdup((char *)va_arg(ap, const char *));
+		tmp = ft_strdup2((char *)va_arg(ap, char *));
 	else if (c == 'p')
-		tmp = ft_itoa(va_arg(ap, int));
+		tmp = size == 'l' ? ft_itoa(va_arg(ap, int)) : ft_ltoa(va_arg(ap, long));
 	else if (c == 'e' || c == 'E')
 		tmp = ft_itoa(va_arg(ap, int));
+	else if (c == 'c' || c == 'C')
+		tmp  = ft_chartostr((char)va_arg(ap, int));
 	else if (c == 'o' || c == 'O')
-		tmp = ft_itoa(va_arg(ap, unsigned int));
+		tmp = ft_itoabase(va_arg(ap, int), 8, "01234567");
 	else if (c == 'd' || c == 'i')
-		tmp = ft_itoa(va_arg(ap, int));
+		tmp = size != 'l' ? ft_itoa(va_arg(ap, int)) : ft_ltoa(va_arg(ap, long));
 	else if (c == 'g' || c == 'G')
 		tmp = ft_strdup((char *)va_arg(ap, const char *));
 	else if (c == 'u' || c == 'U')
@@ -70,5 +72,7 @@ const char	*ft_switch(char c, va_list ap)
 		tmp = ft_itoabase(va_arg(ap, int), 16, "0123456789abcdef");
 	else if (c == 'X')
 		tmp = ft_itoabase(va_arg(ap, int), 16, "0123456789ABCDEF");
+	if (tmp == NULL)
+		tmp = ft_strdup("(null)");
 	return (tmp);
 }

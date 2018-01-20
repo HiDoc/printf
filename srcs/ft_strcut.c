@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:55:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 11:44:35 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/20 13:06:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	words(char const *s, char c)
 
 	count = 0;
 	ret = 0;
+	if ((s[0]) && s[0] != c)
+		ret++;
 	while (s[count])
 	{
 		if (s[count] == c)

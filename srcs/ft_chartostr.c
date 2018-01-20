@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chrindex.c                                      :+:      :+:    :+:   */
+/*   ft_chartostr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/28 11:59:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 12:42:02 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/20 13:22:42 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/20 13:26:26 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strchri(char *str, char c)
-{
-	int count;
+#include "libft.h"
 
-	count = 0;
-	while (str[count])
+char	*ft_chartostr(char c)
+{
+	char	*str;
+	
+	str = NULL;
+	if ((str = (char *)malloc(sizeof(char) + 1)) == NULL)
+		return (NULL);
+	else
 	{
-		if (str[count] == c)
-			return (count);
-		count++;
+		str[0] = c;
+		str[1] = '\0';	
 	}
-	return (-1);
-}
+	return (str);
+}	

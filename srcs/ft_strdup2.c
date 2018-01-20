@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chrindex.c                                      :+:      :+:    :+:   */
+/*   ft_strdup2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/28 11:59:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 12:42:02 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/20 13:59:54 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/20 14:02:21 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strchri(char *str, char c)
+#include "libft.h"
+
+char	*ft_strdup2(const char *s1)
 {
-	int count;
+	int		len;
+	char	*dup;
+	int		count;
 
 	count = 0;
-	while (str[count])
+	if (s1 == NULL)
+		return (NULL);
+	len = ft_strlen(s1);
+	if ((dup = (char*)malloc(((sizeof(char) * len) + 1))) == NULL)
+		return (NULL);
+	while (count < len)
 	{
-		if (str[count] == c)
-			return (count);
+		dup[count] = s1[count];
 		count++;
 	}
-	return (-1);
+	dup[count] = s1[count];
+	return (dup);
 }

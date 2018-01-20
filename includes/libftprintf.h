@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/15 12:19:17 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/20 15:40:25 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char			*ft_join_arg(t_args *list);
 t_args			*ft_map_args(t_args *list, va_list ap);
 int				ft_printf(const char* format, ...);
 char			*ft_format(const char *format, va_list ap);
-const char		*ft_switch(char c, va_list ap);
+const char		*ft_switch(char c, char size, va_list ap);
 char			ft_isargument(char c);
 int				ft_haveflag(char *str);
 char			ft_isflag(char c);

@@ -10,7 +10,13 @@ complete = @echo "\033[92mComplete\033[0m"
 cleaning = @echo "\033[36mCleaning complete\033[0m"
 
 SRC_NAME  = ft_format.c \
+			ft_strdup2.c \
+			ft_ltoa.c \
+			ft_strnchri.c \
+			ft_chartostr.c \
 			ft_strcut.c \
+			ft_islower.c \
+			ft_isupper.c \
 			ft_putchar.c \
 			ft_strset.c \
 			ft_abs.c \
@@ -129,6 +135,6 @@ fclean: clean
 	@echo "**************************************"
 
 test: all
-	gcc main.c $(INC) -L ./ -lftprintf 
+	gcc -g main.c $(INC) -L ./ -lftprintf 
 
 re: fclean all

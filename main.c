@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:28:44 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 11:42:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/20 16:34:29 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,7 @@
 
 int	main(void)
 {
-	char str[] = "%fd%d%e";
-	char **tab = ft_strcut(str, '%');
 	int count = 0;
-	while (tab[count])
-	{
-		printf("count : %d, string : %s\n", count, tab[count]);
-		count++;
-	}
-	ft_printf("%  %");
+	ft_printf("@moulitest: %.d %.0d", 42, 43);
 	return (0);
 }

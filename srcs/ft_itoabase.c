@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 17:29:52 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/15 12:56:16 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/20 13:11:28 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char			*ft_itoabase(int n, int baseto, char *basetofrom)
 	int				ispos;
 	unsigned int	uint;
 
+	if (n == 0)
+		return (ft_strdup("0"));
 	ispos = (n >= 0 || baseto != 10);
 	if (n < 0 && baseto != 10)
 		uint = UINT_MAX + n + 1;
