@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/15 12:36:59 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/20 11:41:40 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <stdio.h>
 
+char			**ft_strcut(char const *str, char c);
 char			*ft_strcat(char *restrict s1, const char *restrict s2);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strcpy(char *dst, const char *src);

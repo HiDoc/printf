@@ -10,6 +10,7 @@ complete = @echo "\033[92mComplete\033[0m"
 cleaning = @echo "\033[36mCleaning complete\033[0m"
 
 SRC_NAME  = ft_format.c \
+			ft_strcut.c \
 			ft_putchar.c \
 			ft_strset.c \
 			ft_abs.c \
