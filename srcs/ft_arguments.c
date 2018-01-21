@@ -6,38 +6,11 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:03:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/21 17:22:45 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/21 17:26:15 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-
-int			set_attribute(t_args *arg)
-{
-	int		count;
-	char	c;
-
-	count = 0;
-	c = '.';
-	if (arg->line && arg->line[count])
-		while (arg->line[count] && (ft_isargument(c)
-		|| ft_isdigit(c) || c == '.' || ft_isflag(c)))
-		{
-			c = arg->line[count];
-			if (ft_isargument(c))
-			{
-				arg->attribut = c;
-				return (count);
-			}
-			count++;
-		}
-	return (-1);
-}
-
-char		*set_argument(t_args *arg, va_list ap)
-{
-	return (char *)ft_switch(arg->attribut,'l', ap);
-}
 
 char		ft_isargument(char c)
 {

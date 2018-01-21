@@ -94,11 +94,7 @@ SRC_NAME  = ft_format.c \
 			ft_tolower.c \
 			ft_toupper.c \
 			ft_arguments.c \
-			ft_printf.c \
-			ft_flags.c \
-			ft_precision.c \
-			ft_field.c \
-			struct.c
+			ft_printf.c 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
