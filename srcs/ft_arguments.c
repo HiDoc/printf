@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:03:33 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 16:23:53 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/21 17:22:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char		ft_isargument(char c)
 const char	*ft_switch(char c, char size, va_list ap)
 {
 	const char		*tmp;
+	int				e;
 
 	tmp = NULL;
 	if (c == 's' || c == 'S')
@@ -59,7 +60,13 @@ const char	*ft_switch(char c, char size, va_list ap)
 	else if (c == 'e' || c == 'E')
 		tmp = ft_itoa(va_arg(ap, int));
 	else if (c == 'c' || c == 'C')
-		tmp  = ft_chartostr((char)va_arg(ap, int));
+	{
+		e = va_arg(ap, int);
+		if (e == 0)
+			tmp = ft_strdup("^@");
+		else
+			tmp = ft_chartostr((char)e);
+	}
 	else if (c == 'o' || c == 'O')
 		tmp = ft_itoabase(va_arg(ap, int), 8, "01234567");
 	else if (c == 'd' || c == 'i')

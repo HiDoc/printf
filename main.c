@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:28:44 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 16:34:29 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/21 16:52:06 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	main(void)
 {
 	int count = 0;
-	ft_printf("@moulitest: %.d %.0d", 42, 43);
+	ft_printf("%-10x\n", 42);
+	ft_printf("%10x", 42);
 	return (0);
 }
