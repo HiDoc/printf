@@ -12,6 +12,8 @@ cleaning = @echo "\033[36mCleaning complete\033[0m"
 SRC_NAME  = ft_format.c \
 			ft_strdup2.c \
 			ft_ltoa.c \
+			ft_ltoabase.c \
+			ft_strins.c \
 			ft_strnchri.c \
 			ft_chartostr.c \
 			ft_strcut.c \

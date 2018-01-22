@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 15:37:00 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/22 15:08:19 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 char			**ft_strcut(char const *str, char c);
 char			*ft_chartostr(char c);
+char			*ft_strins(char *from, char *ins, size_t index);
 char			*ft_strcat(char *restrict s1, const char *restrict s2);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strcpy(char *dst, const char *src);
@@ -51,8 +52,9 @@ char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strljoin(char *s1, char *s2);
 char			*ft_strrjoin(char *s1, char *s2);
 
-char			*ft_uitoa(unsigned int n);
-char			*ft_ltoa(long n);
+char			*ft_uitoa(unsigned long n);
+char			*ft_ltoa(long long n);
+char			*ft_ltoabase(long long n, int base, char *basefrom);
 char			*ft_itoa(int n);
 char			*ft_itoabase(int n, int base, char *basefrom);
 int				ft_atoi(const char *str);

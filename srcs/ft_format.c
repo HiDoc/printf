@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/21 17:22:33 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/22 17:41:03 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,36 @@ static char	get_space(char *str, int len)
 	}
 	return (c);
 }
-/**
-  static int	isnum_flag(char c)
-  {
-  return (c == 'd' || c == 'i' || c == 'o' || c == 'u' || c == 'x'
-  || c == 'D' || c == 'I' || c == 'O' || c == 'U' || c == 'X');
-  }
- **/
-static char	*ft_precision(char *str, char index, char *format)
+
+static char	*ft_precision(char *str, int index, char *format)
 {
 	int		precision;
 	int		len;
 	char	*tmp;
+	char	flag;
 
 	len = (int)ft_strlen(format);
+	flag = str[index];
 	if ((precision = ft_strnchri(str, '.', index)) > -1)
 	{
 		precision = ft_atoi(&str[precision + 1]);
-		if (precision < len && precision > 0 && (str[(unsigned)index] != 'x'))
+		if (precision < len && precision > 0 && (flag != 'x'))
 		{
 			tmp = ft_strsub(format, 0, precision);
 			format = ft_strdup(tmp);
 			free(tmp);
 		}
-		else if (precision == 0)
+		else if (precision == 0 && index != (int)ft_strlen(str) && !(flag == 'd' || flag == 'D'))
 		{
+
 			free(format);
 			format = ft_strdup(" ");
+		}
+		else if (precision > len && len != 0 )
+		{
+			tmp = ft_strnew(precision - len);
+			ft_strset(tmp, flag == 's' ? ' ' : '0', precision - len);
+			format = ft_strdjoin(tmp, format);
 		}
 	}
 	return (format);
@@ -66,7 +69,7 @@ static char	*ft_field(char *str, int index, char *format)
 	char	*tmp;
 
 	count = 0;
-	while (count < index && !ft_isdigit(str[count]) && str[count] != '.')
+	while (count < index && (!ft_isdigit(str[count]) || str[count] == '0') && str[count] != '.')
 		count++;
 	if (count < index && str[count] != '.')
 	{
@@ -76,7 +79,7 @@ static char	*ft_field(char *str, int index, char *format)
 			len = field - len;
 			tmp = ft_strnew(len);
 			ft_strset(tmp, get_space(str, index), len);
-			if (ft_strchri(str, '-') != -1 && ft_strchri(str, '-') < index )
+			if (ft_strchri(str, '-') != -1 && ft_strchri(str, '-') < index)
 				format = ft_strdjoin(format, tmp);
 			else
 				format = ft_strdjoin(tmp, format);
@@ -84,10 +87,29 @@ static char	*ft_field(char *str, int index, char *format)
 	}
 	return (format);
 }
+
+static char *extra_flags(char *str, int index, char *format)
+{
+	char	flag;
+	int		num;
+
+	flag = str[index];
+	num = ft_atoi(format);
+	if (ft_strnchri(str, '+', index) > -1 && format[0] != '-' && flag != 'u')
+		format = ft_strrjoin("+", format);
+	else if (ft_strnchri(str, '#', index) > -1 && (flag == 'x' || flag == 'X') && num != 0)
+		format = ft_strrjoin(ft_islower(flag) ? "0x" : "0X", format);
+	else if ((ft_strnchri(str, '#', index) > -1) && (flag  == 'o' || flag == 'O') && num != 0)
+		format = ft_strrjoin("0", format);
+	else if (format[1] && format[1] == ' ')
+		format = ft_strrjoin(" ", format);
+	return (format);
+}
+
 static void	map_tab(char **tab, va_list ap)
 {
 	int		count;
-	int		count2;
+	int		index;
 	char	*str;
 	char	*cut;
 	char	*new;
@@ -97,25 +119,19 @@ static void	map_tab(char **tab, va_list ap)
 	while (tab[count])
 	{
 		str = tab[count];
-		count2 = 0;
+		index = 0;
 		if (ft_strchri(str, '%') != -1)
 		{
-			while (str[count2] && !(ft_isargument(str[count2])))
-				count2++;
-			cut = ft_strsub(str, count2 + 1, (int)ft_strlen(str));
-			if (count2 != (int)ft_strlen(str))
-				format = (char *)ft_switch(str[count2], ft_strnchri(str, 'l', count2) > 0 ? 'l' : '0', ap);
+			while (str[index] && !(ft_isargument(str[index])))
+				index++;
+			cut = ft_strsub(str, index + 1, (int)ft_strlen(str));
+			if (index != (int)ft_strlen(str))
+				format = (char *)ft_switch(str, index, ap);
 			else 
 				(format = ft_chartostr('%'));
-			format = ft_precision(str, count2, format);
-			if (ft_strnchri(str, '+', count2) > -1 && format[0] != '-')
-				format = ft_strrjoin("+", format);
-			else if (ft_strnchri(str, '#', count2) > -1 && (str[count2] == 'x' || str[count2] == 'X') && ft_atoi(format) != 0)
-				format = ft_strrjoin(ft_islower(str[count2]) ? "0x" : "0X", format);
-			else if ((ft_strnchri(str, '#', count2) > -1 || ft_strnchri(str, '-', count2) > -1)
-					&& (str[count2] == 'o' || str[count2] == 'O') && ft_atoi(format) != 0)
-				format = ft_strrjoin("0", format);
-			format = ft_field(str, count2, format);
+			format = ft_precision(str, index, format);
+			format = extra_flags(str, index, format);
+			format = ft_field(str, index, format);
 			new = ft_strdjoin(format, cut);
 			free(tab[count]);
 			tab[count] = new;
