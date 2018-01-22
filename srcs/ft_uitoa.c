@@ -6,18 +6,18 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 14:45:18 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/22 15:05:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/22 20:15:42 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_getlen(unsigned long n, int c)
+static int		ft_getlen(unsigned long int n, int c)
 {
 	return ((n != 0 ? ft_getlen(n / 10, c + 1) : c));
 }
 
-char			*ft_uitoa(unsigned long n)
+char			*ft_uitoa(unsigned long int n)
 {
 	char	*nbr;
 	int		count;

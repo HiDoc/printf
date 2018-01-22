@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:31:19 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/22 17:10:39 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/22 20:15:01 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		ft_isargument(char flag)
 			flag == 'x' || flag == 'X' || flag == 'c' || flag == 'C' ? flag : 0);
 }
 
-static int	ft_isnumber(char flag)
+int	ft_isnumber(char flag)
 {
 	return (ft_strchri("diouxDIOUX", flag) > -1);
 }
@@ -41,6 +41,22 @@ static char	*ft_switch_long(char *tmp, char flag, va_list ap)
 	return (tmp);
 }
 
+static char	*ft_switch_z(char *tmp, char flag, va_list ap)
+{
+	long long	num;
+
+	if (flag == 'u' || flag == 'U')
+		return ((tmp = ft_uitoa(va_arg(ap, unsigned long))));
+	else 
+		num = va_arg(ap, size_t);
+	if (flag == 'o' || flag == 'O')
+		tmp = ft_ltoabase(num, 8, "01234567");
+	else if (flag == 'x' || flag == 'X')
+		tmp = ft_ltoabase(num, 16, flag == 'x' ? "0123456789abcdef" : "0123456789ABCDEF");
+	else
+		tmp = ft_ltoa(num);
+	return (tmp);
+}
 static char	*ft_switch2(char *tmp, char flag, va_list ap, int ish)
 {
 	int		e;
@@ -60,6 +76,8 @@ static char	*ft_switch2(char *tmp, char flag, va_list ap, int ish)
 	else if (flag == 'c' || flag == 'C')
 	{
 		e = va_arg(ap, int);
+		if (e < 32)
+			ft_putchar(e);
 		tmp = ft_chartostr((char)e);
 	}
 	else if (flag == 'o' || flag == 'O')
@@ -84,13 +102,17 @@ const char			*ft_switch(char *str, int index, va_list ap)
 	int			islong;
 	int			isj;
 	int			ish;
+	int			isz;
  
 	ish = (ft_strnstr(str, "hh", index)) ? 0 : ft_strnchri(str, 'h', index);	
 	islong = (ft_strnstr(str, "ll", index)) ? 0 : ft_strnchri(str, 'l', index);	
 	isj = ft_strnchri(str, 'j', index);
+	isz = ft_strnchri(str, 'z', index);
 	flag = str[index];
 	tmp = NULL;
-	if ((islong > -1 || isj > -1) && ft_isnumber(flag))
+	if ((isz > -1) && ft_isnumber(flag))
+		tmp = ft_switch_z(tmp, flag, ap);
+	else if ((islong > -1 || isj > -1) && ft_isnumber(flag))
 		tmp = ft_switch_long(tmp, flag, ap);
 	else
 		tmp = ft_switch2(tmp, flag, ap, ish);

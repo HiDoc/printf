@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/22 14:23:46 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/22 18:53:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@ const char		*ft_switch(char *str, int index, va_list ap);
 char			ft_isargument(char c);
 int				ft_haveflag(char *str);
 char			ft_isflag(char c);
+int				ft_isnumber(char c);
 #endif
