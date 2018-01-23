@@ -6,11 +6,32 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/22 20:05:19 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/23 18:51:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+typedef struct	s_arg
+{
+	int		index;
+	int		preci;
+	int		field;
+	int		islower;
+	int		ishtg;
+	int		isplus;
+	int		ismins;
+	int		ispace;
+	int		isl;
+	int		isll;
+	int		ish;
+	int		ishh;
+	int		isj;
+	int		isz;
+	int		is0;
+	char	arg;
+}				t_arg;
+
+static t_arg	new_arg(char *str)
 
 static char	get_space(char *str, int len, char flag)
 {
@@ -129,7 +150,7 @@ static char *extra_flags(char *str, int index, char *format)
 		format = ft_strrjoin("+", format);
 	else if (ft_strnchri(str, '#', index) > -1 && (flag == 'x' || flag == 'X') && num != 0)
 		format = ft_strrjoin(ft_islower(flag) ? "0x" : "0X", format);
-	else if ((ft_strnchri(str, '#', index) > -1) && (flag  == 'o' || flag == 'O'))
+	else if ((ft_strnchri(str, '#', index) > -1) && (flag  == 'o' || flag == 'O') && num !=0)
 		format = ft_strrjoin("0", format);
 	else if (index == 2 && str[1] == ' ' && format[0] != '-' && flag == 'd')
 		format = ft_strrjoin(" ", format);
