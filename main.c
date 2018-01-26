@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:28:44 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/23 18:44:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/26 17:49:16 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 
 int	main(void)
 {
-	int count = 0;
-	ft_printf("ft  : %#o\n", 0);
-	printf("printf : %#o\n", 0);
-	ft_printf("ft : %llo\n", (unsigned long long)-127);	
-	printf("printf :%llo\n", (unsigned long long)-127);
-	ft_printf("ft : %hho\n", (unsigned char)-12);
-	printf("printf :%hho\n", (unsigned char)-12);
+	ft_printf("%%", "test");
 	return (0);
 }

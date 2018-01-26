@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:31:19 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/22 20:15:01 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/26 17:46:10 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 char		ft_isargument(char flag)
 {
-	return (flag == 's' || flag == 'S' || flag == 'p' || flag == 'd' || flag == 'D' ||
-			flag == 'i' || flag == 'o' || flag == 'O' || flag == 'u' || flag == 'U' ||
-			flag == 'x' || flag == 'X' || flag == 'c' || flag == 'C' ? flag : 0);
+	return (ft_strchri("diouxDIOUXsScC", flag) > -1 ? flag : 0);
 }
 
 int	ft_isnumber(char flag)

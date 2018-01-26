@@ -133,6 +133,9 @@ fclean: clean
 	@echo "**************************************"
 
 test: all
-	gcc -g main.c $(INC) -L ./ -lftprintf 
+	gcc -g3 main.c $(INC) -L ./ -lftprintf 
+
+leaks : all
+	gcc main.c $(INC) -L ./ -lftprintf
 
 re: fclean all
