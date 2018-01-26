@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/26 17:48:24 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/26 18:36:30 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_arg
 	int		char0;
 	char	arg;
 	char	*format;
+	size_t	length;
 	struct s_arg *next;
 }				t_arg;
 
@@ -102,11 +103,11 @@ static void get_arg(t_arg *new, va_list ap)
 	base = 10;
 	if (ft_isnumber(new->arg))
 	{
-		if (ft_strchri("dDiI", new->arg) > -1 && !(new->isz))
+		if (ft_strchri("dDiI", new->arg) > -1 || new->isz)
 		{
 			if (new->isl == 2 || new->isj)
 				num = va_arg(ap, long long);
-			else if (new->isl == 1 || !(new->islower))
+			else if (new->isl == 1 || !(new->islower) || new->isz)
 				num = va_arg(ap, long);
 			else
 				num = va_arg(ap, int);
@@ -132,7 +133,10 @@ static void get_arg(t_arg *new, va_list ap)
 	else if (ft_isletter(new->arg))
 	{
 		if (new->arg == 'c' || new->arg == 'C')
-			new->format = ft_chartostr((char)va_arg(ap, int));
+		{
+			new->char0 = va_arg(ap, int);
+			new->format = NULL;
+		}
 		else
 		{
 			new->format = ft_strdup2(va_arg(ap, char *));
@@ -226,6 +230,7 @@ static void		set_format(t_arg *new)
 				new->format = ft_strdjoin(tmp, new->format);
 		}
 	}
+	new->length = ft_strlen(new->format);
 }
 
 static t_arg	*new_arg(char *str, va_list ap)
@@ -251,6 +256,7 @@ static t_arg	*new_arg(char *str, va_list ap)
 	new->arg = 0;
 	new->char0 = 0;
 	new->next = NULL;
+	new->length = 0;
 	if (str[0] == '%')
 	{
 		set_arg(new, str);
@@ -264,7 +270,10 @@ static t_arg	*new_arg(char *str, va_list ap)
 			set_format(new);
 	}
 	else
+	{
 		new->format = ft_strdup(str);
+		new->length = ft_strlen(str);
+	}
 	return (new);
 }
 
@@ -313,38 +322,54 @@ static t_arg	*map_arg(char **store, va_list ap)
 	}
 	} */
 
-static char	*join_args(t_arg *first)
+static void	lolprint(char *str, size_t len)
 {
-	char	*tmp;
+	write(1, str, len);
+}
+static int join_args(t_arg *first)
+{
+	t_arg	*iter;
 	int		countpc;
+	int		len;
 
 	countpc = 0;
-	tmp = ft_strdup(first->format);
-	if (first->arg == '%')
+	iter = first;
+	lolprint(iter->format, iter->length);
+	len = iter->length;
+	if (iter->arg == '%')
 		countpc++;
-	free(first->format);
-	first = first->next;
-	while (first)
+	free(iter->format);
+	iter = iter->next;
+	free(first);
+	while (iter)
 	{
-		if (countpc % 2 == 1 && first->arg == '%')
-		{
+		if (countpc % 2 == 1 && iter->arg == '%')
 			countpc++;
-			free(first->format);
-		}
 		else
-			tmp = ft_strdjoin(tmp, first->format);
-		first = first->next;
+		{
+			lolprint(iter->format, iter->length);
+			len += iter->length;
+		}
+		free(iter->format);
+		first = iter;
+		iter = iter->next;
+		free(first);
 	}
-	return (tmp);
+	return (len);
 }
 
-char		*ft_format(const char *format, va_list ap)
+int		ft_format(const char *format, va_list ap)
 {
 	char	**store;
 	t_arg	*first;
+	size_t 	len;
 
 	if (ft_strchri((char *)format, '%') == -1)
-		return (ft_strdup((char *)format));	
+	{
+		len = ft_strlen(format);
+		lolprint((char *)format, len);
+		return (len);	
+	}
 	store = ft_strcut(format, '%');
 	first = map_arg(store, ap);
 	return (join_args(first));
