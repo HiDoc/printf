@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:28:44 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/26 17:49:16 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/29 17:16:00 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int	main(void)
 {
-	ft_printf("%%", "test");
+	ft_printf("hello %hho", UCHAR_MAX);
+	printf("hello %d", UCHAR_MAX);
 	return (0);
 }

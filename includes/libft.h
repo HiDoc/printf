@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/22 15:08:19 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/29 16:28:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char			*ft_strrjoin(char *s1, char *s2);
 
 char			*ft_uitoa(unsigned long n);
 char			*ft_ltoa(long long n);
-char			*ft_ltoabase(long long n, int base, char *basefrom);
+char			*ft_ltoabase(long long n, int base, char *bfrm, int sign);
 char			*ft_itoa(int n);
 char			*ft_itoabase(int n, int base, char *basefrom);
 int				ft_atoi(const char *str);

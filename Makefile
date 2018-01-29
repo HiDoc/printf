@@ -95,7 +95,8 @@ SRC_NAME  = ft_format.c \
 			ft_strtrim.c \
 			ft_tolower.c \
 			ft_toupper.c \
-			ft_arguments.c \
+			printf_struct.c \
+			printf_utils.c \
 			ft_printf.c 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -133,9 +134,16 @@ fclean: clean
 	@echo "**************************************"
 
 test: all
-	gcc -g3 main.c $(INC) -L ./ -lftprintf 
+	gcc -g main.c $(SRC) -I ./includes 
+
+ftest : all
+	gcc main.c -I ./includes -L ./ -lftprintf
+	./a.out
 
 leaks : all
 	gcc main.c $(INC) -L ./ -lftprintf
+
+fsani : all
+	gcc -fsanitize=address $(CFLAGS) main.c -I ./includes -L ./ -lftprintf
 
 re: fclean all
