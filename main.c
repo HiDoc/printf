@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:28:44 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/15 16:48:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 14:46:13 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 int	main(void)
 {
-	ft_printf("%%");
+	int	i;
+
+	i = 42;
+	ft_printf("hello ceci est un test lol");
 	return (0);
 }

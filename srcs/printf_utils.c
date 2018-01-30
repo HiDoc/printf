@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chrindex.c                                      :+:      :+:    :+:   */
+/*   printf_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/28 11:59:48 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 12:42:02 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/29 11:16:28 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/30 12:32:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strchri(char *str, char c)
-{
-	int count;
+#include "libftprintf.h"
 
-	count = 0;
-	while (str[count])
-	{
-		if (str[count] == c)
-			return (count);
-		count++;
-	}
-	return (-1);
+int		is_deci(t_arg *new)
+{
+	return (ft_strchri("dDiI", new->arg) > -1);
+}
+
+int		is_str(t_arg *new)
+{
+	return (ft_strchri("sScC", new->arg) > -1);
+}
+
+int		is_num(t_arg *new)
+{
+	return (ft_strchri("diouxDIOUX", new->arg) > -1);
+}
+
+int		is_arg(t_arg *new)
+{
+	return (is_str(new) || is_num(new));
+}
+
+int		is_charg(char c)
+{
+	return (ft_strchri("diouxDIOUXsScC", c) > -1);
 }

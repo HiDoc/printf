@@ -1,44 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoabase.c                                      :+:      :+:    :+:   */
+/*   ft_ltoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/30 12:36:49 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 12:36:52 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/20 15:35:34 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/22 15:17:58 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_getlen(unsigned int n, int c, int baseto)
+static int		ft_getlen(long long n, int c)
 {
-	return ((n != 0 ? ft_getlen(n / baseto, c + 1, baseto) : c));
+	return ((n != 0 ? ft_getlen(n / 10, c + 1) : c));
 }
 
-char			*ft_itoabase(int n, int baseto, char *basetofrom)
+char			*ft_ltoa(long long n)
 {
-	char			*nbr;
-	int				count;
-	int				ispos;
-	unsigned int	uint;
+	char	*nbr;
+	int		count;
+	int		ispos;
 
-	if (n == 0)
-		return (ft_strdup("0"));
-	ispos = (n >= 0 || baseto != 10);
-	if (n < 0 && baseto != 10)
-		uint = UINT_MAX + n + 1;
-	else
-		uint = n;
-	count = ft_getlen(uint, 0, baseto) - (n > 0 && baseto == 10);
+	ispos = (n >= 0);
+	count = ft_getlen(n, 0) - (n > 0);
 	if ((nbr = (char *)malloc((sizeof(char) * (count + 1)))) == NULL)
 		return (NULL);
 	nbr[count] = '\0';
-	while (--count >= 0)
+	while (count >= 0)
 	{
-		nbr[count] = basetofrom[ABS((uint % baseto))];
-		uint /= baseto;
+		nbr[count] = ABS((n % 10)) + '0';
+		count--;
+		n /= 10;
 	}
 	if (!ispos)
 		nbr[0] = '-';

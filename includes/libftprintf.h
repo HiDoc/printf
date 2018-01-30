@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/15 12:19:17 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 12:45:43 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,44 @@
 # define LIBFTPRINTF_H
 # include "libft.h"
 # include <stdarg.h>
-# include <stdio.h>
-
-typedef struct	s_args
+# include <stdio.h> 
+typedef struct		s_arg
 {
-	char			*line;
-	char			*format;
-	char			*argument;
-	char			attribut;
-	int				precision;
+	int				index;
+	int				preci;
+	int				hpreci;
 	int				field;
-	struct s_args	*next;
-}				t_args;
-t_args			*ft_new_arg(char *str);
-char			*ft_join_arg(t_args *list);
-t_args			*ft_map_args(t_args *list, va_list ap);
-int				ft_printf(const char* format, ...);
-char			*ft_format(const char *format, va_list ap);
-const char		*ft_switch(char c, va_list ap);
-char			ft_isargument(char c);
-int				ft_haveflag(char *str);
-char			ft_isflag(char c);
-void			set_precision(t_args *arg);
-int				set_attribute(t_args *arg);
-char			*set_argument(t_args *arg, va_list ap);
-void			set_field(t_args *arg);
+	int				islower;
+	int				ishtg;
+	int				isplus;
+	int				ismins;
+	int				ispace;
+	int				isl;
+	int				ish;
+	int				isj;
+	int				isz;
+	int				is0;
+	int				char0;
+	char			arg;
+	char			*format;
+	size_t			length;
+	struct s_arg	*next;
+}					t_arg;
+void				get_format(t_arg *new, va_list ap);
+void				set_format(t_arg *new);
+t_arg				*new_arg(char *str, va_list ap);
+t_arg				*map_arg(char **store, va_list ap);
+int					ft_printf(const char* format, ...);
+int					ft_format(const char *format, va_list ap);
+
+int					is_charg(char c);
+int					is_arg(t_arg *new);
+int					is_str(t_arg *new);
+int					is_num(t_arg *new);
+int					is_deci(t_arg *new);
+int					is_hexa(t_arg *new);
+int					is_octal(t_arg *new);
+int					is_string(t_arg *new);
+int					is_char(t_arg *new);
+int					is_unsign(t_arg *new);
 #endif

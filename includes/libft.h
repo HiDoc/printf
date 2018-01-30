@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/15 12:36:59 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/29 16:28:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 # include <limits.h>
 # include <stdio.h>
 
+char			**ft_strcut(char const *str, char c);
+char			*ft_chartostr(char c);
+char			*ft_strins(char *from, char *ins, size_t index);
 char			*ft_strcat(char *restrict s1, const char *restrict s2);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strdup(const char *s);
+char			*ft_strdup2(const char *s);
 char			*ft_strdupcat(const char *s1, const char *s2);
 char			*ft_strmap(char const *s, char (*f)(char));
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
@@ -48,7 +52,9 @@ char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strljoin(char *s1, char *s2);
 char			*ft_strrjoin(char *s1, char *s2);
 
-char			*ft_uitoa(unsigned int n);
+char			*ft_uitoa(unsigned long n);
+char			*ft_ltoa(long long n);
+char			*ft_ltoabase(long long n, int base, char *bfrm, int sign);
 char			*ft_itoa(int n);
 char			*ft_itoabase(int n, int base, char *basefrom);
 int				ft_atoi(const char *str);
@@ -60,8 +66,11 @@ int				ft_isdigit(int c);
 int				ft_isprint(int c);
 int				ft_isspace(char c);
 int				ft_isxdigit(int c);
+int				ft_isupper(int c);
+int				ft_islower(int c);
 
 int				ft_strchri(char *str, char c);
+int				ft_strnchri(char *str, char c, int n);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strcount_if(char *s, int (f)(int));
 int				ft_strequ(char const *s1, char const *s2);

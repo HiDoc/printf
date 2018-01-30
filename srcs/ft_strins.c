@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:43:41 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/22 14:35:27 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/22 13:14:22 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/22 13:34:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strins(char *from, char *ins, size_t index)
 {
+	char	*new;
+	size_t	len;
 	size_t	count;
 
-	count = 0;
-	if (needle[0] == '\0')
-		return ((char *)haystack);
-	else
-		while (haystack[count] && len > count)
-		{
-			if (ft_strncmp(&haystack[count], needle, ft_strlen(needle)) == 0)
-			{
-				return (count + ft_strlen(needle) > len ? NULL :
-						(char *)&haystack[count]);
-			}
-			count++;
-		}
-	return (NULL);
+	if (from == NULL || ins == NULL || index > (len = (int)ft_strlen(from)))
+		return (NULL);
+	count = ft_strlen(ins);
+	len = count + len;
+	new = ft_strnew(len);
+	new = ft_strncpy(from, new, index);
+	new = ft_strncpy(ins, &new[index], count);
+	while (count + index < len)
+	{
+		new[count + index] = from[index];
+		index++;
+	}
+	return (new);
 }

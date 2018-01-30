@@ -10,6 +10,15 @@ complete = @echo "\033[92mComplete\033[0m"
 cleaning = @echo "\033[36mCleaning complete\033[0m"
 
 SRC_NAME  = ft_format.c \
+			ft_strdup2.c \
+			ft_ltoa.c \
+			ft_ltoabase.c \
+			ft_strins.c \
+			ft_strnchri.c \
+			ft_chartostr.c \
+			ft_strcut.c \
+			ft_islower.c \
+			ft_isupper.c \
 			ft_putchar.c \
 			ft_strset.c \
 			ft_abs.c \
@@ -86,12 +95,10 @@ SRC_NAME  = ft_format.c \
 			ft_strtrim.c \
 			ft_tolower.c \
 			ft_toupper.c \
-			ft_arguments.c \
-			ft_printf.c \
-			ft_flags.c \
-			ft_precision.c \
-			ft_field.c \
-			struct.c
+			printf_struct.c \
+			printf_utils.c \
+			printf_flag.c \
+			ft_printf.c 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -128,6 +135,16 @@ fclean: clean
 	@echo "**************************************"
 
 test: all
-	gcc main.c $(INC) -L ./ -lftprintf 
+	gcc -g main.c $(SRC) -I ./includes 
+
+ftest : all
+	gcc main.c -I ./includes -L ./ -lftprintf
+	./a.out
+
+leaks : all
+	gcc main.c $(INC) -L ./ -lftprintf
+
+fsani : all
+	gcc -fsanitize=address $(CFLAGS) main.c -I ./includes -L ./ -lftprintf
 
 re: fclean all

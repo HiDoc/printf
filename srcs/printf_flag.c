@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_precision.c                                     :+:      :+:    :+:   */
+/*   printf_flag.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/02 13:59:12 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/15 13:08:12 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/30 12:11:03 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/30 12:32:00 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	set_precision(t_args *arg)
+int		is_hexa(t_arg *new)
 {
-	int index;
-	int precision;
+	return (new->arg == 'x' || new->arg == 'X');
+}
 
-	precision = 0;
-	if (arg->format != NULL && arg->attribut != 's')
-	{
-		index = ft_strchri(arg->format, '.');
-		if (index != -1)
-			precision = ft_atoi(&(arg->format[index + 1]));
-	}
-	arg->precision = precision;
+int		is_octal(t_arg *new)
+{
+	return (new->arg == 'o' || new->arg == 'O');
+}
+
+int		is_string(t_arg *new)
+{
+	return (new->arg == 's' || new->arg == 'S');
+}
+
+int		is_char(t_arg *new)
+{
+	return (new->arg == 'c' || new->arg == 'C');
+}
+
+int		is_unsign(t_arg *new)
+{
+	return (new->arg == 'u' || new->arg == 'U');
 }

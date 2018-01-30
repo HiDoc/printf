@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/02 13:52:58 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/15 13:01:16 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/20 15:27:53 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/20 15:28:34 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
-
-int		ft_haveflag(char *str)
+int		ft_isupper(char c)
 {
-	int count;
-	int ret;
-
-	count = 0;
-	ret = 0;
-	while (str[count])
-	{
-		if (ft_isflag(str[count]))
-			ret += (int)str[count];
-		count++;
-	}
-	return (ret);
-}
-
-char	ft_isflag(char c)
-{
-	return (c == '-' || c == '0' || c == '+');
+	return (c >= 'A' && c <= 'Z');
 }
