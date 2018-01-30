@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 12:39:05 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 16:38:14 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static void	set_arg(t_arg *new, char *str)
 	{
 		new->arg = '%';
 		new->format = ft_strdup("%");
+		new->hformat = ft_strdup2(&str[1]);
 	}
 	if (new->field)
 		new->field = ft_atoi(&str[new->field]);
@@ -87,6 +88,7 @@ static void	zero_arg(t_arg *new)
 	new->is0 = 0;
 	new->arg = 0;
 	new->char0 = 0;
+	new->hformat = NULL;
 	new->next = NULL;
 	new->length = 0;
 }

@@ -4,7 +4,7 @@ INC_PATH = ./includes/
 
 NAME = libftprintf.a
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -O3
 
 complete = @echo "\033[92mComplete\033[0m"
 cleaning = @echo "\033[36mCleaning complete\033[0m"
@@ -80,6 +80,7 @@ SRC_NAME  = ft_format.c \
 			ft_striteri.c \
 			ft_strjoin.c \
 			ft_strlcat.c \
+			ft_strlcpy.c \
 			ft_strmap.c \
 			ft_strmapi.c \
 			ft_strncat.c \
@@ -97,6 +98,7 @@ SRC_NAME  = ft_format.c \
 			ft_toupper.c \
 			printf_struct.c \
 			printf_utils.c \
+			printf_flags.c \
 			printf_flag.c \
 			ft_printf.c 
 
@@ -133,9 +135,6 @@ fclean: clean
 	@rm -f $(NAME)
 	$(cleaning)
 	@echo "**************************************"
-
-test: all
-	gcc -g main.c $(SRC) -I ./includes 
 
 ftest : all
 	gcc main.c -I ./includes -L ./ -lftprintf

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 14:56:26 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 16:43:02 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ static void	get_unsigned(t_arg *new, va_list ap)
 		sign = 4 + (new->arg == 'U');
 	if (is_octal(new) || is_hexa(new))
 		base = (is_octal(new) ? 8 : 16);
-	if (new->ish == 1 && !sign)
-		num = (short)num;
-	if (new->ish == 2 && !sign)
-		num = (signed char)num;
-	if (new->isl == 1)
+	if (new->ish && !sign)
+		num = (new->ish == 2 ? (signed char)num : (short)num);
+	if (new->isj == 1)
 		sign = 6;
 	new->format = ft_ltoabase(num, base, new->islower ?
 	"0123456789abcdef" : "0123456789ABCDEF", sign);
@@ -122,10 +120,7 @@ static void format_str(t_arg *new)
 	{
 		tmp = ft_strnew(new->field - len);
 		ft_strset(tmp, ' ', new->field - len);
-		if (new->ismins)
-			new->format = ft_strdjoin(new->format, tmp);
-		else
-			new->format = ft_strdjoin(tmp, new->format);
+		switch_minus(tmp, new);
 	}
 }
 
@@ -181,8 +176,7 @@ void static	format_num_field(t_arg *new, int diff)
 	else if (diff > 0)
 	{	
 		ft_strset(tmp, ' ', diff);
-		new->format =  ((new->ismins) ? ft_strdjoin(new->format, tmp) :
-				ft_strdjoin(tmp, new->format));
+		switch_minus(tmp, new);	
 	}
 }
 
@@ -195,12 +189,7 @@ void static	format_char(t_arg *new)
 		tmp = ft_strnew(new->field - 1);
 		ft_strset(tmp, ' ', new->field - 1);
 		if (new->format)
-		{
-			if (new->ismins)
-				new->format = ft_strdjoin(new->format, tmp);
-			else
-				new->format = ft_strdjoin(tmp, new->format);
-		}
+			switch_minus(tmp, new);
 		else
 			new->format = tmp;
 	}
@@ -229,7 +218,7 @@ void		set_format(t_arg *new)
 	if (new->format)
 		new->length = ft_strlen(new->format);
 }
-#define SPEED 10
+#define SPEED 500
 static int	lolprint(char *str)
 {
 	char	buffer[SPEED];
@@ -238,10 +227,11 @@ static int	lolprint(char *str)
 
 	len = ft_strlen(str);
 	count = 0;
+	ft_bzero(buffer, SPEED);
 	while (count < len)
 	{
-		ft_bzero(buffer, SPEED);
-		write(1, buffer, strlcpy(buffer, &str[count], SPEED));
+		ft_bzero(buffer, count);
+		write(1, buffer, ft_strlcpy(buffer, &str[count], SPEED - 1));
 		count += SPEED - 1;
 	}
 	return ((int)len);
@@ -254,6 +244,8 @@ int		join_args(t_arg *first)
 
 	percent = 0;
 	len = 0;
+	if (!first->next && first->arg == '%')
+		return (lolprint(first->hformat));
 	while (first)
 	{
 		if (first->arg == '%')
@@ -279,10 +271,9 @@ int		join_args(t_arg *first)
 		else
 		{
 		   	if (percent % 2 != 0 || first->arg != '%')
-				lolprint(first->format);
-			else if (first->format[0] && first->format[1])
-				lolprint(first->format);
-			len += ft_strlen(first->format) - (percent % 2 == 0 && percent != 0);
+				len += lolprint(first->format);
+			else
+				len += lolprint(first->hformat);
 		}
 		first = first->next;
 	}
@@ -296,7 +287,7 @@ int		ft_format(const char *format, va_list ap)
 	size_t 	len;
 
 	if (ft_strchri((char *)format, '%') == -1)
-		return(lolprint((char *)format));
+		return (lolprint((char *)format));
 	store = ft_strcut(format, '%');
 	first = map_arg(store, ap);
 	len = join_args(first);

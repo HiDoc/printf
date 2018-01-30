@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 12:45:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 16:35:35 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ typedef struct		s_arg
 	int				char0;
 	char			arg;
 	char			*format;
+	char			*hformat;
 	size_t			length;
 	struct s_arg	*next;
 }					t_arg;
+
+void				switch_minus(char *tmp, t_arg *new);
 void				get_format(t_arg *new, va_list ap);
 void				set_format(t_arg *new);
 t_arg				*new_arg(char *str, va_list ap);

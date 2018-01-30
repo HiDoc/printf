@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/29 16:28:31 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 15:28:42 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char			**ft_strsplit(char const *s, char c);
 size_t			ft_strlcat(char *restrict dst, const char *restrict src,
 				size_t size);
 size_t			ft_strlen(const char *str);
+size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 
 char			*ft_strtrim(char const *s);
 

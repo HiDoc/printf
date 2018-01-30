@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/30 16:00:23 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 16:01:59 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/30 15:17:47 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/30 15:51:56 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	switch_minus(char *tmp, t_arg *new)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	if (new->ismins)
-		new->format = ft_strdjoin(new->format, tmp);
-	else
-		new->format = ft_strdjoin(tmp, new->format);
+	char	*s;
+	size_t	count;
+
+	s =  (char *)src;
+	count = 0;
+	if (!src || !size)
+		return (0);
+	while (src[count] && count < size)
+	{
+		dst[count] = src[count];
+		count++;		
+	}
+	return (count);
 }
