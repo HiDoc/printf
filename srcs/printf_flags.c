@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:00:12 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 16:00:14 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 17:05:55 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		is_deci(t_arg *new)
 
 int		is_str(t_arg *new)
 {
-	return (ft_strchri("sScC", new->arg) > -1);
+	return (is_char(new) || is_string(new));
 }
 
 int		is_num(t_arg *new)

@@ -100,6 +100,7 @@ SRC_NAME  = ft_format.c \
 			printf_utils.c \
 			printf_flags.c \
 			printf_flag.c \
+			printf_flag2.c \
 			ft_printf.c 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -110,11 +111,7 @@ INC = $(addprefix -I,$(INC_PATH))
 
 .PHONY : all clean fclean re
 
-all: directory $(NAME)
-
-directory :	
-	@rm -rf ./objs
-	@mkdir objs
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "\033[33mBuilding Printf..\033[0m"
@@ -130,8 +127,6 @@ clean:
 	@echo "**************************************"
 	@echo "\033[33mCleaning process for Printf engaged..\033[0m"
 	@echo "Removing Printf binaries.."
-	@rm -f $(OBJ)
-	@rm -rf ./objs
 	$(cleaning)
 
 fclean: clean
@@ -144,6 +139,10 @@ fclean: clean
 ftest : all
 	gcc main.c -I ./includes -L ./ -lftprintf
 	./a.out
+
+lldb : all
+	gcc -g main.c $(SRC) -I ./includes -L ./ -lftprintf
+	lldb ./a.out
 
 leaks : all
 	gcc main.c $(INC) -L ./ -lftprintf

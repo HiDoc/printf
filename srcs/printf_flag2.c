@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_flag.c                                      :+:      :+:    :+:   */
+/*   printf_flag2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/30 12:11:03 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 17:04:47 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/30 17:06:06 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/30 17:20:30 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		is_hexa(t_arg *new)
+int		is_flag(char c)
 {
-	return (new->arg == 'x' || new->arg == 'X');
-}
-
-int		is_octal(t_arg *new)
-{
-	return (new->arg == 'o' || new->arg == 'O');
-}
-
-int		is_string(t_arg *new)
-{
-	return (new->arg == 's' || new->arg == 'S');
-}
-
-int		is_char(t_arg *new)
-{
-	return (new->arg == 'c' || new->arg == 'C');
-}
-
-int		is_unsign(t_arg *new)
-{
-	return (new->arg == 'u' || new->arg == 'U');
+	return (ft_strchri(" ljzdiouxDIOUXsScCi.-+#") > -1 || ft_isdigit(c));
 }

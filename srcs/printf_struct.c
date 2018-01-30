@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 16:38:14 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 17:22:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	set_arg(t_arg *new, char *str)
 	count = 0;
 	while (str[count] && !(is_charg(str[count])))
 	{
+		if (!is_flag(str[count]))
+			break;
 		if_arg(new, str[count], count);
 		count++;
 	}

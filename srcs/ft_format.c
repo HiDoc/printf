@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 16:43:02 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 17:16:51 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void static	format_num_precision(t_arg *new, int len)
 		new->format = ft_strdup("");
 	}
 	else if (is_hexa(new) && new->ishtg && new->format[0] != '0')
-		new->format = ft_strrjoin((new->arg == 'x' ? "0x" : "0X"), new->format);
+		new->format = ft_strrjoin((new->arg == 'X' ? "0X" : "0x"), new->format);
 	if (is_octal(new) && (new->ishtg) && new->format[0] != '0')
 		new->format = ft_strrjoin(("0"), new->format);
 	if (is_deci(new) && (new->isplus) && new->format[0] != '-')
@@ -161,7 +161,7 @@ void static	format_num_field(t_arg *new, int diff)
 	if (!(new->ismins) && new->is0 && diff > 0)
 	{
 		ft_strset(tmp, (new->preci > 0 ? ' ' : '0'), diff);
-		if (ft_strchri("xX", new->arg) > -1 && new->ishtg)
+		if (is_hexa(new) && new->ishtg)
 		{
 			new->format[1] = '0';
 			tmp[1] = new->arg == 'x' ? 'x' : 'X';

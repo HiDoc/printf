@@ -3,6 +3,6 @@
 int main(void)
 {
 	ft_printf("% ZOOOO");
-	printf("return : %d", printf("% ZOOOO"));
+	printf("% ZOOOO");
 	return (0);
 }

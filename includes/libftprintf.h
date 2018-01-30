@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 16:35:35 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 17:19:40 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int					ft_printf(const char* format, ...);
 int					ft_format(const char *format, va_list ap);
 
 int					is_charg(char c);
+int					is_flag(char c);
 int					is_arg(t_arg *new);
 int					is_str(t_arg *new);
 int					is_num(t_arg *new);
