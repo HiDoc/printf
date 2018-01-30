@@ -110,7 +110,11 @@ INC = $(addprefix -I,$(INC_PATH))
 
 .PHONY : all clean fclean re
 
-all: $(NAME)
+all: directory $(NAME)
+
+directory :	
+	@rm -rf ./objs
+	@mkdir objs
 
 $(NAME): $(OBJ)
 	@echo "\033[33mBuilding Printf..\033[0m"
@@ -127,6 +131,7 @@ clean:
 	@echo "\033[33mCleaning process for Printf engaged..\033[0m"
 	@echo "Removing Printf binaries.."
 	@rm -f $(OBJ)
+	@rm -rf ./objs
 	$(cleaning)
 
 fclean: clean
