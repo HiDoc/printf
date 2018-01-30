@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/29 11:19:03 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 12:45:43 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,21 @@ typedef struct		s_arg
 	size_t			length;
 	struct s_arg	*next;
 }					t_arg;
-void				set_arg(t_arg *new, char *str);
 void				get_format(t_arg *new, va_list ap);
 void				set_format(t_arg *new);
 t_arg				*new_arg(char *str, va_list ap);
 t_arg				*map_arg(char **store, va_list ap);
 int					ft_printf(const char* format, ...);
 int					ft_format(const char *format, va_list ap);
-int					is_arg(char c);
-int					is_str(char c);
-int					is_num(char c);
+
+int					is_charg(char c);
+int					is_arg(t_arg *new);
+int					is_str(t_arg *new);
+int					is_num(t_arg *new);
+int					is_deci(t_arg *new);
+int					is_hexa(t_arg *new);
+int					is_octal(t_arg *new);
+int					is_string(t_arg *new);
+int					is_char(t_arg *new);
+int					is_unsign(t_arg *new);
 #endif

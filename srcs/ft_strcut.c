@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:55:50 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/29 10:24:51 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 12:32:54 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char		**ft_strcut(char const *s, char c)
 	char	**tab;
 	size_t	start;
 	size_t	len;
-	int wcount;
+	int		wcount;
 
 	wcount = 0;
 	start = 0;

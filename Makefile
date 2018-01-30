@@ -97,6 +97,7 @@ SRC_NAME  = ft_format.c \
 			ft_toupper.c \
 			printf_struct.c \
 			printf_utils.c \
+			printf_flag.c \
 			ft_printf.c 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoabaseto.c                                      :+:      :+:    :+:   */
+/*   ft_itoabase.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/26 17:29:52 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/20 13:11:28 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/30 12:36:49 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/30 12:36:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,9 @@ char			*ft_itoabase(int n, int baseto, char *basetofrom)
 	if ((nbr = (char *)malloc((sizeof(char) * (count + 1)))) == NULL)
 		return (NULL);
 	nbr[count] = '\0';
-	count--;
-	while (count >= 0)
+	while (--count >= 0)
 	{
 		nbr[count] = basetofrom[ABS((uint % baseto))];
-		count--;
 		uint /= baseto;
 	}
 	if (!ispos)

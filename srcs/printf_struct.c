@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/29 15:43:57 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 12:39:05 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ static void	if_arg(t_arg *new, char c, int count)
 		new->is0++;
 }
 
-void		set_arg(t_arg *new, char *str)
+static void	set_arg(t_arg *new, char *str)
 {
 	int		count;
 
 	count = 0;
-	while (str[count] && !(is_arg(str[count])))
+	while (str[count] && !(is_charg(str[count])))
 	{
 		if_arg(new, str[count], count);
 		count++;
 	}
-	if (is_arg(str[count]))
+	if (is_charg(str[count]))
 	{
 		new->arg = str[count];
 		new->index = count;
@@ -69,7 +69,7 @@ void		set_arg(t_arg *new, char *str)
 		new->ispace = 0;
 }
 
-static void		zero_arg(t_arg *new)
+static void	zero_arg(t_arg *new)
 {
 	new->index = 0;
 	new->preci = 0;
@@ -129,9 +129,9 @@ t_arg		*new_arg(char *str, va_list ap)
 
 t_arg		*map_arg(char **store, va_list ap)
 {
-	int count;
-	t_arg *iter;
-	t_arg *first;
+	int		count;
+	t_arg	*iter;
+	t_arg	*first;
 
 	count = 1;
 	first = new_arg(store[0], ap);

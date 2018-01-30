@@ -6,11 +6,74 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/29 17:52:05 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/30 14:56:26 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+static long long int get_num(t_arg *new, va_list ap, int isunsign)
+{
+	long long int	num;
+
+	num = 0;
+	if (!isunsign)
+	{
+		if (new->isl == 2 || new->isj)
+			num = va_arg(ap, long long);
+		else if (new->isl == 1 || !(new->islower) || new->isz)
+			num = va_arg(ap, long);
+		else
+			num = va_arg(ap, int);
+	}
+	else
+	{
+		if (new->isl == 2)
+			num = va_arg(ap, unsigned long long);
+		else if (new->isj)
+			num = va_arg(ap, long long);
+		else if (new->arg == 'U' || new->isl == 1)
+			num = va_arg(ap, unsigned long);
+		else
+			num = va_arg(ap, unsigned int);
+	}
+	return (num);
+}
+
+static void	get_decimal(t_arg *new, va_list ap)
+{
+	long long int	num;
+
+	num = get_num(new, ap, 0);
+	if (new->ish == 1)
+		num = (short)num;
+	if (new->ish == 2)
+		num = (signed char)num;
+	new->format = ft_ltoabase(num, 10, "0123456789", 0);
+}
+
+static void	get_unsigned(t_arg *new, va_list ap)
+{
+	long long int	num;
+	int				sign;
+	int				base;
+
+	sign = 0;
+	base = 10;
+	num = get_num(new, ap, 1);
+	if (is_unsign(new))
+		sign = 4 + (new->arg == 'U');
+	if (is_octal(new) || is_hexa(new))
+		base = (is_octal(new) ? 8 : 16);
+	if (new->ish == 1 && !sign)
+		num = (short)num;
+	if (new->ish == 2 && !sign)
+		num = (signed char)num;
+	if (new->isl == 1)
+		sign = 6;
+	new->format = ft_ltoabase(num, base, new->islower ?
+	"0123456789abcdef" : "0123456789ABCDEF", sign);
+}
 
 void		get_format(t_arg *new, va_list ap)
 {
@@ -21,45 +84,16 @@ void		get_format(t_arg *new, va_list ap)
 	sign = 0;
 	num = 0;
 	base = 10;
-	if (new->arg == 'u')
-		sign = 4;
-	if (new->arg == 'U')
-		sign = 5;
-	if (is_num(new->arg))
+	if (is_num(new))
 	{
-		if (ft_strchri("dDiI", new->arg) > -1 || new->isz)
-		{
-			if (new->isl == 2 || new->isj)
-				num = va_arg(ap, long long);
-			else if (new->isl == 1 || !(new->islower) || new->isz)
-				num = va_arg(ap, long);
-			else
-				num = va_arg(ap, int);
-		}
+		if (is_deci(new) || new->isz)
+			get_decimal(new, ap);	
 		else
-		{
-			if ((new->isl == 2 || new->isj))
-				num = va_arg(ap, unsigned long long);
-			else if (new->arg == 'U' || new->isl == 1)
-				num = va_arg(ap, unsigned long);
-			else
-				num = va_arg(ap, unsigned int);
-		}
-		if (ft_strchri("oOxX", new->arg) > -1)
-			base = ((new->arg) == 'o' || (new->arg) == 'O' ? 8 : 16);
-		if (new->ish == 1 && !sign)
-			num = (short)num;
-		if (new->ish == 2 && !sign)
-		{
-			sign = 1;
-			num = (signed char)num;
-		}
-		new->format = ft_ltoabase(num, base,
-				new->islower ? "0123456789abcdef" : "0123456789ABCDEF", sign);
+			get_unsigned(new, ap);
 	}
-	else if (is_str(new->arg))
+	else if (is_char(new) || is_string(new))
 	{
-		if (new->arg == 'c' || new->arg == 'C')
+		if (is_char(new))
 			new->char0 = va_arg(ap, int);
 		else
 		{
@@ -104,13 +138,13 @@ void static	format_num_precision(t_arg *new, int len)
 		free(new->format);
 		new->format = ft_strdup("");
 	}
-	else if (ft_strchri("xX", new->arg) > -1 && new->ishtg && new->format[0] != '0')
+	else if (is_hexa(new) && new->ishtg && new->format[0] != '0')
 		new->format = ft_strrjoin((new->arg == 'x' ? "0x" : "0X"), new->format);
-	if (ft_strchri("oO", new->arg) > -1 && (new->ishtg) && new->format[0] != '0')
+	if (is_octal(new) && (new->ishtg) && new->format[0] != '0')
 		new->format = ft_strrjoin(("0"), new->format);
-	if (ft_strchri("diDI", new->arg) > -1 && (new->isplus) && new->format[0] != '-')
+	if (is_deci(new) && (new->isplus) && new->format[0] != '-')
 		new->format = ft_strrjoin("+", new->format);
-	if (new->preci > 0 && new->preci > len && ft_strchri("dDiIoOuU", new->arg) > -1)
+	if (new->preci > 0 && new->preci > len && is_num(new) && !(is_hexa(new)))
 	{
 		tmp = ft_strnew(new->preci - len + (new->format[0] == '-'));
 		ft_strset(tmp, '0', new->preci - len + (new->format[0] == '-'));
@@ -151,6 +185,7 @@ void static	format_num_field(t_arg *new, int diff)
 				ft_strdjoin(tmp, new->format));
 	}
 }
+
 void static	format_char(t_arg *new)
 {
 	char	*tmp;
@@ -177,7 +212,7 @@ void		set_format(t_arg *new)
 	int		diff;
 
 	len = 0;
-	if (is_num(new->arg))
+	if (is_num(new))
 	{
 		len = (int)ft_strlen(new->format);
 		format_num_precision(new, len);
@@ -187,18 +222,29 @@ void		set_format(t_arg *new)
 		if (new->arg == 'd' && new->ispace && ft_isdigit(new->format[0]))
 			new->format = ft_strrjoin(" ", new->format);
 	}
-	else if (ft_strchri("sS", new->arg) > -1)
+	else if (is_string(new))
 		format_str(new);
 	else
 		format_char(new);
 	if (new->format)
 		new->length = ft_strlen(new->format);
 }
-static int	lolprint(char *str, size_t len)
+#define SPEED 10
+static int	lolprint(char *str)
 {
-	char	buffer[11];
+	char	buffer[SPEED];
+	size_t	len;
+	size_t	count;
 
-	return (write(1, str, len));
+	len = ft_strlen(str);
+	count = 0;
+	while (count < len)
+	{
+		ft_bzero(buffer, SPEED);
+		write(1, buffer, strlcpy(buffer, &str[count], SPEED));
+		count += SPEED - 1;
+	}
+	return ((int)len);
 }
 
 int		join_args(t_arg *first)
@@ -212,20 +258,20 @@ int		join_args(t_arg *first)
 	{
 		if (first->arg == '%')
 			percent++;
-		if (first->arg == 'c' || first->arg == 'C')
+		if (is_char(first))
 		{
 			if (first->field > 1)
 			{
 				if (first->ismins)
 					ft_putchar(first->char0);
-				ft_putstr(first->format);
+				lolprint(first->format);
 				if (!first->ismins)
 					ft_putchar(first->char0);
 			}
 			else
 				ft_putchar(first->char0);
 			if (first->format && first->field == 0)
-				ft_putstr(first->format);
+				lolprint(first->format);
 			if (first->format)
 				len += ft_strlen(first->format);
 			len++;
@@ -233,9 +279,9 @@ int		join_args(t_arg *first)
 		else
 		{
 		   	if (percent % 2 != 0 || first->arg != '%')
-				lolprint(first->format, first->length);
+				lolprint(first->format);
 			else if (first->format[0] && first->format[1])
-				ft_putstr(first->format);
+				lolprint(first->format);
 			len += ft_strlen(first->format) - (percent % 2 == 0 && percent != 0);
 		}
 		first = first->next;
@@ -250,11 +296,7 @@ int		ft_format(const char *format, va_list ap)
 	size_t 	len;
 
 	if (ft_strchri((char *)format, '%') == -1)
-	{
-		len = ft_strlen(format);
-		lolprint((char *)format, len);
-		return (len);	
-	}
+		return(lolprint((char *)format));
 	store = ft_strcut(format, '%');
 	first = map_arg(store, ap);
 	len = join_args(first);

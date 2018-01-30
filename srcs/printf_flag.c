@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils.c                                     :+:      :+:    :+:   */
+/*   printf_flag.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/29 11:16:28 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 12:32:31 by fmadura          ###   ########.fr       */
+/*   Created: 2018/01/30 12:11:03 by fmadura           #+#    #+#             */
+/*   Updated: 2018/01/30 12:32:00 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		is_deci(t_arg *new)
+int		is_hexa(t_arg *new)
 {
-	return (ft_strchri("dDiI", new->arg) > -1);
+	return (new->arg == 'x' || new->arg == 'X');
 }
 
-int		is_str(t_arg *new)
+int		is_octal(t_arg *new)
 {
-	return (ft_strchri("sScC", new->arg) > -1);
+	return (new->arg == 'o' || new->arg == 'O');
 }
 
-int		is_num(t_arg *new)
+int		is_string(t_arg *new)
 {
-	return (ft_strchri("diouxDIOUX", new->arg) > -1);
+	return (new->arg == 's' || new->arg == 'S');
 }
 
-int		is_arg(t_arg *new)
+int		is_char(t_arg *new)
 {
-	return (is_str(new) || is_num(new));
+	return (new->arg == 'c' || new->arg == 'C');
 }
 
-int		is_charg(char c)
+int		is_unsign(t_arg *new)
 {
-	return (ft_strchri("diouxDIOUXsScC", c) > -1);
+	return (new->arg == 'u' || new->arg == 'U');
 }
