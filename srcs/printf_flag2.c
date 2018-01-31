@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 17:06:06 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 17:20:30 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/31 11:35:23 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int		is_flag(char c)
 {
-	return (ft_strchri(" ljzdiouxDIOUXsScCi.-+#") > -1 || ft_isdigit(c));
+	return (ft_strchri(" plhjzdiouxDIOUXsScCi.-+#%", c) > -1 || ft_isdigit(c));
 }

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 17:16:51 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/31 12:39:06 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ static void	get_unsigned(t_arg *new, va_list ap)
 
 	sign = 0;
 	base = 10;
+	if (new->arg == 'p')
+	{
+		new->isl = 2;
+		new->ishtg = 1;
+	}
 	num = get_num(new, ap, 1);
 	if (is_unsign(new))
 		sign = 4 + (new->arg == 'U');
@@ -133,7 +138,7 @@ void static	format_num_precision(t_arg *new, int len)
 		free(new->format);
 		new->format = ft_strdup("");
 	}
-	else if (is_hexa(new) && new->ishtg && new->format[0] != '0')
+	else if ((is_hexa(new) && new->ishtg && new->format[0] != '0') || new->arg == 'p')
 		new->format = ft_strrjoin((new->arg == 'X' ? "0X" : "0x"), new->format);
 	if (is_octal(new) && (new->ishtg) && new->format[0] != '0')
 		new->format = ft_strrjoin(("0"), new->format);
@@ -208,7 +213,7 @@ void		set_format(t_arg *new)
 		len = (int)ft_strlen(new->format);
 		diff = new->field - len;
 		format_num_field(new, diff);
-		if (new->arg == 'd' && new->ispace && ft_isdigit(new->format[0]))
+		if (is_deci(new) && new->ispace && ft_isdigit(new->format[0]))
 			new->format = ft_strrjoin(" ", new->format);
 	}
 	else if (is_string(new))
@@ -218,8 +223,8 @@ void		set_format(t_arg *new)
 	if (new->format)
 		new->length = ft_strlen(new->format);
 }
-#define SPEED 500
-static int	lolprint(char *str)
+#define SPEED 750
+static int	lolprint(char *str, int freestr)
 {
 	char	buffer[SPEED];
 	size_t	len;
@@ -234,6 +239,8 @@ static int	lolprint(char *str)
 		write(1, buffer, ft_strlcpy(buffer, &str[count], SPEED - 1));
 		count += SPEED - 1;
 	}
+	if (freestr && str)
+		free(str);
 	return ((int)len);
 }
 
@@ -245,7 +252,7 @@ int		join_args(t_arg *first)
 	percent = 0;
 	len = 0;
 	if (!first->next && first->arg == '%')
-		return (lolprint(first->hformat));
+		return (lolprint(first->hformat, 0));
 	while (first)
 	{
 		if (first->arg == '%')
@@ -256,24 +263,22 @@ int		join_args(t_arg *first)
 			{
 				if (first->ismins)
 					ft_putchar(first->char0);
-				lolprint(first->format);
+				len += lolprint(first->format, 0);
 				if (!first->ismins)
 					ft_putchar(first->char0);
 			}
 			else
 				ft_putchar(first->char0);
 			if (first->format && first->field == 0)
-				lolprint(first->format);
-			if (first->format)
-				len += ft_strlen(first->format);
+				len += lolprint(first->format, 0);
 			len++;
 		}
 		else
 		{
 		   	if (percent % 2 != 0 || first->arg != '%')
-				len += lolprint(first->format);
+				len += lolprint(first->format, 1);
 			else
-				len += lolprint(first->hformat);
+				len += lolprint(first->hformat, 0);
 		}
 		first = first->next;
 	}
@@ -287,7 +292,7 @@ int		ft_format(const char *format, va_list ap)
 	size_t 	len;
 
 	if (ft_strchri((char *)format, '%') == -1)
-		return (lolprint((char *)format));
+		return (lolprint((char *)format, 0));
 	store = ft_strcut(format, '%');
 	first = map_arg(store, ap);
 	len = join_args(first);

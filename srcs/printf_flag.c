@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 12:11:03 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 17:04:47 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/31 11:35:12 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		is_hexa(t_arg *new)
 {
-	return (new->arg == 'x' || new->arg == 'X');
+	return (new->arg == 'x' || new->arg == 'X' || new->arg == 'p');
 }
 
 int		is_octal(t_arg *new)

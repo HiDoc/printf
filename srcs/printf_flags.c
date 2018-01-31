@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:00:12 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/30 17:05:55 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/31 11:34:44 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		is_str(t_arg *new)
 
 int		is_num(t_arg *new)
 {
-	return (ft_strchri("diouxDIOUX", new->arg) > -1);
+	return (ft_strchri("diouxDIOUXp", new->arg) > -1);
 }
 
 int		is_arg(t_arg *new)
@@ -34,5 +34,5 @@ int		is_arg(t_arg *new)
 
 int		is_charg(char c)
 {
-	return (ft_strchri("diouxDIOUXsScC", c) > -1);
+	return (ft_strchri("diouxDIOUXsScCp", c) > -1);
 }
