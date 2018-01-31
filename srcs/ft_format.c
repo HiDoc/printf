@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/31 12:39:06 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/31 16:33:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static long long int get_num(t_arg *new, va_list ap, int isunsign)
 			num = va_arg(ap, unsigned long);
 		else
 			num = va_arg(ap, unsigned int);
+		if (num < 0)
+			num = (unsigned long long)num;
 	}
 	return (num);
 }
@@ -136,7 +138,7 @@ void static	format_num_precision(t_arg *new, int len)
 	if (new->format && new->format[0] == '0' && !(new->preci) && new->hpreci)
 	{
 		free(new->format);
-		new->format = ft_strdup("");
+		new->format = ft_strdup(is_deci(new) && new->ispace ? " " : "");
 	}
 	else if ((is_hexa(new) && new->ishtg && new->format[0] != '0') || new->arg == 'p')
 		new->format = ft_strrjoin((new->arg == 'X' ? "0X" : "0x"), new->format);
@@ -171,7 +173,7 @@ void static	format_num_field(t_arg *new, int diff)
 			new->format[1] = '0';
 			tmp[1] = new->arg == 'x' ? 'x' : 'X';
 		}
-		else if (new->format[0] == '-' || new->format[0] == '+')
+		else if ((new->format[0] == '-' || new->format[0] == '+') && (tmp[0] != ' ' || !new->isplus))
 		{
 			tmp[0] = new->format[0];
 			new->format[0] = '0';
@@ -214,7 +216,12 @@ void		set_format(t_arg *new)
 		diff = new->field - len;
 		format_num_field(new, diff);
 		if (is_deci(new) && new->ispace && ft_isdigit(new->format[0]))
-			new->format = ft_strrjoin(" ", new->format);
+		{
+			if (new->format[1] && new->format[0] == '0')
+				new->format[0] = ' ';
+			else
+				new->format = ft_strrjoin(" ", new->format);
+		}
 	}
 	else if (is_string(new))
 		format_str(new);

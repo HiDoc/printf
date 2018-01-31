@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/31 11:59:38 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/01/31 16:11:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ static void	set_arg(t_arg *new, char *str)
 		new->field = ft_atoi(&str[new->field]);
 	if (new->preci)
 		new->preci = ft_atoi(&str[new->preci]);
-	if (count > 2)
-		new->ispace = 0;
 }
 
 static void	zero_arg(t_arg *new)

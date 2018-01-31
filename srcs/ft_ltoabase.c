@@ -1,11 +1,11 @@
 #include "libft.h"
 
-static int		ft_getlen(unsigned long long int n, int c, int baseto)
+static int				ft_getlen(unsigned long long int n, int c, int baseto)
 {
 	return ((n != 0 ? ft_getlen(n / baseto, c + 1, baseto) : c));
 }
 
-static unsigned long long int get_max(int sign)
+unsigned long long int	get_max(int sign)
 {
 	if (sign == 1)
 		return (CHAR_MAX);
@@ -22,7 +22,7 @@ static unsigned long long int get_max(int sign)
 	return (INT_MAX);
 }
 
-char			*ft_ltoabase(long long int n, int baseto, char *basefrom, int sign)
+char					*ft_ltoabase(long long int n, int baseto, char *basefrom, int sign)
 {
 	char					*nbr;
 	int						count;
@@ -31,12 +31,12 @@ char			*ft_ltoabase(long long int n, int baseto, char *basefrom, int sign)
 
 	if (n == 0)
 		return (ft_strdup("0"));
-	ispos = (n >= 0 || baseto != 10);
-	if (n < 0 && baseto != 10)
+	ispos = ((n >= 0 || baseto != 10) || sign);
+	if ((n < 0 && baseto != 10) || sign)
 		uint = get_max(sign) + n + 1;
 	else
 		uint = ABS(n);
-	count = ft_getlen(uint, 0, baseto) + (n < 0 && baseto == 10);
+	count = ft_getlen(uint, 0, baseto) + (n < 0 && baseto == 10 && !sign);
 	if ((nbr = (char *)malloc((sizeof(char) * (count + 1)))) == NULL)
 		return (NULL);
 	nbr[count] = '\0';

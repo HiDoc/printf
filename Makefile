@@ -111,11 +111,7 @@ INC = $(addprefix -I,$(INC_PATH))
 
 .PHONY : all clean fclean re
 
-all: directory $(NAME)
-
-directory : 
-	@rm -rf objs
-	@mkdir objs
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "\033[33mBuilding Printf..\033[0m"
