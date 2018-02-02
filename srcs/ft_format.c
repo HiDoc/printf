@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/02 14:03:41 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/02 19:38:06 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,13 +199,6 @@ void static	format_num_field(t_arg *new, int diff)
 	}
 }
 
-void static	format_wchar(t_arg *new)
-{
-	wchar_t	*tmp;
-	
-	
-}
-
 void static	format_char(t_arg *new)
 {
 	char	*tmp;
@@ -256,20 +249,29 @@ static int	lolprint(char *str, int freestr)
 	size_t	len;
 	size_t	count;
 
-	len = ft_strlen(str);
-	count = 0;
-	ft_bzero(buffer, SPEED);
-	while (count < len)
+	len = 0;
+	if (str)
 	{
-		ft_bzero(buffer, count);
-		write(1, buffer, ft_strlcpy(buffer, &str[count], SPEED - 1));
-		count += SPEED - 1;
+		len = ft_strlen(str);
+		count = 0;
+		ft_bzero(buffer, SPEED);
+		while (count < len)
+		{
+			ft_bzero(buffer, count);
+			write(1, buffer, ft_strlcpy(buffer, &str[count], SPEED - 1));
+			count += SPEED - 1;
+		}
+		if (freestr && str)
+			free(str);
 	}
-	if (freestr && str)
-		free(str);
 	return ((int)len);
 }
-
+static void charlol(int c)
+{
+	unsigned char i;
+	i = (char)c;
+	write(1, &i, 1);
+}
 int		join_args(t_arg *first)
 {
 	size_t	len;
@@ -277,26 +279,17 @@ int		join_args(t_arg *first)
 
 	percent = 0;
 	len = 0;
-	if (!first->next && first->arg == '%')
-		return (lolprint(first->hformat, 0));
 	while (first)
 	{
-		if (first->arg == '%')
-			percent++;
+		percent += (first->arg == '%');
 		if (is_char(first))
 		{
-			if (first->field > 1)
-			{
-				if (first->ismins)
-					ft_putchar(first->char0);
-				len += lolprint(first->format, 0);
-				if (!first->ismins)
-					ft_putchar(first->char0);
-			}
-			else
-				ft_putchar(first->char0);
-			if (first->format && first->field == 0)
-				len += lolprint(first->format, 0);
+			if (!(first->field > 1 && first->format) || first->ismins)
+				charlol(first->char0);
+				//ft_putchar(first->char0);
+			len += lolprint(first->format, 0);
+			if (first->field > 1 && first->format && !first->ismins)
+				charlol(first->char0);
 			len++;
 		}
 		else
@@ -321,6 +314,8 @@ int		ft_format(const char *format, va_list ap)
 		return (lolprint((char *)format, 0));
 	store = ft_strcut(format, '%');
 	first = map_arg(store, ap);
+	if (!first->next && first->arg == '%')
+		return (lolprint(first->hformat, 0));
 	len = join_args(first);
 	return (len);
 }

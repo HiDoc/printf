@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/02 14:03:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/02 19:38:05 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static void	zero_arg(t_arg *new)
 	new->arg = 0;
 	new->char0 = 0;
 	new->hformat = NULL;
+	new->format = NULL;
 	new->next = NULL;
 	new->length = 0;
 }
