@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/02 13:25:27 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/02 14:03:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,13 @@ void static	format_num_field(t_arg *new, int diff)
 	}
 }
 
+void static	format_wchar(t_arg *new)
+{
+	wchar_t	*tmp;
+	
+	
+}
+
 void static	format_char(t_arg *new)
 {
 	char	*tmp;
@@ -206,7 +213,7 @@ void static	format_char(t_arg *new)
 	if (new->field > 1)
 	{
 		tmp = ft_strnew(new->field - 1);
-		ft_strset(tmp, ' ', new->field - 1);
+		ft_strset(tmp,new->is0 ? '0' : ' ', new->field - 1);
 		if (new->format)
 			switch_minus(tmp, new);
 		else

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/31 16:11:16 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/02 14:01:25 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft.h"
 # include <stdarg.h>
 # include <stdio.h> 
+# include <wchar.h> 
 typedef struct			s_arg
 {
 	int				index;
