@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/31 16:33:37 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/02 13:25:27 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static long long int get_num(t_arg *new, va_list ap, int isunsign)
 	}
 	else
 	{
-		if (new->isl == 2)
+		if (new->isl == 2 || new->isz )
 			num = va_arg(ap, unsigned long long);
 		else if (new->isj)
 			num = va_arg(ap, long long);
@@ -69,12 +69,12 @@ static void	get_unsigned(t_arg *new, va_list ap)
 	}
 	num = get_num(new, ap, 1);
 	if (is_unsign(new))
-		sign = 4 + (new->arg == 'U');
+		sign = 4;
 	if (is_octal(new) || is_hexa(new))
 		base = (is_octal(new) ? 8 : 16);
 	if (new->ish && !sign)
-		num = (new->ish == 2 ? (signed char)num : (short)num);
-	if (new->isj == 1)
+		num = (new->ish == 2 ? (unsigned char)num : (short)num);
+	if (new->isj == 1 || new->isl)
 		sign = 6;
 	new->format = ft_ltoabase(num, base, new->islower ?
 	"0123456789abcdef" : "0123456789ABCDEF", sign);
@@ -91,7 +91,7 @@ void		get_format(t_arg *new, va_list ap)
 	base = 10;
 	if (is_num(new))
 	{
-		if (is_deci(new) || new->isz)
+		if (is_deci(new))
 			get_decimal(new, ap);	
 		else
 			get_unsigned(new, ap);
@@ -115,7 +115,7 @@ static void format_str(t_arg *new)
 	int		len;
 
 	len = ((new->format != NULL) ? ft_strlen(new->format) : 0);
-	if (new->preci > 0 && new->preci < len && new->format[0])
+	if (new->hpreci && new->preci < len && new->format[0])
 	{	
 		tmp = ft_strsub(new->format, 0, new->preci);
 		free(new->format);
@@ -143,10 +143,13 @@ void static	format_num_precision(t_arg *new, int len)
 	else if ((is_hexa(new) && new->ishtg && new->format[0] != '0') || new->arg == 'p')
 		new->format = ft_strrjoin((new->arg == 'X' ? "0X" : "0x"), new->format);
 	if (is_octal(new) && (new->ishtg) && new->format[0] != '0')
+	{
 		new->format = ft_strrjoin(("0"), new->format);
+		new->preci--;
+	}
 	if (is_deci(new) && (new->isplus) && new->format[0] != '-')
 		new->format = ft_strrjoin("+", new->format);
-	if (new->preci > 0 && new->preci > len && is_num(new) && !(is_hexa(new)))
+	if (new->preci > 0 && new->preci > len && is_num(new))
 	{
 		tmp = ft_strnew(new->preci - len + (new->format[0] == '-'));
 		ft_strset(tmp, '0', new->preci - len + (new->format[0] == '-'));
@@ -154,6 +157,14 @@ void static	format_num_precision(t_arg *new, int len)
 		{
 			tmp[0] = new->format[0];
 			new->format[0] = '0';
+		}
+		if (is_hexa(new) && new->ishtg)
+		{
+			if (tmp[1])
+				tmp[1] = new->islower ? 'x' : 'X';
+			else
+				new->format[0] = new->islower ?'x' : 'X';
+			new->format[1] = '0';
 		}
 		new->format = ft_strdjoin(tmp, new->format);
 	}
@@ -167,13 +178,14 @@ void static	format_num_field(t_arg *new, int diff)
 		tmp = ft_strnew(diff);
 	if (!(new->ismins) && new->is0 && diff > 0)
 	{
-		ft_strset(tmp, (new->preci > 0 ? ' ' : '0'), diff);
-		if (is_hexa(new) && new->ishtg)
+		ft_strset(tmp, (new->hpreci ? ' ' : '0'), diff);
+		if (is_hexa(new) && new->ishtg && new->format[1] && tmp[1] != ' ')
 		{
 			new->format[1] = '0';
 			tmp[1] = new->arg == 'x' ? 'x' : 'X';
 		}
-		else if ((new->format[0] == '-' || new->format[0] == '+') && (tmp[0] != ' ' || !new->isplus))
+		else if ((new->format[0] == '-' || new->format[0] == '+')
+				&& (tmp[0] != ' ' || !new->isplus))
 		{
 			tmp[0] = new->format[0];
 			new->format[0] = '0';

@@ -8,7 +8,7 @@ static int				ft_getlen(unsigned long long int n, int c, int baseto)
 unsigned long long int	get_max(int sign)
 {
 	if (sign == 1)
-		return (CHAR_MAX);
+		return (UCHAR_MAX);
 	else if (sign == 2)
 		return (UINT_MAX);
 	else if (sign == 3)
@@ -32,7 +32,7 @@ char					*ft_ltoabase(long long int n, int baseto, char *basefrom, int sign)
 	if (n == 0)
 		return (ft_strdup("0"));
 	ispos = ((n >= 0 || baseto != 10) || sign);
-	if ((n < 0 && baseto != 10) || sign)
+	if (n < 0 && (baseto != 10 || sign))
 		uint = get_max(sign) + n + 1;
 	else
 		uint = ABS(n);
