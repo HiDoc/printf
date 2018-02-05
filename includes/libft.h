@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/01/31 16:10:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/05 16:21:28 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void			*ft_memset(void *b, int c, size_t len);
 void			ft_memdel(void **ap);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 
-void			ft_putchar(char c);
+int				ft_putchar(char c);
+int				ft_putwchar(wchar_t c);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putendl(char const *s);
 void			ft_putendl_fd(char const *s, int fd);

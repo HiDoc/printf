@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/02 19:38:06 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/05 18:53:12 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,15 @@ void static	format_char(t_arg *new)
 {
 	char	*tmp;
 
+	if (!new->islower || new->isl)
+	{
+		if (new->char0 > 0xFFFF)
+			new->field--;
+		if (new->char0 > 0x7FF)
+			new->field--;
+		if (new->char0 > 0x7F)
+			new->field--;
+	}
 	if (new->field > 1)
 	{
 		tmp = ft_strnew(new->field - 1);
@@ -266,32 +275,46 @@ static int	lolprint(char *str, int freestr)
 	}
 	return ((int)len);
 }
-static void charlol(int c)
+
+static int charlolol(int c, int iswchar)
 {
-	unsigned char i;
-	i = (char)c;
-	write(1, &i, 1);
+	if (iswchar && c > 127)
+		return (ft_putwchar(c));
+	else if (!iswchar || c > -1)
+		return (ft_putchar(c));
+	return (-1);
+}
+static int charlol(t_arg *first)
+{
+	int error;
+	int len;
+	
+	len = 0;
+	error = 0;
+	if (!(first->field > 1 && first->format) || first->ismins)
+		error = charlol(first->char0, !first->islower || first->isl);
+	len += (error != -1 ? (lolprint(first->format, 0)) : 0);
+	if (first->field > 1 && first->format && !first->ismins)
+		error = charlol(first->char0, !first->islower || first->isl);
+	if (error == -1)
+		return (-1);
+	len += error;
+	return (len);
 }
 int		join_args(t_arg *first)
 {
 	size_t	len;
 	int		percent;
+	int		error;
 
+	error = 0;
 	percent = 0;
 	len = 0;
 	while (first)
 	{
 		percent += (first->arg == '%');
 		if (is_char(first))
-		{
-			if (!(first->field > 1 && first->format) || first->ismins)
-				charlol(first->char0);
-				//ft_putchar(first->char0);
-			len += lolprint(first->format, 0);
-			if (first->field > 1 && first->format && !first->ismins)
-				charlol(first->char0);
-			len++;
-		}
+			len += charlol(first);
 		else
 		{
 		   	if (percent % 2 != 0 || first->arg != '%')

@@ -20,6 +20,7 @@ SRC_NAME  = ft_format.c \
 			ft_islower.c \
 			ft_isupper.c \
 			ft_putchar.c \
+			ft_putwchar.c \
 			ft_strset.c \
 			ft_abs.c \
 			ft_strcount_if.c \
