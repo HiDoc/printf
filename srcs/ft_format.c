@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/06 14:31:53 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/06 17:06:47 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,6 +293,21 @@ static int checkchar(wchar_t w)
 		return (0);
 	return (1);
 }
+
+static int sizewchar(wchar_t t)
+{
+	int count = 0;
+	if (t > 0xff)
+		count++;
+	if (t > 0x7ff)
+		count++;
+	if (t > 0xffff)
+		count++;
+	if (t > 0xffffff)
+		count++;
+
+}
+
 static int checkstr(t_arg *new)
 {
 	int count;
