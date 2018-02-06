@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/05 18:53:12 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/06 14:31:53 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,14 @@ void		get_format(t_arg *new, va_list ap)
 			new->char0 = va_arg(ap, int);
 		else
 		{
-			new->format = ft_strdup2(va_arg(ap, char *));
-			if (new->format == NULL)
-				new->format = ft_strdup("(null)");
+			if (!new->islower || new->isl)
+				new->wformat = ft_wstrdup(va_arg(ap, wchar_t *));
+			else
+			{
+				new->format = ft_strdup2(va_arg(ap, char *));
+				if (new->format == NULL)
+					new->format = ft_strdup("(null)");
+			}
 		}
 	}
 }
@@ -209,15 +214,17 @@ void static	format_char(t_arg *new)
 			new->field--;
 		if (new->char0 > 0x7FF)
 			new->field--;
-		if (new->char0 > 0x7F)
+		if (new->char0 > 0xFF)
 			new->field--;
 	}
 	if (new->field > 1)
 	{
 		tmp = ft_strnew(new->field - 1);
 		ft_strset(tmp,new->is0 ? '0' : ' ', new->field - 1);
-		if (new->format)
+		if (new->format && new->islower && !new->isl)
 			switch_minus(tmp, new);
+		else if (!new->islower || new->isl)
+			new->hformat = tmp;
 		else
 			new->format = tmp;
 	}
@@ -276,6 +283,32 @@ static int	lolprint(char *str, int freestr)
 	return ((int)len);
 }
 
+static int checkchar(wchar_t w)
+{
+	if (MB_CUR_MAX == 1 && w > 255)
+		return (0);
+	if (MB_CUR_MAX == 1 && w <= 255)
+		return (1);
+	if ((w > 0x10FFFF) || w < 0 || (w > 0xd7ff && w < 0xe000))
+		return (0);
+	return (1);
+}
+static int checkstr(t_arg *new)
+{
+	int count;
+	wchar_t *str;
+
+	str = new->wformat;
+	count = 0;
+	while (str[count] && (count < new->preci || !new->hpreci))
+	{
+		if (!checkchar(str[count]))
+			return (0);
+		count++;
+	}
+	return (1);
+}
+
 static int charlolol(int c, int iswchar)
 {
 	if (iswchar && c > 127)
@@ -291,16 +324,24 @@ static int charlol(t_arg *first)
 	
 	len = 0;
 	error = 0;
-	if (!(first->field > 1 && first->format) || first->ismins)
-		error = charlol(first->char0, !first->islower || first->isl);
-	len += (error != -1 ? (lolprint(first->format, 0)) : 0);
-	if (first->field > 1 && first->format && !first->ismins)
-		error = charlol(first->char0, !first->islower || first->isl);
+	if (!(first->field > 1 && (first->format || first->hformat)) || (first->ismins))
+		error = charlolol(first->char0, !first->islower || first->isl);
+	if (first->islower && !first->isl)
+		len += lolprint(first->format, 0);
+	else 
+		len += lolprint(first->hformat, 0);
+	if (error != -1 && first->next && is_char(first) && (!first->islower || first->isl) && checkchar(first->next->char0))
+		len += lolprint(first->format, 0);
+	else if (error != -1 && !first->next && (!first->islower || first->isl))
+		len += lolprint(first->format, 0);
+	if (first->field > 1 && (first->format || first->hformat) && !first->ismins)
+		error = charlolol(first->char0, !first->islower || first->isl);
 	if (error == -1)
 		return (-1);
 	len += error;
 	return (len);
 }
+
 int		join_args(t_arg *first)
 {
 	size_t	len;
@@ -314,10 +355,25 @@ int		join_args(t_arg *first)
 	{
 		percent += (first->arg == '%');
 		if (is_char(first))
-			len += charlol(first);
+		{
+			if ((error = charlol(first)) == -1)
+				return (-1);
+			len += error;
+		}
 		else
 		{
-		   	if (percent % 2 != 0 || first->arg != '%')
+			if (is_str(first) && (!first->islower || first->isl))
+			{
+				if (!checkstr(first))
+					return (-1);
+				int count = 0;
+				while (first->wformat[count] && (count < first->preci || !first->hpreci))
+				{
+					len += charlolol(first->wformat[count], 1);
+					count++;
+				}
+			}
+			else if (percent % 2 != 0 || first->arg != '%')
 				len += lolprint(first->format, 1);
 			else
 				len += lolprint(first->hformat, 0);

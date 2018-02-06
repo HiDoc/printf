@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 12:09:14 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/05 18:53:26 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/06 11:59:12 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			ft_putwchar(wchar_t w)
 	int ret;
 
 	if ((ret = check_wchar(w)) != 0)
-		return (-1);
+		return (ret);
 	wchar[0] = (w & 0x3F) | 0x80;
 	wchar[1] = (w >> 6) | 0xC0;
 	if (w > 0x07FF)

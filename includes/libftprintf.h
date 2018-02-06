@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/02 17:01:49 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/06 13:39:09 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct			s_arg
 	char			arg;
 	char			*format;
 	char			*hformat;
+	wchar_t			*wformat;
 	size_t			length;
 	struct s_arg	*next;
 }						t_arg;

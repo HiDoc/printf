@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/02 19:38:05 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/06 13:55:50 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ static void	zero_arg(t_arg *new)
 	new->format = NULL;
 	new->next = NULL;
 	new->length = 0;
+	new->wformat = NULL;
 }
 
 t_arg		*new_arg(char *str, va_list ap)
