@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ltoabase.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/07 15:52:53 by fmadura           #+#    #+#             */
+/*   Updated: 2018/02/07 15:53:26 by fmadura          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static int				ft_getlen(unsigned long long int n, int c, int baseto)
@@ -22,7 +34,8 @@ unsigned long long int	get_max(int sign)
 	return (INT_MAX);
 }
 
-char					*ft_ltoabase(long long int n, int baseto, char *basefrom, int sign)
+char					*ft_ltoabase(long long int n, int baseto,
+						char *basefrom, int sign)
 {
 	char					*nbr;
 	int						count;

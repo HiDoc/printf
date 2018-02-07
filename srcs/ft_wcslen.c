@@ -6,16 +6,17 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 14:04:22 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/06 14:07:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/07 15:54:35 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_wcslen (const wchar_t *s)
+size_t	ft_wcslen(const wchar_t *s)
 {
-	size_t len = 0;
+	size_t	len;
 
+	len = 0;
 	while (s[len] != L'\0')
 	{
 		if (s[++len] == L'\0')

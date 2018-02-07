@@ -6,13 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/07 12:32:19 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/07 16:18:40 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void	if_arg(t_arg *new, char c, int count)
+static void		if_arg(t_arg *new, char c, int count)
 {
 	if (!(new->field) && !(new->preci) && ft_isdigit(c) && c != '0')
 		new->field = count;
@@ -40,7 +40,7 @@ static void	if_arg(t_arg *new, char c, int count)
 		new->is0++;
 }
 
-static void	set_arg(t_arg *new, char *str)
+static void		set_arg(t_arg *new, char *str)
 {
 	int		count;
 
@@ -48,7 +48,7 @@ static void	set_arg(t_arg *new, char *str)
 	while (str[count] && !(is_charg(str[count])))
 	{
 		if (!is_flag(str[count]))
-			break;
+			break ;
 		if_arg(new, str[count], count);
 		count++;
 	}
@@ -64,14 +64,16 @@ static void	set_arg(t_arg *new, char *str)
 		new->format = ft_strdup("%");
 		new->hformat = ft_strdup2(&str[1]);
 	}
-	if (new->field)
-		new->field = ft_atoi(&str[new->field]);
-	if (new->preci)
-		new->preci = ft_atoi(&str[new->preci]);
+	new->field = new->field ? ft_atoi(&str[new->field]) : 0;
+	new->preci = new->preci ? ft_atoi(&str[new->preci]) : 0;
 }
 
-static void	zero_arg(t_arg *new)
+static t_arg	*zero_arg(void)
 {
+	t_arg *new;
+
+	if ((new = (t_arg *)malloc(sizeof(t_arg))) == NULL)
+		return (NULL);
 	new->index = 0;
 	new->preci = 0;
 	new->hpreci = 0;
@@ -89,27 +91,25 @@ static void	zero_arg(t_arg *new)
 	new->arg = 0;
 	new->char0 = 0;
 	new->hformat = NULL;
+	new->wformat = NULL;
 	new->format = NULL;
 	new->next = NULL;
-	new->length = 0;
-	new->wformat = NULL;
+	return (new);
 }
 
-t_arg		*new_arg(char *str, va_list ap)
+t_arg			*new_arg(char *str, va_list ap)
 {
 	t_arg	*new;
 	char	*tmp;
 
-	if ((new = (t_arg *)malloc(sizeof(t_arg))) == NULL)
+	if ((new = zero_arg()) == NULL)
 		return (NULL);
-	zero_arg(new);
 	if (str[0] == '%')
 	{
 		set_arg(new, str);
 		if (new->arg != '%')
 		{
-			get_format(new, ap);
-			set_format(new);
+			set_format(new, ap);
 			if (new->index < (int)ft_strlen(str) && str[new->index + 1])
 			{
 				tmp = ft_strsub(str, new->index + 1, ft_strlen(str));
@@ -120,18 +120,13 @@ t_arg		*new_arg(char *str, va_list ap)
 				free(tmp);
 			}
 		}
-		else
-			set_format(new);
 	}
 	else
-	{
 		new->format = ft_strdup(str);
-		new->length = ft_strlen(str);
-	}
 	return (new);
 }
 
-t_arg		*map_arg(char **store, va_list ap)
+t_arg			*map_arg(char **store, va_list ap)
 {
 	int		count;
 	t_arg	*iter;

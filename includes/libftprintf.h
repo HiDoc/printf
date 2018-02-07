@@ -6,16 +6,18 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/06 13:39:09 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/07 16:33:04 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
+# define SPEED 750
 # include "libft.h"
 # include <stdarg.h>
-# include <stdio.h> 
-# include <wchar.h> 
+# include <stdio.h>
+# include <wchar.h>
+
 typedef struct			s_arg
 {
 	int				index;
@@ -41,23 +43,35 @@ typedef struct			s_arg
 	struct s_arg	*next;
 }						t_arg;
 unsigned long long int	get_max(int sign);
-void					switch_minus(char *tmp, t_arg *new);
-void					get_format(t_arg *new, va_list ap);
-void					set_format(t_arg *new);
-t_arg					*new_arg(char *str, va_list ap);
+void					switch_minus(char *tmp, t_arg *arg);
+void					set_format(t_arg *arg, va_list ap);
+t_arg					*arg_arg(char *str, va_list ap);
 t_arg					*map_arg(char **store, va_list ap);
-int						ft_printf(const char* format, ...);
+int						ft_printf(const char *format, ...);
 int						ft_format(const char *format, va_list ap);
 
 int						is_charg(char c);
 int						is_flag(char c);
-int						is_arg(t_arg *new);
-int						is_str(t_arg *new);
-int						is_num(t_arg *new);
-int						is_deci(t_arg *new);
-int						is_hexa(t_arg *new);
-int						is_octal(t_arg *new);
-int						is_string(t_arg *new);
-int						is_char(t_arg *new);
-int						is_unsign(t_arg *new);
+int						is_arg(t_arg *arg);
+int						is_str(t_arg *arg);
+int						is_num(t_arg *arg);
+int						is_deci(t_arg *arg);
+int						is_hexa(t_arg *arg);
+int						is_octal(t_arg *arg);
+int						is_string(t_arg *arg);
+int						is_char(t_arg *arg);
+int						is_unsign(t_arg *arg);
+
+int						print_args(t_arg *arg, size_t len, int pc, int error);
+int						print_buffer(char *str, int freestr);
+
+int						sizewchar(wchar_t t);
+int						sizewstr(wchar_t *str);
+int						checkwchar(wchar_t t);
+int						checkwstr(t_arg *arg);
+int						switch_wchar(int c, int iswchar);
+
+void					format_num(t_arg *arg);
+void					format_char(t_arg *arg);
+void					format_str(t_arg *arg);
 #endif

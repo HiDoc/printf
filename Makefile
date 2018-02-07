@@ -9,8 +9,7 @@ CFLAGS = -Werror -Wextra -Wall -O3
 complete = @echo "\033[92mComplete\033[0m"
 cleaning = @echo "\033[36mCleaning complete\033[0m"
 
-SRC_NAME  = ft_format.c \
-			ft_strdup2.c \
+SRC_NAME  = ft_strdup2.c \
 			ft_ltoa.c \
 			ft_ltoabase.c \
 			ft_strins.c \
@@ -41,6 +40,7 @@ SRC_NAME  = ft_format.c \
 			ft_isspace.c \
 			ft_putstr.c \
 			ft_strlen.c \
+			ft_wcslen.c \
 			ft_putnbr.c \
 			ft_isalpha.c \
 			ft_isalnum.c \
@@ -76,6 +76,7 @@ SRC_NAME  = ft_format.c \
 			ft_strcpy.c \
 			ft_strdel.c \
 			ft_strdup.c \
+			ft_wstrdup.c \
 			ft_strequ.c \
 			ft_striter.c \
 			ft_striteri.c \
@@ -98,10 +99,16 @@ SRC_NAME  = ft_format.c \
 			ft_tolower.c \
 			ft_toupper.c \
 			printf_struct.c \
+			printf_format.c \
+			printf_print.c \
 			printf_utils.c \
+			printf_wcharutils.c \
 			printf_flags.c \
 			printf_flag.c \
 			printf_flag2.c \
+			printf_convchr.c \
+			printf_convnum.c \
+			printf_convstr.c \
 			ft_printf.c 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -150,5 +157,6 @@ leaks : all
 
 fsani : all
 	gcc -fsanitize=address $(CFLAGS) main.c -I ./includes -L ./ -lftprintf
+	./a.out
 
 re: fclean all
