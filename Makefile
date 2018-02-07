@@ -121,6 +121,10 @@ INC = $(addprefix -I,$(INC_PATH))
 
 all: $(NAME)
 
+directory : 
+	rm -rf ./objs
+	mkdir objs
+
 $(NAME): $(OBJ)
 	@echo "\033[33mBuilding Printf..\033[0m"
 	@ar rc $(NAME) $(OBJ)
