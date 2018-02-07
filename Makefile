@@ -119,7 +119,7 @@ INC = $(addprefix -I,$(INC_PATH))
 
 .PHONY : all clean fclean re
 
-all: $(NAME)
+all: directory $(NAME)
 
 directory : 
 	rm -rf ./objs
