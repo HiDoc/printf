@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 13:46:14 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/06 14:07:42 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/07 11:34:39 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ wchar_t	*ft_wstrdup(const wchar_t *s1)
 		dup[count] = s1[count];
 		count++;
 	}
-	dup[count] = s1[count];
+	dup[count] = '\0';
 	return (dup);
 }

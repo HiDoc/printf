@@ -6,11 +6,38 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/06 17:06:47 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/07 13:51:18 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+static int sizewchar(wchar_t t)
+{
+	int count = 1;
+	if (t > 0xff)
+		count++;
+	if (t > 0x7ff)
+		count++;
+	if (t > 0xffff)
+		count++;
+	return (count);
+}
+
+static int sizewstr(wchar_t *str)
+{
+	size_t len;
+	size_t count;
+
+	count = 0;
+	len = 0;
+	while (str[count])
+	{
+		len += sizewchar(str[count]);
+		count++;
+	}
+	return (len);
+}
 
 static long long int get_num(t_arg *new, va_list ap, int isunsign)
 {
@@ -77,7 +104,7 @@ static void	get_unsigned(t_arg *new, va_list ap)
 	if (new->isj == 1 || new->isl)
 		sign = 6;
 	new->format = ft_ltoabase(num, base, new->islower ?
-	"0123456789abcdef" : "0123456789ABCDEF", sign);
+			"0123456789abcdef" : "0123456789ABCDEF", sign);
 }
 
 void		get_format(t_arg *new, va_list ap)
@@ -85,10 +112,12 @@ void		get_format(t_arg *new, va_list ap)
 	long long	num;
 	int 		base;
 	int			sign;
+	wchar_t		*tmp;
 
 	sign = 0;
 	num = 0;
 	base = 10;
+	tmp = NULL;
 	if (is_num(new))
 	{
 		if (is_deci(new))
@@ -103,7 +132,11 @@ void		get_format(t_arg *new, va_list ap)
 		else
 		{
 			if (!new->islower || new->isl)
-				new->wformat = ft_wstrdup(va_arg(ap, wchar_t *));
+			{
+				tmp = va_arg(ap, wchar_t *);
+				if (tmp)
+					new->wformat = ft_wstrdup(tmp);
+			}
 			else
 			{
 				new->format = ft_strdup2(va_arg(ap, char *));
@@ -135,7 +168,20 @@ static void format_str(t_arg *new)
 		switch_minus(tmp, new);
 	}
 }
+static void	format_bigstr(t_arg *new)
+{
+	char	*tmp;
+	size_t	len;
 
+	len = sizewstr(new->wformat);
+	tmp = NULL;
+	if (len && new->field && (int)new->field - (int)len > 0)
+	{
+		tmp = ft_strnew(new->field - len);
+		ft_strset(tmp, ' ', new->field - len);
+		new->hformat = tmp;
+	}
+}
 void static	format_num_precision(t_arg *new, int len)
 {
 	char	*tmp;
@@ -252,7 +298,12 @@ void		set_format(t_arg *new)
 		}
 	}
 	else if (is_string(new))
-		format_str(new);
+	{
+		if (!new->islower || new->isl)
+			format_bigstr(new);
+		else	
+			format_str(new);
+	}
 	else
 		format_char(new);
 	if (new->format)
@@ -294,20 +345,6 @@ static int checkchar(wchar_t w)
 	return (1);
 }
 
-static int sizewchar(wchar_t t)
-{
-	int count = 0;
-	if (t > 0xff)
-		count++;
-	if (t > 0x7ff)
-		count++;
-	if (t > 0xffff)
-		count++;
-	if (t > 0xffffff)
-		count++;
-
-}
-
 static int checkstr(t_arg *new)
 {
 	int count;
@@ -336,7 +373,7 @@ static int charlol(t_arg *first)
 {
 	int error;
 	int len;
-	
+
 	len = 0;
 	error = 0;
 	if (!(first->field > 1 && (first->format || first->hformat)) || (first->ismins))
@@ -345,7 +382,8 @@ static int charlol(t_arg *first)
 		len += lolprint(first->format, 0);
 	else 
 		len += lolprint(first->hformat, 0);
-	if (error != -1 && first->next && is_char(first) && (!first->islower || first->isl) && checkchar(first->next->char0))
+	if (error != -1 && first->next && is_char(first) && (!first->islower || first->isl)
+		&& checkchar(first->next->char0))
 		len += lolprint(first->format, 0);
 	else if (error != -1 && !first->next && (!first->islower || first->isl))
 		len += lolprint(first->format, 0);
@@ -354,6 +392,32 @@ static int charlol(t_arg *first)
 	if (error == -1)
 		return (-1);
 	len += error;
+	return (len);
+}
+
+static int	print_bigstr(t_arg *first)
+{
+	int count;
+	int count2;
+	int len;
+
+	len = 0;
+	count = 0;
+	count2 = 0;
+	if (first->field && first->field - (int)sizewstr(first->wformat) > 0 &&
+		first->hformat && !first->ismins)
+		len += lolprint(first->hformat, 0);
+	while (first->wformat[count] && (count2 < first->preci || !first->hpreci))
+	{
+		len += charlolol(first->wformat[count], 1);
+		count++;
+		count2 += sizewchar(first->wformat[count]);
+	}
+	if (ft_wcslen(first->wformat) && first->field && first->field -
+		sizewstr(first->wformat)> 0 && first->hformat && first->ismins)
+		len += lolprint(first->hformat, 0);
+	if (first->format)
+		len+= lolprint(first->format, 0);
 	return (len);
 }
 
@@ -381,12 +445,7 @@ int		join_args(t_arg *first)
 			{
 				if (!checkstr(first))
 					return (-1);
-				int count = 0;
-				while (first->wformat[count] && (count < first->preci || !first->hpreci))
-				{
-					len += charlolol(first->wformat[count], 1);
-					count++;
-				}
+				len += print_bigstr(first);
 			}
 			else if (percent % 2 != 0 || first->arg != '%')
 				len += lolprint(first->format, 1);

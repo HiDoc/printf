@@ -4,14 +4,13 @@ int main(void)
 {
 	wchar_t s[4];
 
-	setlocale(LC_ALL, "");
 	s[0] = 0x53;
-	s[1] = 0xD800;
-	s[2] = 0x81000;
+	s[1] = 0x0F;
+	s[2] = 0x0F;
 	s[3] = '\0';
-	int a = ft_printf("%S", s);
+	int a = ft_printf("hello%Shello", s);
 	printf("\n");
-	int b = printf("%S", s);
+	int b = printf("hello%Shello", s);
 	printf("\n");
 	printf("%d\n", a);
 	printf("%d\n", b);
