@@ -139,6 +139,7 @@ clean:
 	@echo "**************************************"
 	@echo "\033[33mCleaning process for Printf engaged..\033[0m"
 	@echo "Removing Printf binaries.."
+	rm -rf ./objs
 	$(cleaning)
 
 fclean: clean
