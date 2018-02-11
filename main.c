@@ -1,12 +1,9 @@
-#include "libftprintf.h"
+#include <stdio.h>
 #include <locale.h>
+#include <wchar.h>
 int main(void)
 {
-	int a = ft_printf("hello\n");
-	printf("\n");
-	int b = printf("hello\n");
-	printf("\n");
-	printf("%d\n", a);
-	printf("%d\n", b);
+	setlocale(LC_ALL, "");
+	printf("%S", (wchar_t *)'a');
 	return (0);
 }

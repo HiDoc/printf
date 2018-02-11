@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/11 11:42:32 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/11 13:36:30 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,16 @@ static void				get_unsigned(t_arg *new, va_list ap)
 			"0123456789abcdef" : "0123456789ABCDEF", sign);
 }
 
-static void				get_char(t_arg *new, va_list ap)
+static void				get_chars(t_arg *new, va_list ap)
 {
 	if (is_char(new))
+	{
 		new->char0 = va_arg(ap, int);
+		format_char(new);
+	}
 	else
 	{
-		if (!new->islower || new->isl)
+		if (!new->islower)
 			new->wformat = ft_wstrdup(va_arg(ap, wchar_t *));
 		else
 		{
@@ -92,31 +95,24 @@ static void				get_char(t_arg *new, va_list ap)
 			if (new->format == NULL)
 				new->format = ft_strdup("(null)");
 		}
+		format_str(new);
 	}
 }
 
 void					set_format(t_arg *new, va_list ap)
 {
-	long long	num;
-	int			base;
-	int			sign;
-
-	sign = 0;
-	num = 0;
-	base = 10;
+	if (new->isl && (is_char(new) || is_str(new)))
+		new->islower = 0;
 	if (is_num(new))
 	{
 		if (is_deci(new))
 			get_decimal(new, ap);
 		else
 			get_unsigned(new, ap);
+		format_num(new);
 	}
 	else if (is_char(new) || is_string(new))
-		get_char(new, ap);
-	if (is_num(new))
-		format_num(new);
-	else if (is_string(new))
-		format_str(new);
-	else
-		format_char(new);
+		get_chars(new, ap);
+	else if (new->arg == '%')
+		format_htg(new);
 }

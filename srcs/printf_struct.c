@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/11 11:41:59 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/11 12:14:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ t_arg			*new_arg(char *str, va_list ap)
 	if (str[0] == '%')
 	{
 		set_arg(new, str);
+		set_format(new, ap);
 		if (new->arg != '%')
 		{
-			set_format(new, ap);
 			if (new->index < (int)ft_strlen(str) && str[new->index + 1])
 			{
 				tmp = ft_strsub(str, new->index + 1, ft_strlen(str));

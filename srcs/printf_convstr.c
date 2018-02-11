@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:18 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/07 16:24:55 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/11 12:18:22 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		format_str(t_arg *new)
 	char	*tmp;
 	int		len;
 
-	if (!new->islower || new->isl)
+	if (!new->islower)
 	{
 		format_bigstr(new);
 		return ;

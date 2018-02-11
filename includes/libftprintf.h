@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/07 16:33:04 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/11 12:02:24 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ int						switch_wchar(int c, int iswchar);
 void					format_num(t_arg *arg);
 void					format_char(t_arg *arg);
 void					format_str(t_arg *arg);
+void					format_htg(t_arg *arg);
 #endif

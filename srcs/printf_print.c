@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/11 11:42:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/11 12:40:54 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ static int	print_wchar(t_arg *arg)
 	len = 0;
 	error = 0;
 	if (!(arg->field > 1 && (arg->format || arg->hformat)) || (arg->ismins))
-		error = switch_wchar(arg->char0, !arg->islower || arg->isl);
-	if (arg->islower && !arg->isl)
+		error = switch_wchar(arg->char0, !arg->islower);
+	if (arg->islower)
 		len += print_buffer(arg->format, 0);
 	else
 		len += print_buffer(arg->hformat, 0);
 	if (error != -1 && arg->next && is_char(arg) &&
-			(!arg->islower || arg->isl) && checkwchar(arg->next->char0))
+		!arg->islower && checkwchar(arg->next->char0))
 		len += print_buffer(arg->format, 0);
-	else if (error != -1 && !arg->next && (!arg->islower || arg->isl))
+	else if (error != -1 && !arg->next && !arg->islower)
 		len += print_buffer(arg->format, 0);
 	if (arg->field > 1 && (arg->format || arg->hformat) && !arg->ismins)
-		error = switch_wchar(arg->char0, !arg->islower || arg->isl);
+		error = switch_wchar(arg->char0, !arg->islower);
 	if (error == -1)
 		return (-1);
 	len += error;
@@ -101,7 +101,7 @@ int			print_args(t_arg *arg, size_t len, int percent, int error)
 		}
 		else
 		{
-			if (is_str(arg) && (!arg->islower || arg->isl))
+			if (is_str(arg) && !arg->islower)
 			{
 				if (!checkwstr(arg))
 					return (-1);
