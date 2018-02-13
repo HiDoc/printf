@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/13 12:29:31 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/13 18:54:28 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	print_wchar(t_arg *arg)
 		error = switch_wchar(arg->char0, !arg->islower);
 	if (arg->islower)
 		len += print_buffer(arg->format, 0);
-	else
+	else if (error != -1)
 		len += print_buffer(arg->hformat, 0);
 	if (error != -1 && arg->next && is_char(arg) &&
 		!arg->islower && checkwchar(arg->next->char0))
@@ -73,18 +73,24 @@ static int	print_bigstr(t_arg *arg)
 	count2 = 0;
 	if (arg->field && arg->field - (int)sizewstr(arg->wformat) > 0 &&
 			arg->hformat && !arg->ismins)
-		len += print_buffer(arg->hformat, 0);
+		len += print_buffer(arg->hformat, 1);
 	while (arg->wformat[count] && (count2 < arg->preci || !arg->hpreci))
 	{
-		len += switch_wchar(arg->wformat[count], 1);
-		count++;
+		if (count2 + sizewchar(arg->wformat[count]) <= arg->preci || !arg->preci)
+			len += switch_wchar(arg->wformat[count], 1);
+		else if (MB_CUR_MAX == 1)
+		{
+			count2 += switch_wchar(arg->wformat[count], 0);
+			len++;
+		}
 		count2 += sizewchar(arg->wformat[count]);
+		count++;
 	}
 	if (arg->field - (int)sizewstr(arg->wformat) > 0 &&
 			arg->hformat && arg->ismins)
-		len += print_buffer(arg->hformat, 0);
+		len += print_buffer(arg->hformat, 1);
 	if (arg->format)
-		len += print_buffer(arg->format, 0);
+		len += print_buffer(arg->format, 1);
 	return (len);
 }
 
@@ -111,11 +117,18 @@ int			print_args(t_arg *arg, size_t len, int percent, int error)
 			{
 				if (arg->next == NULL)
 					len += print_buffer(arg->format, 1);
-				else if (arg->next->arg != 'S' || checkwstr(arg))
+				else if	(arg->next->arg != 'S' || checkwstr(arg))
+					len += print_buffer(arg->format, 1);
+				else if	(!is_char(arg->next) || checkwchar(arg->next->char0))
 					len += print_buffer(arg->format, 1);
 			}
 			else
-				len += print_buffer(arg->hformat, 0);
+			{
+
+				if ((arg->next == NULL) || ((arg->next->arg != 'S' || checkwstr(arg))
+					&& (!is_char(arg->next) || checkwchar(arg->next->char0))))
+					len += print_buffer(arg->hformat, 1);
+			}
 		}
 		arg = arg->next;
 	}

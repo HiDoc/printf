@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:10:25 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/11 12:44:11 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/13 18:37:05 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,16 @@ int		checkwstr(t_arg *arg)
 	int		count;
 	wchar_t	*str;
 
-	str = arg->wformat;
 	count = 0;
+	if (arg == NULL || arg->wformat == NULL)
+		return (0);
+	str = arg->wformat;
 	while (str[count] && (count < arg->preci || !arg->hpreci))
 	{
 		if (!checkwchar(str[count]))
+		{
 			return (0);
+		}
 		count++;
 	}
 	return (1);
