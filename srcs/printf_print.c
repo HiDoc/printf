@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/11 12:40:54 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/13 12:29:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,12 @@ int			print_args(t_arg *arg, size_t len, int percent, int error)
 				len += print_bigstr(arg);
 			}
 			else if (percent % 2 != 0 || arg->arg != '%')
-				len += print_buffer(arg->format, 1);
+			{
+				if (arg->next == NULL)
+					len += print_buffer(arg->format, 1);
+				else if (arg->next->arg != 'S' || checkwstr(arg))
+					len += print_buffer(arg->format, 1);
+			}
 			else
 				len += print_buffer(arg->hformat, 0);
 		}

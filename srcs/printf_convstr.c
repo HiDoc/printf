@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:18 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/11 12:18:22 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/13 12:29:33 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,23 @@ static void	format_bigstr(t_arg *new)
 {
 	char	*tmp;
 	size_t	len;
+	size_t	count;
 
+	count = 0;
 	len = sizewstr(new->wformat);
 	tmp = NULL;
-	if (len && new->field && (int)new->field - (int)len > 0)
+	if (new->hpreci)
 	{
-		tmp = ft_strnew(new->field - len);
-		ft_strset(tmp, ' ', new->field - len);
+		if (new->field > new->preci)
+		{
+			if (len > (size_t)new->preci)
+			count = new->field - new->preci - 1;
+		}
+	}
+	if (len && new->field && (int)(new->field + count) > (int)len)
+	{
+		tmp = ft_strnew(new->field + count - len);
+		ft_strset(tmp, ' ', new->field + count - len);
 		new->hformat = tmp;
 	}
 }
