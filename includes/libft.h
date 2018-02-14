@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/06 14:07:07 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/14 12:00:10 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,18 @@ char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strljoin(char *s1, char *s2);
 char			*ft_strrjoin(char *s1, char *s2);
 
-char			*ft_uitoa(unsigned long n);
-char			*ft_ltoa(long long n);
-char			*ft_ltoabase(long long n, int base, char *bfrm, int sign);
+char			*ft_utoa(unsigned int n);
+char			*ft_ultoa(unsigned long n);
+char			*ft_ulltoa(unsigned long long n);
 char			*ft_itoa(int n);
+char			*ft_ltoa(long n);
+char			*ft_lltoa(long long n);
 char			*ft_itoabase(int n, int base, char *basefrom);
+char			*ft_ltoabase(long n, int base, char *bfrm);
+char			*ft_lltoabase(long long n, int base, char *bfrm);
+char			*ft_utoabase(unsigned int n, int base, char *bfrm);
+char			*ft_ultoabase(unsigned long n, int base, char *bfrm);
+char			*ft_ulltoabase(unsigned long long n, int base, char *bfrm);
 int				ft_atoi(const char *str);
 
 int				ft_isalnum(int c);

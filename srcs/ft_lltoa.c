@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltoa.c                                          :+:      :+:    :+:   */
+/*   ft_lltoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/14 10:34:34 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/14 10:34:35 by fmadura          ###   ########.fr       */
+/*   Created: 2018/02/14 10:34:16 by fmadura           #+#    #+#             */
+/*   Updated: 2018/02/14 11:59:47 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_getlen(long n, int c)
+static int		ft_getlen(long long n, int c)
 {
 	return ((n != 0 ? ft_getlen(n / 10, c + 1) : c));
 }
 
-char			*ft_ltoa(long n)
+char			*ft_lltoa(long long n)
 {
 	char	*nbr;
 	int		count;
