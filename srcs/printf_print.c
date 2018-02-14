@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/13 18:54:28 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/14 17:42:06 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	print_wchar(t_arg *arg)
 	else if (error != -1)
 		len += print_buffer(arg->hformat, 0);
 	if (error != -1 && arg->next && is_char(arg) &&
-		!arg->islower && checkwchar(arg->next->char0))
+			!arg->islower && checkwchar(arg->next->char0))
 		len += print_buffer(arg->format, 0);
 	else if (error != -1 && !arg->next && !arg->islower)
 		len += print_buffer(arg->format, 0);
@@ -94,6 +94,17 @@ static int	print_bigstr(t_arg *arg)
 	return (len);
 }
 
+static int	print_check_next(t_arg *arg, size_t len, char *str)
+{
+	if (arg->next == NULL)
+		len += print_buffer(str, 1);
+	else if	(arg->next->arg != 'S' || checkwstr(arg))
+		len += print_buffer(str, 1);
+	else if	(!is_char(arg->next) || checkwchar(arg->next->char0))
+		len += print_buffer(str, 1);
+	return (len);
+}
+
 int			print_args(t_arg *arg, size_t len, int percent, int error)
 {
 	while (arg)
@@ -114,21 +125,9 @@ int			print_args(t_arg *arg, size_t len, int percent, int error)
 				len += print_bigstr(arg);
 			}
 			else if (percent % 2 != 0 || arg->arg != '%')
-			{
-				if (arg->next == NULL)
-					len += print_buffer(arg->format, 1);
-				else if	(arg->next->arg != 'S' || checkwstr(arg))
-					len += print_buffer(arg->format, 1);
-				else if	(!is_char(arg->next) || checkwchar(arg->next->char0))
-					len += print_buffer(arg->format, 1);
-			}
+				len = print_check_next(arg, len, arg->format);
 			else
-			{
-
-				if ((arg->next == NULL) || ((arg->next->arg != 'S' || checkwstr(arg))
-					&& (!is_char(arg->next) || checkwchar(arg->next->char0))))
-					len += print_buffer(arg->hformat, 1);
-			}
+				len = print_check_next(arg, len, arg->hformat);
 		}
 		arg = arg->next;
 	}
