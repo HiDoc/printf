@@ -8,10 +8,10 @@ int main(void)
 {
 	SETL
 	int c =
-	ft_printf("%O", LONG_MAX);
+		ft_printf("%9.2ls %S", s, (wchar_t *)'a');
 	printf("\n");
 	int d =
-	printf("%O", LONG_MAX);
+		printf("%9.2ls %S", s, (wchar_t *)'a');
 	printf("\n");
 	printf("\n%d\n", c);
 	printf("%d\n", d);

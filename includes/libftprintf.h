@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/13 17:46:54 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/16 13:38:24 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void					format_num(t_arg *arg);
 void					format_char(t_arg *arg);
 void					format_str(t_arg *arg);
 void					format_htg(t_arg *arg);
+void					format_ptr(t_arg *arg);
 
 wchar_t					*str_to_wstr(const char *str);
 #endif
