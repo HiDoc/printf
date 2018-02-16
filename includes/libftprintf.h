@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/16 13:38:24 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/16 14:49:43 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct			s_arg
 	char			*format;
 	char			*hformat;
 	wchar_t			*wformat;
-	size_t			length;
+	int				error;
 	struct s_arg	*next;
 }						t_arg;
 unsigned long long int	get_max(int sign);
@@ -78,4 +78,5 @@ void					format_htg(t_arg *arg);
 void					format_ptr(t_arg *arg);
 
 wchar_t					*str_to_wstr(const char *str);
+void					free_list(t_arg *list);
 #endif

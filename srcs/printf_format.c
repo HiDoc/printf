@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/16 13:54:31 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/16 14:10:08 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ static void				get_chars(t_arg *new, va_list ap)
 		if (!new->islower)
 		{
 			new->wformat = ft_wstrdup(va_arg(ap, wchar_t *));
+			if (!(checkwstr(new)))
+				new->error = 1;
 			if (new->wformat == NULL)
 				new->wformat = str_to_wstr("(null)");
 		}

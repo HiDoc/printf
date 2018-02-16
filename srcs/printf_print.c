@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/16 13:40:29 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/16 16:07:58 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int			print_buffer(char *str, int freestr)
 			count += SPEED - 1;
 		}
 		if (freestr && str)
+		{
 			free(str);
+			str = NULL;
+		}
 	}
 	return ((int)len);
 }
@@ -46,14 +49,14 @@ static int	print_wchar(t_arg *arg)
 	if (!(arg->field > 1 && (arg->format || arg->hformat)) || (arg->ismins))
 		error = switch_wchar(arg->char0, !arg->islower);
 	if (arg->islower)
-		len += print_buffer(arg->format, 0);
+		len += print_buffer(arg->format, 1);
 	else if (error != -1)
-		len += print_buffer(arg->hformat, 0);
+		len += print_buffer(arg->hformat, 1);
 	if (error != -1 && arg->next && is_char(arg) &&
 			!arg->islower && checkwchar(arg->next->char0))
-		len += print_buffer(arg->format, 0);
+		len += print_buffer(arg->format, 1);
 	else if (error != -1 && !arg->next && !arg->islower)
-		len += print_buffer(arg->format, 0);
+		len += print_buffer(arg->format, 1);
 	if (arg->field > 1 && (arg->format || arg->hformat) && !arg->ismins)
 		error = switch_wchar(arg->char0, !arg->islower);
 	if (error == -1)
@@ -98,7 +101,7 @@ static int	print_check_next(t_arg *arg, size_t len, char *str)
 {
 	if (arg->next == NULL)
 		len += print_buffer(str, 1);
-	else if	(arg->next->arg != 'S' || checkwstr(arg))
+	else if	((!is_str(arg->next) && !arg->next->islower) || checkwstr(arg))
 		len += print_buffer(str, 1);
 	else if	(!is_char(arg->next) || checkwchar(arg->next->char0))
 		len += print_buffer(str, 1);

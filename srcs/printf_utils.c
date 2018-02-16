@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:00:23 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/13 18:11:53 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/16 15:09:03 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,28 @@ wchar_t	*str_to_wstr(const char *str)
 	}
 	new[size] = '\0';
 	return (new);
+}
+
+void	free_list(t_arg *list)
+{
+	t_arg	*iter;
+	int		percent;
+
+	iter = list;
+	percent = 0;
+	while (iter)
+	{
+		if (iter->arg == '%')
+			percent++;
+		list = iter;
+		if (iter->arg == '%') 
+		{
+			if (percent % 2 == 0)
+				free(iter->format);
+			else if (iter->hformat)
+				free(iter->hformat);
+		}
+		iter = iter->next;
+		free(list);
+	}
 }

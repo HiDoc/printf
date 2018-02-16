@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/16 13:51:19 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/16 15:03:39 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,22 +104,19 @@ t_arg			*new_arg(char *str, va_list ap)
 
 	if ((new = zero_arg()) == NULL)
 		return (NULL);
+	new->error = 0;
 	if (str[0] == '%')
 	{
 		set_arg(new, str);
 		set_format(new, ap);
 		if (new->arg != '%')
-		{
 			if (new->index < (int)ft_strlen(str) && str[new->index + 1])
 			{
 				tmp = ft_strsub(str, new->index + 1, ft_strlen(str));
-				if (new->format)
-					new->format = ft_strljoin(new->format, tmp);
-				else
-					new->format = ft_strdup(tmp);
+				new->format = (new->format) ? ft_strljoin(new->format, tmp)
+					: ft_strdup(tmp);
 				free(tmp);
 			}
-		}
 	}
 	else
 		new->format = ft_strdup(str);
@@ -133,11 +130,14 @@ t_arg			*map_arg(char **store, va_list ap)
 	t_arg	*first;
 
 	count = 1;
-	first = new_arg(store[0], ap);
+	if ((first = new_arg(store[0], ap)) == NULL)
+		return (NULL);
 	free(store[0]);
 	iter = first;
 	while (store[count])
 	{
+		if (iter->error == 1)
+			return (first);
 		iter->next = new_arg(store[count], ap);
 		iter = iter->next;
 		free(store[count]);

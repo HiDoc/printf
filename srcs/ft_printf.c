@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 17:17:37 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/11 12:11:12 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/16 15:09:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		ft_format(const char *format, va_list ap)
 	if (!first->next && first->arg == '%')
 		return (print_buffer(first->hformat, 0));
 	len = print_args(first, 0, 0, 0);
+	free_list(first);
 	return (len);
 }
 
