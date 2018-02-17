@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/16 13:53:01 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 12:31:16 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include <limits.h>
 # include <stdio.h>
+# include <wchar.h>
 
 char			**ft_strcut(char const *str, char c);
 char			*ft_chartostr(char c);

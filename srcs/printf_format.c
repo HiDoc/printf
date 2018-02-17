@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/16 14:10:08 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 12:08:31 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static long long int	get_num(t_arg *new, va_list ap, int isunsign)
 static void				get_base(long long int num, t_arg *new, char *basef)
 {
 	int		baseto;
-	
+
 	baseto = 10;
 	if (is_octal(new) || is_hexa(new))
 		baseto = (is_octal(new) ? 8 : 16);
@@ -82,7 +82,7 @@ static void				switch_num(t_arg *new, va_list ap)
 	if (new->ish == 1 && !is_unsign(new))
 		num = (short)num;
 	if (new->ish == 2)
-		num = is_deci(new) ? (signed char)num : (unsigned char)num;	
+		num = is_deci(new) ? (signed char)num : (unsigned char)num;
 	get_base(num, new, new->islower ? "0123456789abcdef" : "0123456789ABCDEF");
 }
 

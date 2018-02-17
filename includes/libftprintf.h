@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/16 14:49:43 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 12:31:51 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # define SPEED 750
 # include "libft.h"
 # include <stdarg.h>
-# include <stdio.h>
-# include <wchar.h>
 
 typedef struct			s_arg
 {
@@ -63,6 +61,8 @@ int						is_char(t_arg *arg);
 int						is_unsign(t_arg *arg);
 
 int						print_args(t_arg *arg, size_t len, int pc, int error);
+int						print_bigstr(t_arg *arg);
+int						print_wchar(t_arg *arg);
 int						print_buffer(char *str, int freestr);
 
 int						sizewchar(wchar_t t);

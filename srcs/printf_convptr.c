@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 16:35:11 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/14 16:47:00 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 12:39:46 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	format_ptr_preci(t_arg *new)
 {
 	char	*tmp;
-	size_t  len;
+	size_t	len;
 
 	len = ft_strlen(new->format);
 	if (new->hpreci && new->preci && new->preci > (int)len)
@@ -35,7 +35,7 @@ static void	format_ptr_preci(t_arg *new)
 static void	format_ptr_field(t_arg *new)
 {
 	char	*tmp;
-	size_t  len;
+	size_t	len;
 
 	len = ft_strlen(new->format);
 	if (!new->hpreci || new->preci)

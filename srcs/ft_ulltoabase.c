@@ -6,13 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 10:38:18 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/14 12:22:46 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 12:06:55 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int				ft_getlen(unsigned long long n, int c, int baseto)
+static int	ft_getlen(unsigned long long n, int c, int baseto)
 {
 	return ((n != 0 ? ft_getlen(n / baseto, c + 1, baseto) : c));
 }

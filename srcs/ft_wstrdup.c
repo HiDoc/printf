@@ -6,12 +6,12 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 13:46:14 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/11 13:45:20 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 12:32:05 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <wchar.h>
+
 wchar_t	*ft_wstrdup(const wchar_t *s1)
 {
 	int		len;

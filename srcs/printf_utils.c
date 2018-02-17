@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:00:23 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/16 15:09:03 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 12:35:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ void	free_list(t_arg *list)
 		if (iter->arg == '%')
 			percent++;
 		list = iter;
-		if (iter->arg == '%') 
+		if (is_str(iter) && !iter->islower)
+		{
+			if (iter->wformat != NULL)
+				free(iter->wformat);
+		}
+		if (iter->arg == '%')
 		{
 			if (percent % 2 == 0)
 				free(iter->format);

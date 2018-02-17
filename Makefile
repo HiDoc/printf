@@ -112,6 +112,7 @@ SRC_NAME  = ft_strdup2.c \
 			printf_flags.c \
 			printf_format.c \
 			printf_print.c \
+			printf_print_wchar.c \
 			printf_struct.c \
 			printf_utils.c \
 			printf_wcharutils.c \
@@ -137,7 +138,7 @@ $(NAME): $(OBJ)
 $(OBJ) : | $(OBJ_PATH)
 
 $(OBJ_PATH) :
-	mkdir ./objs
+	@mkdir ./objs
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
@@ -146,6 +147,7 @@ clean:
 	@echo "**************************************"
 	@echo "\033[33mCleaning process for Printf engaged..\033[0m"
 	@echo "Removing Printf binaries.."
+	@rm -rf ./objs
 	$(cleaning)
 
 fclean: clean
@@ -154,20 +156,5 @@ fclean: clean
 	@rm -f $(NAME)
 	$(cleaning)
 	@echo "**************************************"
-
-ftest : all
-	gcc main.c -I ./includes -L ./ -lftprintf
-	./a.out
-
-lldb : all
-	gcc -g main.c $(SRC) -I ./includes -L ./ -lftprintf
-	lldb ./a.out
-
-leaks : all
-	gcc main.c $(INC) -L ./ -lftprintf
-
-fsani : all
-	gcc -fsanitize=address $(CFLAGS) main.c -I ./includes -L ./ -lftprintf
-	./a.out
 
 re: fclean all
