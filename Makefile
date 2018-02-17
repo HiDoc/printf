@@ -116,6 +116,7 @@ SRC_NAME  = ft_strdup2.c \
 			printf_struct.c \
 			printf_utils.c \
 			printf_wcharutils.c \
+			printf_arguments.c \
 			ft_printf.c 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -156,5 +157,10 @@ fclean: clean
 	@rm -f $(NAME)
 	$(cleaning)
 	@echo "**************************************"
+
+test :
+	@make all
+	@gcc main.c $(INC) -L ./ -lftprintf 
+	@./a.out
 
 re: fclean all

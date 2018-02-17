@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 12:21:29 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 12:30:39 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 21:04:45 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,21 @@ int			print_wchar(t_arg *arg)
 
 	len = 0;
 	error = 0;
-	if (!(arg->field > 1 && (arg->format || arg->hformat)) || (arg->ismins))
+	if (!arg->islower)
+		error = !(checkwchar(arg->char0));
+	if (!error)
+	{
+		if (arg->hformat && !arg->ismins)
+			len += print_buffer(arg->hformat, 1);
 		error = switch_wchar(arg->char0, !arg->islower);
-	if (arg->islower)
-		len += print_buffer(arg->format, 1);
-	else if (error != -1)
-		len += print_buffer(arg->hformat, 1);
-	if (error != -1 && arg->next && is_char(arg) &&
-			!arg->islower && checkwchar(arg->next->char0))
-		len += print_buffer(arg->format, 1);
-	else if (error != -1 && !arg->next && !arg->islower)
-		len += print_buffer(arg->format, 1);
-	if (arg->field > 1 && (arg->format || arg->hformat) && !arg->ismins)
-		error = switch_wchar(arg->char0, !arg->islower);
-	if (error == -1)
+		if (arg->hformat && arg->ismins)
+			len += print_buffer(arg->hformat, 1);
+		if (arg->format)
+			len += print_buffer(arg->format, 1);
+	}
+	else
 		return (-1);
-	len += error;
-	return (len);
+	return ((error == -1 ? -1 : len + error));
 }
 
 static int	iter_print(t_arg *arg, int count, int len, int count2)

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:48:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/11 11:49:09 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 20:06:54 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,7 @@ void	format_char(t_arg *new)
 	if (new->field > 1)
 	{
 		tmp = ft_strnew(new->field - 1);
-		ft_strset(tmp, new->is0 ? '0' : ' ', new->field - 1);
-		if (new->format && new->islower)
-			switch_minus(tmp, new);
-		else if (!new->islower)
-			new->hformat = tmp;
-		else
-			new->format = tmp;
+		ft_strset(tmp, new->is0 && !new->ismins ? '0' : ' ', new->field - 1);
+		new->hformat = tmp;
 	}
 }

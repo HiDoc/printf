@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 12:31:51 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 15:36:53 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct			s_arg
 	int				isz;
 	int				is0;
 	int				char0;
+	int				wildpreci;
+	int				wildfield;
 	char			arg;
 	char			*format;
 	char			*hformat;
@@ -43,6 +45,7 @@ typedef struct			s_arg
 unsigned long long int	get_max(int sign);
 void					switch_minus(char *tmp, t_arg *arg);
 void					set_format(t_arg *arg, va_list ap);
+void					set_arg(t_arg *arg, char *str);
 t_arg					*arg_arg(char *str, va_list ap);
 t_arg					*map_arg(char **store, va_list ap);
 int						ft_printf(const char *format, ...);
@@ -50,6 +53,7 @@ int						ft_format(const char *format, va_list ap);
 
 int						is_charg(char c);
 int						is_flag(char c);
+int						is_flag_bonus(char c);
 int						is_arg(t_arg *arg);
 int						is_str(t_arg *arg);
 int						is_num(t_arg *arg);

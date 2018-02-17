@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 12:08:31 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 19:53:52 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,18 @@ static void				get_chars(t_arg *new, va_list ap)
 
 void					set_format(t_arg *new, va_list ap)
 {
+	if (new->wildfield)
+	{
+		if ((new->wildfield = va_arg(ap, int)) < 0 && !new->field)
+			new->ismins = 1;
+		if (!new->field)
+			new->field = ABS(new->wildfield);
+	}
+	if (new->wildpreci)
+	{
+		new->preci = va_arg(ap, int);
+		new->hpreci = new->preci > -1;
+	}
 	if (new->isl && (is_char(new) || is_str(new)))
 		new->islower = 0;
 	if (is_num(new))

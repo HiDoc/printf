@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 12:44:51 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 20:11:44 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			print_args(t_arg *arg, size_t len, int percent, int error)
 		if (is_char(arg))
 		{
 			if ((error = print_wchar(arg)) == -1)
-				return (print_error(arg));
+				return (-1);
 			len += error;
 		}
 		else

@@ -6,66 +6,23 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 13:29:06 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/17 17:19:16 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void		if_arg(t_arg *new, char c, int count)
+static void		zero_arg_plus(t_arg *new)
 {
-	if (!(new->field) && !(new->preci) && ft_isdigit(c) && c != '0')
-		new->field = count;
-	if (c == ' ')
-		new->ispace++;
-	if (c == '-')
-		new->ismins++;
-	if (c == '+')
-		new->isplus++;
-	if (c == '#')
-		new->ishtg++;
-	if (c == '.')
-		new->hpreci++;
-	if (!(new->preci) && c == '.')
-		new->preci = count + 1;
-	if (c == 'l')
-		new->isl++;
-	if (c == 'h')
-		new->ish++;
-	if (c == 'j')
-		new->isj++;
-	if (c == 'z')
-		new->isz++;
-	if (!(new->preci) && !(new->field) && c == '0')
-		new->is0++;
-}
-
-static void		set_arg(t_arg *new, char *str)
-{
-	int		count;
-
-	count = 0;
-	while (str[count] && !(is_charg(str[count])))
-	{
-		if (!is_flag(str[count]))
-			break ;
-		if_arg(new, str[count], count);
-		count++;
-	}
-	if (is_charg(str[count]))
-	{
-		new->arg = str[count];
-		new->index = count;
-		new->islower = ft_islower(new->arg);
-	}
-	else
-	{
-		new->arg = '%';
-		new->format = ft_strdup("%");
-		new->hformat = ft_strdup2(&str[1]);
-	}
-	new->field = new->field ? ft_atoi(&str[new->field]) : 0;
-	new->preci = new->preci ? ft_atoi(&str[new->preci]) : 0;
+	new->isl = 0;
+	new->ish = 0;
+	new->isj = 0;
+	new->isz = 0;
+	new->is0 = 0;
+	new->arg = 0;
+	new->char0 = 0;
+	new->wildpreci = 0;
+	new->wildfield = 0;
 }
 
 static t_arg	*zero_arg(void)
@@ -83,17 +40,11 @@ static t_arg	*zero_arg(void)
 	new->isplus = 0;
 	new->ismins = 0;
 	new->ispace = 0;
-	new->isl = 0;
-	new->ish = 0;
-	new->isj = 0;
-	new->isz = 0;
-	new->is0 = 0;
-	new->arg = 0;
-	new->char0 = 0;
 	new->hformat = NULL;
 	new->wformat = NULL;
 	new->format = NULL;
 	new->next = NULL;
+	zero_arg_plus(new);
 	return (new);
 }
 
