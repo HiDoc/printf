@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 16:35:11 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 12:39:46 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 11:57:43 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	format_ptr_field(t_arg *new)
 		{
 			len = new->field - len - 2;
 			tmp = ft_strnew(len);
-			ft_strset(tmp, new->is0 && !new->ismins ? '0' : ' ', len);
+			ft_strset(tmp, new->is0 ? '0' : ' ', len);
 			if (new->ismins || new->is0)
 				switch_minus(tmp, new);
 			new->format = ft_strrjoin("0x", new->format);

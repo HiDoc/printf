@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 15:36:53 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 10:57:19 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,6 @@ void					format_ptr(t_arg *arg);
 
 wchar_t					*str_to_wstr(const char *str);
 void					free_list(t_arg *list);
+void					nfree(void *to_free);
+int						free_error(t_arg *list);
 #endif

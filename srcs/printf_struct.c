@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 17:19:16 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 11:59:42 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ t_arg			*new_arg(char *str, va_list ap)
 	}
 	else
 		new->format = ft_strdup(str);
+	if (new->is0 && new->ismins)
+		new->is0 = 0;
 	return (new);
 }
 

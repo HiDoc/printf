@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 20:11:44 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 12:08:34 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,15 @@ static int	print_check_next(t_arg *arg, size_t len, char *str)
 static int	print_error(t_arg *arg)
 {
 	if (arg->hformat)
+	{
 		free(arg->hformat);
+		arg->hformat = NULL;
+	}
 	if (arg->format)
+	{
 		free(arg->format);
+		arg->format = NULL;
+	}
 	return (-1);
 }
 

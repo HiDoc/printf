@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:18 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/13 17:37:17 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 11:55:46 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	format_bigstr(t_arg *new)
 	if (len && new->field && (int)(new->field + count) > (int)len)
 	{
 		tmp = ft_strnew(new->field + count - len);
-		ft_strset(tmp, ' ', new->field + count - len);
+		ft_strset(tmp, new->is0 ? '0' : ' ', new->field + count - len);
 		new->hformat = tmp;
 	}
 }
@@ -63,7 +63,7 @@ void		format_str(t_arg *new)
 	if (new->field - len > 0)
 	{
 		tmp = ft_strnew(new->field - len);
-		ft_strset(tmp, ' ', new->field - len);
+		ft_strset(tmp, new->is0 ? '0' : ' ', new->field - len);
 		switch_minus(tmp, new);
 	}
 }

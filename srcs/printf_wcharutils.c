@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:10:25 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 20:17:55 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 10:47:46 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,4 @@ int		checkwstr(t_arg *arg)
 		count++;
 	}
 	return (1);
-}
-
-int		switch_wchar(int c, int iswchar)
-{
-	if (iswchar && c > 127)
-		return (ft_putwchar(c));
-	else if (!iswchar || c > -1)
-		return (ft_putchar(c));
-	return (-1);
 }

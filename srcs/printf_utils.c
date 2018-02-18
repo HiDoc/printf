@@ -6,11 +6,20 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:00:23 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 12:35:41 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 11:45:40 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+void	nfree(void *s)
+{
+	if (s)
+	{
+		free(s);
+		s = NULL;
+	}
+}
 
 void	switch_minus(char *tmp, t_arg *new)
 {
@@ -41,6 +50,30 @@ wchar_t	*str_to_wstr(const char *str)
 	return (new);
 }
 
+int		free_error(t_arg *list)
+{
+	t_arg *to_free;
+
+	if (list->format != NULL)
+		nfree(list->format);
+	if (list->next)
+	{
+		to_free = list->next;
+		list->next = NULL;
+		while (to_free)
+		{
+			list = to_free;
+			if (to_free->format)
+				nfree(to_free->format);
+			if (to_free->hformat)
+				nfree(to_free->hformat);
+			to_free = to_free->next;
+			nfree(list);
+		}
+	}
+	return (-1);
+}
+
 void	free_list(t_arg *list)
 {
 	t_arg	*iter;
@@ -56,16 +89,16 @@ void	free_list(t_arg *list)
 		if (is_str(iter) && !iter->islower)
 		{
 			if (iter->wformat != NULL)
-				free(iter->wformat);
+				nfree(iter->wformat);
 		}
 		if (iter->arg == '%')
 		{
 			if (percent % 2 == 0)
-				free(iter->format);
+				nfree(iter->format);
 			else if (iter->hformat)
-				free(iter->hformat);
+				nfree(iter->hformat);
 		}
 		iter = iter->next;
-		free(list);
+		nfree(list);
 	}
 }

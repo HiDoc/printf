@@ -6,19 +6,32 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 12:21:29 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 21:04:45 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 11:46:02 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
+int			switch_wchar(int c, int iswchar)
+{
+	if (iswchar && c > 127)
+		return (ft_putwchar(c));
+	else if (!iswchar || c > -1)
+		return (ft_putchar(c));
+	return (-1);
+}
+
 int			print_wchar(t_arg *arg)
 {
 	int		error;
+	int		nexterror;
 	int		len;
 
 	len = 0;
 	error = 0;
+	nexterror = 0;
+	if (arg->next && is_char(arg->next) && !arg->next->islower)
+		nexterror = !(checkwchar(arg->next->char0));
 	if (!arg->islower)
 		error = !(checkwchar(arg->char0));
 	if (!error)
@@ -28,12 +41,12 @@ int			print_wchar(t_arg *arg)
 		error = switch_wchar(arg->char0, !arg->islower);
 		if (arg->hformat && arg->ismins)
 			len += print_buffer(arg->hformat, 1);
-		if (arg->format)
+		if (arg->format && !nexterror)
 			len += print_buffer(arg->format, 1);
 	}
 	else
-		return (-1);
-	return ((error == -1 ? -1 : len + error));
+		return (free_error(arg));
+	return ((error == -1 ? free_error(arg) : len + error));
 }
 
 static int	iter_print(t_arg *arg, int count, int len, int count2)

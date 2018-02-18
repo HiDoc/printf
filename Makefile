@@ -161,6 +161,7 @@ fclean: clean
 test :
 	@make all
 	@gcc main.c $(INC) -L ./ -lftprintf 
+	@echo test :
 	@./a.out
 
 re: fclean all

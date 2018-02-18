@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 13:34:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 17:18:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 12:31:01 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void		if_arg(t_arg *new, char c, int count)
 	if_arg_specialcases(new, c, count);
 }
 
-static void	get_field_preci(t_arg *new, char *str)
+static void		get_field_preci(t_arg *new, char *str)
 {
 	if (new->field > 0 && new->field < new->wildfield)
 		new->field = 0;
@@ -57,7 +57,7 @@ static void	get_field_preci(t_arg *new, char *str)
 	new->preci = new->preci ? ft_atoi(&str[new->preci]) : 0;
 }
 
-void		set_arg(t_arg *new, char *str)
+void			set_arg(t_arg *new, char *str)
 {
 	int		count;
 
