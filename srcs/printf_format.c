@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 19:53:52 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/18 14:40:15 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void				switch_num(t_arg *new, va_list ap)
 	}
 	num = get_num(new, ap, !(is_deci(new)));
 	if (new->ish == 1 && !is_unsign(new))
-		num = (short)num;
+		num = is_deci(new) ? (unsigned short)num : (short)num;
 	if (new->ish == 2)
 		num = is_deci(new) ? (signed char)num : (unsigned char)num;
 	get_base(num, new, new->islower ? "0123456789abcdef" : "0123456789ABCDEF");
