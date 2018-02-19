@@ -164,4 +164,7 @@ test :
 	@echo test :
 	@./a.out
 
+lldb : 
+	@gcc -g main.c $(SRC) $(INC)
+
 re: fclean all

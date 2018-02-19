@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/18 14:40:15 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/19 13:17:06 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static long long int	get_num(t_arg *new, va_list ap, int isunsign)
 			num = va_arg(ap, unsigned long long);
 		else if (new->isj)
 			num = va_arg(ap, long long);
-		else if (new->arg == 'U' || new->isl == 1 || is_octal(new))
+		else if (new->arg == 'U' || new->isl == 1 || new->arg == 'O')
 			num = va_arg(ap, unsigned long);
 		else
 			num = va_arg(ap, unsigned int);
@@ -79,10 +79,11 @@ static void				switch_num(t_arg *new, va_list ap)
 		new->ishtg = 1;
 	}
 	num = get_num(new, ap, !(is_deci(new)));
-	if (new->ish == 1 && !is_unsign(new))
-		num = is_deci(new) ? (unsigned short)num : (short)num;
-	if (new->ish == 2)
-		num = is_deci(new) ? (signed char)num : (unsigned char)num;
+	if (new->ish == 1 && new->arg != 'U')
+		num = is_deci(new) && new->islower ? (short)num : (unsigned short)num;
+	if (new->ish == 2 && !(ft_strchri("DOU", new->arg) > -1))
+		num = is_deci(new) && new->islower ? (signed char)num :
+			(unsigned char)num;
 	get_base(num, new, new->islower ? "0123456789abcdef" : "0123456789ABCDEF");
 }
 
