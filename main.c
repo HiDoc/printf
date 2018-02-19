@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_convc.c                                     :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/07 14:48:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/19 13:41:18 by fmadura          ###   ########.fr       */
+/*   Created: 2017/12/05 12:36:55 by fmadura           #+#    #+#             */
+/*   Updated: 2018/02/19 13:48:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	format_char(t_arg *new)
+int		main(void)
 {
-	char	*tmp;
-
-	if (!new->islower)
-	{
-		if (new->char0 > 0xFFFF)
-			new->field--;
-		if (new->char0 > 0x7FF)
-			new->field--;
-		if (new->char0 > 0xFF)
-			new->field--;
-	}
-	if (new->field > 1)
-	{
-		tmp = ft_strnew(new->field - 1);
-		ft_strset(tmp, new->is0 ? '0' : ' ', new->field - 1);
-		new->hformat = tmp;
-	}
+	int a =
+		ft_printf("%-4C %S", 0x5550, (wchar_t *)'a');
+	int b =
+		printf("%-4C %S", 0x5550, (wchar_t *)'a');
+	printf("\n%d, %d", a, b);
+	return (0);
 }

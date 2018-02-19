@@ -1,0 +1,356 @@
+ft_abs.c:	return (c < 0 ? -c : c);
+ft_atoi.c:	if (str[count] && (str[count] == '-' || str[count] == '+'))
+ft_atoi.c:		ispos -= (str[count] == '-');
+ft_atoi.c:	count += (str[count] == '-' || str[count] == '+');
+ft_atoi.c:		res = (res * 10) + (str[count] - 48);
+ft_atoi.c:			return (ispos ? -1 : 0);
+ft_atoi.c:		return ((int)res * (ispos ? 1 : -1));
+ft_itoa.c:	count = ft_getlen(n, 0) - (n > 0);
+ft_itoa.c:		count--;
+ft_itoa.c:		nbr[0] = '-';
+ft_lltoa.c:	count = ft_getlen(n, 0) - (n > 0);
+ft_lltoa.c:		count--;
+ft_lltoa.c:		nbr[0] = '-';
+ft_lstadd.c:		new->next = *alst;
+ft_lstdelone.c:		del((*alst)->content, (*alst)->content_size);
+ft_lstiter.c:		while (lst->next != NULL)
+ft_lstiter.c:			lst = lst->next;
+ft_lstmap.c:		lst = lst->next;
+ft_lstmap.c:			new->next = f(lst);
+ft_lstmap.c:			new = new->next;
+ft_lstmap.c:			lst = lst->next;
+ft_lstnew.c:		new->content = NULL;
+ft_lstnew.c:		new->content_size = 0;
+ft_lstnew.c:		if ((new->content = (void *)malloc(content_size)) == NULL)
+ft_lstnew.c:		ft_memcpy(new->content, content, content_size);
+ft_lstnew.c:		if ((new->content_size = (size_t)malloc(sizeof(size_t))) == 0)
+ft_lstnew.c:		new->content_size = content_size;
+ft_lstnew.c:	new->next = NULL;
+ft_lstpush.c:		while ((*alst)->next != NULL)
+ft_lstpush.c:			alst = &(*alst)->next;
+ft_lstpush.c:		(*alst)->next = new;
+ft_lstsize.c:		while (alst[count]->next != NULL)
+ft_ltoa.c:	count = ft_getlen(n, 0) - (n > 0);
+ft_ltoa.c:		count--;
+ft_ltoa.c:		nbr[0] = '-';
+ft_memchr.c:	while (n--)
+ft_memcmp.c:			return (ps1[count] - ps2[count]);
+ft_memmove.c:			pdst[len - 1] = psrc[len - 1];
+ft_memmove.c:			len--;
+ft_pow.c:			pow--;
+ft_printf.c:	if (ft_strchri((char *)format, '%') == -1)
+ft_printf.c:	if (!first->next && first->arg == '%')
+ft_printf.c:		len = (print_buffer(first->hformat, 1));
+ft_printf.c:		if (first->format)
+ft_printf.c:			free(first->format);
+ft_putnbr.c:	else if (nb == -2147483648)
+ft_putnbr.c:		ft_putstr("-2147483648");
+ft_putnbr.c:		ft_putchar('-');
+ft_putnbr.c:		nb = nb * -1;
+ft_putnbr_fd.c:	else if (n == -2147483648)
+ft_putnbr_fd.c:		ft_putstr_fd("-2147483648", fd);
+ft_putnbr_fd.c:		ft_putchar_fd('-', fd);
+ft_putnbr_fd.c:		n = n * -1;
+ft_putwchar.c:		return (-1);
+ft_putwchar.c:		return (-1);
+ft_strchri.c:	return (-1);
+ft_strcmp.c:		diff += ((unsigned char)s1[count]) - 0;
+ft_strcmp.c:		diff -= ((unsigned char)s2[count]) - 0;
+ft_striteri.c:	count = -1;
+ft_strlcat.c:	while (size - len > count + 1 && size > count + 1 && src[count])
+ft_strnchri.c:	return (-1);
+ft_strncmp.c:		diff -= ((unsigned char)s2[count]);
+ft_strrchr.c:	pos = -1;
+ft_strrchr.c:	return (pos == -1 ? NULL : (char *)&s[pos]);
+ft_strsplit.c:		return (-1);
+ft_strtrim.c:	if (s == NULL || (end = ft_strlen(s) - 1) == 0)
+ft_strtrim.c:		end--;
+ft_strtrim.c:		return (ft_strsub(s, start, (end - start + 1)));
+ft_toupper.c:	return ((c >= 97 && c <= 122) ? c - 32 : c);
+ft_ulltoa.c:		count--;
+ft_ulltoabase.c:	while (--count >= 0)
+ft_ultoa.c:		count--;
+ft_ultoabase.c:	while (--count >= 0)
+ft_utoa.c:		count--;
+ft_utoabase.c:	while (--count >= 0)
+printf_arguments.c:		new->isl++;
+printf_arguments.c:		new->ish++;
+printf_arguments.c:		new->isj++;
+printf_arguments.c:		new->isz++;
+printf_arguments.c:	if (!(new->preci) && !(new->field) && c == '0')
+printf_arguments.c:		new->is0++;
+printf_arguments.c:	if (!(new->hpreci) && c == '*')
+printf_arguments.c:		new->wildfield = count;
+printf_arguments.c:	if (new->hpreci && c == '*')
+printf_arguments.c:		new->wildpreci++;
+printf_arguments.c:	if (!(new->field) && !(new->preci) && ft_isdigit(c) && c != '0')
+printf_arguments.c:		new->field = count;
+printf_arguments.c:		new->ispace++;
+printf_arguments.c:	if (c == '-')
+printf_arguments.c:		new->ismins++;
+printf_arguments.c:		new->isplus++;
+printf_arguments.c:		new->ishtg++;
+printf_arguments.c:		new->hpreci++;
+printf_arguments.c:	if (!(new->preci) && c == '.')
+printf_arguments.c:		new->preci = count + 1;
+printf_arguments.c:	if (new->field > 0 && new->field < new->wildfield)
+printf_arguments.c:		new->field = 0;
+printf_arguments.c:	new->field = new->field ? ft_atoi(&str[new->field]) : 0;
+printf_arguments.c:	new->preci = new->preci ? ft_atoi(&str[new->preci]) : 0;
+printf_arguments.c:		new->arg = str[count];
+printf_arguments.c:		new->index = count;
+printf_arguments.c:		new->islower = ft_islower(new->arg);
+printf_arguments.c:		new->arg = '%';
+printf_arguments.c:		new->format = ft_strdup("%");
+printf_arguments.c:		new->hformat = ft_strdup2(&str[1]);
+printf_convchr.c:	if (!new->islower)
+printf_convchr.c:		if (new->char0 > 0xFFFF)
+printf_convchr.c:			new->field--;
+printf_convchr.c:		if (new->char0 > 0x7FF)
+printf_convchr.c:			new->field--;
+printf_convchr.c:		if (new->char0 > 0xFF)
+printf_convchr.c:			new->field--;
+printf_convchr.c:	if (new->field > 1)
+printf_convchr.c:		tmp = ft_strnew(new->field - 1);
+printf_convchr.c:		ft_strset(tmp, new->is0 ? '0' : ' ', new->field - 1);
+printf_convchr.c:		new->hformat = tmp;
+printf_convhtg.c:	if (arg->field - 1 > 0)
+printf_convhtg.c:		tmp = ft_strnew(arg->field - 1);
+printf_convhtg.c:		ft_strset(tmp, arg->is0 ? '0' : ' ', arg->field - 1);
+printf_convnum.c:	if (new->preci > 0 && new->preci > len && is_num(new))
+printf_convnum.c:		tmp = ft_strnew(new->preci - len + (new->format[0] == '-'));
+printf_convnum.c:		ft_strset(tmp, '0', new->preci - len + (new->format[0] == '-'));
+printf_convnum.c:		if (new->format[0] == '-' || new->format[0] == '+')
+printf_convnum.c:			tmp[0] = new->format[0];
+printf_convnum.c:			new->format[0] = '0';
+printf_convnum.c:		if (is_hexa(new) && new->ishtg)
+printf_convnum.c:				tmp[1] = new->islower ? 'x' : 'X';
+printf_convnum.c:				new->format[0] = new->islower ? 'x' : 'X';
+printf_convnum.c:			new->format[1] = '0';
+printf_convnum.c:		new->format = ft_strdjoin(tmp, new->format);
+printf_convnum.c:	if (new->format && new->format[0] == '0' && !(new->preci) && new->hpreci)
+printf_convnum.c:		free(new->format);
+printf_convnum.c:		new->format = ft_strdup(is_deci(new) && new->ispace ? " " : "");
+printf_convnum.c:	else if (is_hexa(new) && new->ishtg && new->format[0] != '0')
+printf_convnum.c:		new->format = ft_strrjoin((new->arg == 'X' ? "0X" : "0x"), new->format);
+printf_convnum.c:	if (is_octal(new) && (new->ishtg) && new->format[0] != '0')
+printf_convnum.c:		new->format = ft_strrjoin(("0"), new->format);
+printf_convnum.c:		new->preci--;
+printf_convnum.c:	if (is_deci(new) && (new->isplus) && new->format[0] != '-')
+printf_convnum.c:		new->format = ft_strrjoin("+", new->format);
+printf_convnum.c:	if (!(new->ismins) && new->is0 && diff > 0)
+printf_convnum.c:		ft_strset(tmp, (new->hpreci ? ' ' : '0'), diff);
+printf_convnum.c:		if (is_hexa(new) && new->ishtg && new->format[1] && tmp[1] != ' ')
+printf_convnum.c:			new->format[1] = '0';
+printf_convnum.c:			tmp[1] = new->arg == 'x' ? 'x' : 'X';
+printf_convnum.c:		else if ((new->format[0] == '-' || new->format[0] == '+')
+printf_convnum.c:				&& (tmp[0] != ' ' || !new->isplus))
+printf_convnum.c:			tmp[0] = new->format[0];
+printf_convnum.c:			new->format[0] = '0';
+printf_convnum.c:		new->format = ft_strdjoin(tmp, new->format);
+printf_convnum.c:	if (new->arg != 'p')
+printf_convnum.c:		len = (int)ft_strlen(new->format);
+printf_convnum.c:		len = (int)ft_strlen(new->format);
+printf_convnum.c:		format_num_field(new, new->field - len);
+printf_convnum.c:	if (is_deci(new) && new->ispace && ft_isdigit(new->format[0]))
+printf_convnum.c:		if (new->format[1] && new->format[0] == '0')
+printf_convnum.c:			new->format[0] = ' ';
+printf_convnum.c:			new->format = ft_strrjoin(" ", new->format);
+printf_convptr.c:	len = ft_strlen(new->format);
+printf_convptr.c:	if (new->hpreci && new->preci && new->preci > (int)len)
+printf_convptr.c:		tmp = ft_strnew(new->preci - len);
+printf_convptr.c:		ft_strset(tmp, '0', new->preci - len);
+printf_convptr.c:		new->format = ft_strdjoin(tmp, new->format);
+printf_convptr.c:		len = ft_strlen(new->format);
+printf_convptr.c:	if (new->hpreci && !new->preci)
+printf_convptr.c:		free(new->format);
+printf_convptr.c:		new->format = ft_strdup("0x");
+printf_convptr.c:	len = ft_strlen(new->format);
+printf_convptr.c:	if (!new->hpreci || new->preci)
+printf_convptr.c:		if ((size_t)new->field > len && new->field > 3)
+printf_convptr.c:			len = new->field - len - 2;
+printf_convptr.c:			ft_strset(tmp, new->is0 ? '0' : ' ', len);
+printf_convptr.c:			if (new->ismins || new->is0)
+printf_convptr.c:			new->format = ft_strrjoin("0x", new->format);
+printf_convptr.c:			if (!new->ismins && !new->is0)
+printf_convptr.c:			new->format = ft_strrjoin("0x", new->format);
+printf_convstr.c:	len = sizewstr(new->wformat);
+printf_convstr.c:	if (new->hpreci)
+printf_convstr.c:		if (!new->preci)
+printf_convstr.c:		else if (new->field > new->preci)
+printf_convstr.c:			if (len && sizewchar(new->wformat[0]) > new->preci)
+printf_convstr.c:			else if (len > (size_t)new->preci)
+printf_convstr.c:				count = new->field - new->preci - 1;
+printf_convstr.c:	if (len && new->field && (int)(new->field + count) > (int)len)
+printf_convstr.c:		tmp = ft_strnew(new->field + count - len);
+printf_convstr.c:		ft_strset(tmp, new->is0 ? '0' : ' ', new->field + count - len);
+printf_convstr.c:		new->hformat = tmp;
+printf_convstr.c:	if (!new->islower)
+printf_convstr.c:	len = ((new->format != NULL) ? ft_strlen(new->format) : 0);
+printf_convstr.c:	if (new->hpreci && new->preci < len && new->format[0])
+printf_convstr.c:		tmp = ft_strsub(new->format, 0, new->preci);
+printf_convstr.c:		free(new->format);
+printf_convstr.c:		new->format = ft_strdup(tmp);
+printf_convstr.c:		len = (int)ft_strlen(new->format);
+printf_convstr.c:	if (new->field - len > 0)
+printf_convstr.c:		tmp = ft_strnew(new->field - len);
+printf_convstr.c:		ft_strset(tmp, new->is0 ? '0' : ' ', new->field - len);
+printf_flag.c:	return (new->arg == 'x' || new->arg == 'X' || new->arg == 'p');
+printf_flag.c:	return (new->arg == 'o' || new->arg == 'O');
+printf_flag.c:	return (new->arg == 's' || new->arg == 'S');
+printf_flag.c:	return (new->arg == 'c' || new->arg == 'C');
+printf_flag.c:	return (new->arg == 'u' || new->arg == 'U');
+printf_flag2.c:	return (ft_strchri(" plhjzdiouxDIOUXsScCi.-+#%", c) > -1
+printf_flag2.c:	return (ft_strchri("*", c) > -1);
+printf_flags.c:	return (ft_strchri("dDiI", new->arg) > -1);
+printf_flags.c:	return (ft_strchri("diouxDIOUXp", new->arg) > -1);
+printf_flags.c:	return (ft_strchri("diouxDIOUXsScCp", c) > -1);
+printf_format.c:		if (new->isl == 2 || new->isj)
+printf_format.c:		else if (new->isl == 1 || !(new->islower) || new->isz)
+printf_format.c:		if (new->isl == 2 || new->isz)
+printf_format.c:		else if (new->isj)
+printf_format.c:		else if (new->arg == 'U' || new->isl == 1 || new->arg == 'O')
+printf_format.c:		if (new->isl == 2 || new->isj)
+printf_format.c:			new->format = ft_lltoa(num);
+printf_format.c:		else if (new->isl == 1 || !(new->islower) || new->isz)
+printf_format.c:			new->format = ft_ltoa(num);
+printf_format.c:			new->format = ft_itoa(num);
+printf_format.c:		if (new->isl == 2 || new->isz)
+printf_format.c:			new->format = ft_ulltoabase(num, baseto, basef);
+printf_format.c:		else if (new->isj)
+printf_format.c:			new->format = ft_ulltoabase(num, baseto, basef);
+printf_format.c:		else if (new->arg == 'U' || new->isl == 1 || is_octal(new))
+printf_format.c:			new->format = ft_ultoabase(num, baseto, basef);
+printf_format.c:			new->format = ft_itoabase(num, baseto, basef);
+printf_format.c:	if (new->arg == 'p')
+printf_format.c:		new->isl = 2;
+printf_format.c:		new->ishtg = 1;
+printf_format.c:	if (new->ish == 1 && new->arg != 'U')
+printf_format.c:		num = is_deci(new) && new->islower ? (short)num : (unsigned short)num;
+printf_format.c:	if (new->ish == 2 && !(ft_strchri("DOU", new->arg) > -1))
+printf_format.c:		num = is_deci(new) && new->islower ? (signed char)num :
+printf_format.c:	get_base(num, new, new->islower ? "0123456789abcdef" : "0123456789ABCDEF");
+printf_format.c:		new->char0 = va_arg(ap, int);
+printf_format.c:		if (!new->islower)
+printf_format.c:			new->wformat = ft_wstrdup(va_arg(ap, wchar_t *));
+printf_format.c:				new->error = 1;
+printf_format.c:			if (new->wformat == NULL)
+printf_format.c:				new->wformat = str_to_wstr("(null)");
+printf_format.c:			new->format = ft_strdup2(va_arg(ap, char *));
+printf_format.c:			if (new->format == NULL)
+printf_format.c:				new->format = ft_strdup("(null)");
+printf_format.c:	if (new->wildfield)
+printf_format.c:		if ((new->wildfield = va_arg(ap, int)) < 0 && !new->field)
+printf_format.c:			new->ismins = 1;
+printf_format.c:		if (!new->field)
+printf_format.c:			new->field = ABS(new->wildfield);
+printf_format.c:	if (new->wildpreci)
+printf_format.c:		new->preci = va_arg(ap, int);
+printf_format.c:		new->hpreci = new->preci > -1;
+printf_format.c:	if (new->isl && (is_char(new) || is_str(new)))
+printf_format.c:		new->islower = 0;
+printf_format.c:	else if (new->arg == '%')
+printf_print.c:			write(1, buffer, ft_strlcpy(buffer, &str[count], SPEED - 1));
+printf_print.c:			count += SPEED - 1;
+printf_print.c:	if (arg->next == NULL)
+printf_print.c:	else if ((!is_str(arg->next) && !arg->next->islower) || checkwstr(arg))
+printf_print.c:	else if (!is_char(arg->next) || checkwchar(arg->next->char0))
+printf_print.c:	if (arg->hformat)
+printf_print.c:		free(arg->hformat);
+printf_print.c:		arg->hformat = NULL;
+printf_print.c:	if (arg->format)
+printf_print.c:		free(arg->format);
+printf_print.c:		arg->format = NULL;
+printf_print.c:	return (-1);
+printf_print.c:		percent += (arg->arg == '%');
+printf_print.c:			if ((error = print_wchar(arg)) == -1)
+printf_print.c:				return (-1);
+printf_print.c:			if (is_str(arg) && !arg->islower)
+printf_print.c:			else if (percent % 2 != 0 || arg->arg != '%')
+printf_print.c:				len = print_check_next(arg, len, arg->format);
+printf_print.c:				len = print_check_next(arg, len, arg->hformat);
+printf_print.c:		arg = arg->next;
+printf_print_wchar.c:	else if (!iswchar || c > -1)
+printf_print_wchar.c:	return (-1);
+printf_print_wchar.c:	if (arg->next && is_char(arg->next) && !arg->next->islower)
+printf_print_wchar.c:		nexterror = !(checkwchar(arg->next->char0));
+printf_print_wchar.c:	if (!arg->islower)
+printf_print_wchar.c:		error = !(checkwchar(arg->char0));
+printf_print_wchar.c:		if (arg->hformat && !arg->ismins)
+printf_print_wchar.c:			len += print_buffer(arg->hformat, 1);
+printf_print_wchar.c:		error = switch_wchar(arg->char0, !arg->islower);
+printf_print_wchar.c:		if (arg->hformat && arg->ismins)
+printf_print_wchar.c:			len += print_buffer(arg->hformat, 1);
+printf_print_wchar.c:		if (arg->format && !nexterror)
+printf_print_wchar.c:			len += print_buffer(arg->format, 1);
+printf_print_wchar.c:	return ((error == -1 ? free_error(arg) : len + error));
+printf_print_wchar.c:	iter = arg->wformat[count];
+printf_print_wchar.c:	while (iter && (count2 < arg->preci || !arg->hpreci))
+printf_print_wchar.c:		if (count2 + sizewchar(iter) <= arg->preci || !arg->preci)
+printf_print_wchar.c:		iter = arg->wformat[count];
+printf_print_wchar.c:	size = (int)sizewstr(arg->wformat);
+printf_print_wchar.c:	if (arg->field && arg->field - size > 0 && arg->hformat && !arg->ismins)
+printf_print_wchar.c:		len += print_buffer(arg->hformat, 1);
+printf_print_wchar.c:	if (arg->field - size > 0 && arg->hformat && arg->ismins)
+printf_print_wchar.c:		len += print_buffer(arg->hformat, 1);
+printf_print_wchar.c:	if (arg->format)
+printf_print_wchar.c:		len += print_buffer(arg->format, 1);
+printf_struct.c:	new->isl = 0;
+printf_struct.c:	new->ish = 0;
+printf_struct.c:	new->isj = 0;
+printf_struct.c:	new->isz = 0;
+printf_struct.c:	new->is0 = 0;
+printf_struct.c:	new->arg = 0;
+printf_struct.c:	new->char0 = 0;
+printf_struct.c:	new->wildpreci = 0;
+printf_struct.c:	new->wildfield = 0;
+printf_struct.c:	new->index = 0;
+printf_struct.c:	new->preci = 0;
+printf_struct.c:	new->hpreci = 0;
+printf_struct.c:	new->field = 0;
+printf_struct.c:	new->islower = 0;
+printf_struct.c:	new->ishtg = 0;
+printf_struct.c:	new->isplus = 0;
+printf_struct.c:	new->ismins = 0;
+printf_struct.c:	new->ispace = 0;
+printf_struct.c:	new->hformat = NULL;
+printf_struct.c:	new->wformat = NULL;
+printf_struct.c:	new->format = NULL;
+printf_struct.c:	new->next = NULL;
+printf_struct.c:	new->error = 0;
+printf_struct.c:		if (new->arg != '%')
+printf_struct.c:			if (new->index < (int)ft_strlen(str) && str[new->index + 1])
+printf_struct.c:				tmp = ft_strsub(str, new->index + 1, ft_strlen(str));
+printf_struct.c:				new->format = (new->format) ? ft_strljoin(new->format, tmp)
+printf_struct.c:		new->format = ft_strdup(str);
+printf_struct.c:	if (new->is0 && new->ismins)
+printf_struct.c:		new->is0 = 0;
+printf_struct.c:		if (iter->error == 1)
+printf_struct.c:		iter->next = new_arg(store[count], ap);
+printf_struct.c:		iter = iter->next;
+printf_utils.c:	if (new->ismins)
+printf_utils.c:		new->format = ft_strdjoin(new->format, tmp);
+printf_utils.c:		new->format = ft_strdjoin(tmp, new->format);
+printf_utils.c:	if (list->format != NULL)
+printf_utils.c:		nfree(list->format);
+printf_utils.c:	if (list->next)
+printf_utils.c:		to_free = list->next;
+printf_utils.c:		list->next = NULL;
+printf_utils.c:			if (to_free->format)
+printf_utils.c:				nfree(to_free->format);
+printf_utils.c:			if (to_free->hformat)
+printf_utils.c:				nfree(to_free->hformat);
+printf_utils.c:			to_free = to_free->next;
+printf_utils.c:	return (-1);
+printf_utils.c:		if (iter->arg == '%')
+printf_utils.c:		if (is_str(iter) && !iter->islower)
+printf_utils.c:			if (iter->wformat != NULL)
+printf_utils.c:				nfree(iter->wformat);
+printf_utils.c:		if (iter->arg == '%')
+printf_utils.c:				nfree(iter->format);
+printf_utils.c:			else if (iter->hformat)
+printf_utils.c:				nfree(iter->hformat);
+printf_utils.c:		iter = iter->next;
+printf_wcharutils.c:	if (arg == NULL || arg->wformat == NULL)
+printf_wcharutils.c:	str = arg->wformat;
+printf_wcharutils.c:	while (str[count] && (count < arg->preci || !arg->hpreci))

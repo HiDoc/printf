@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/19 13:17:06 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/19 13:50:33 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static void				get_chars(t_arg *new, va_list ap)
 	if (is_char(new))
 	{
 		new->char0 = va_arg(ap, int);
+		if (!new->islower && !checkwchar(new->char0))
+			new->error = 1;
 		format_char(new);
 	}
 	else
