@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:43:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/21 15:41:14 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/21 21:16:16 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void				get_base(long long int num, t_arg *new, char *basef)
 	}
 }
 
-void				switch_num(t_arg *new, va_list ap)
+void					switch_num(t_arg *new, va_list ap)
 {
 	long long int	num;
 

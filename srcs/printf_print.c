@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/18 12:08:34 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/21 21:14:40 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,17 @@ int			print_buffer(char *str, int freestr)
 
 static int	print_check_next(t_arg *arg, size_t len, char *str)
 {
-	if (arg->next == NULL)
-		len += print_buffer(str, 1);
-	else if ((!is_str(arg->next) && !arg->next->islower) || checkwstr(arg))
-		len += print_buffer(str, 1);
-	else if (!is_char(arg->next) || checkwchar(arg->next->char0))
-		len += print_buffer(str, 1);
-	return (len);
+	if (arg->error == 0)
+	{
+		if (arg->next == NULL)
+			len += print_buffer(str, 1);
+		else if ((!is_str(arg->next) && !arg->next->islower) || checkwstr(arg))
+			len += print_buffer(str, 1);
+		else if (!is_char(arg->next) || checkwchar(arg->next->char0))
+			len += print_buffer(str, 1);
+		return (len);
+	}
+	return (-1);
 }
 
 static int	print_error(t_arg *arg)
