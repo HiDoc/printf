@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/19 13:08:22 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/21 15:26:38 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,15 @@ typedef struct			s_arg
 	struct s_arg	*next;
 }						t_arg;
 unsigned long long int	get_max(int sign);
+
 void					switch_minus(char *tmp, t_arg *arg);
+void					switch_char(t_arg *arg, va_list ap);
+void					switch_num(t_arg *arg, va_list ap);
+
 void					set_format(t_arg *arg, va_list ap);
+void					set_wildcards(t_arg *arg, va_list ap);
 void					set_arg(t_arg *arg, char *str);
-t_arg					*arg_arg(char *str, va_list ap);
+t_arg					*new_arg(char *str, va_list ap);
 t_arg					*map_arg(char **store, va_list ap);
 int						ft_printf(const char *format, ...);
 int						ft_format(const char *format, va_list ap);
@@ -75,11 +80,12 @@ int						checkwchar(wchar_t t);
 int						checkwstr(t_arg *arg);
 int						switch_wchar(int c, int iswchar);
 
-void					format_num(t_arg *arg);
 void					format_char(t_arg *arg);
 void					format_str(t_arg *arg);
 void					format_htg(t_arg *arg);
 void					format_ptr(t_arg *arg);
+void					format_float(t_arg *arg, va_list ap);
+void					format_num(t_arg *arg, va_list ap);
 
 wchar_t					*str_to_wstr(const char *str);
 void					free_list(t_arg *list);

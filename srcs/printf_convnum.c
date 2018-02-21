@@ -5,105 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/07 15:56:00 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/19 10:51:38 by fmadura          ###   ########.fr       */
+/*   Created: 2018/02/21 12:43:32 by fmadura           #+#    #+#             */
+/*   Updated: 2018/02/21 15:41:14 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void	format_num_setchar(t_arg *new, int len, char *tmp)
+static long long int	get_num(t_arg *new, va_list ap, int isunsign)
 {
-	if (new->preci > 0 && new->preci > len && is_num(new))
-	{
-		tmp = ft_strnew(new->preci - len + (new->format[0] == '-'));
-		ft_strset(tmp, '0', new->preci - len + (new->format[0] == '-'));
-		if (new->format[0] == '-' || new->format[0] == '+')
-		{
-			tmp[0] = new->format[0];
-			new->format[0] = '0';
-		}
-		if (is_hexa(new) && new->ishtg)
-		{
-			if (tmp[1])
-				tmp[1] = new->islower ? 'x' : 'X';
-			else
-				new->format[0] = new->islower ? 'x' : 'X';
-			new->format[1] = '0';
-		}
-		new->format = ft_strdjoin(tmp, new->format);
-	}
-}
+	long long int	num;
 
-static void	format_num_precision(t_arg *new, int len)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (new->format && new->format[0] == '0' && !(new->preci) && new->hpreci)
+	num = 0;
+	if (!isunsign)
 	{
-		free(new->format);
-		new->format = ft_strdup(is_deci(new) && new->ispace ? " " : "");
-	}
-	else if (is_hexa(new) && new->ishtg && new->format[0] != '0')
-		new->format = ft_strrjoin((new->arg == 'X' ? "0X" : "0x"), new->format);
-	if (is_octal(new) && (new->ishtg) && new->format[0] != '0')
-	{
-		new->format = ft_strrjoin(("0"), new->format);
-		new->preci--;
-	}
-	if (is_deci(new) && (new->isplus) && new->format[0] != '-')
-		new->format = ft_strrjoin("+", new->format);
-	format_num_setchar(new, len, tmp);
-}
-
-static void	format_num_field(t_arg *new, int diff)
-{
-	char	*tmp;
-
-	if (diff > 0)
-		tmp = ft_strnew(diff);
-	if (!(new->ismins) && new->is0 && diff > 0)
-	{
-		ft_strset(tmp, (new->hpreci ? ' ' : '0'), diff);
-		if (is_hexa(new) && new->ishtg && new->format[1] && tmp[1] != ' ')
-		{
-			new->format[1] = '0';
-			tmp[1] = new->arg == 'x' ? 'x' : 'X';
-		}
-		else if ((new->format[0] == '-' || new->format[0] == '+')
-				&& (tmp[0] != ' ' || !new->isplus))
-		{
-			tmp[0] = new->format[0];
-			new->format[0] = '0';
-		}
-		new->format = ft_strdjoin(tmp, new->format);
-	}
-	else if (diff > 0)
-	{
-		ft_strset(tmp, ' ', diff);
-		switch_minus(tmp, new);
-	}
-}
-
-void		format_num(t_arg *new)
-{
-	int		len;
-
-	if (new->arg != 'p')
-	{
-		len = (int)ft_strlen(new->format);
-		format_num_precision(new, len);
-		len = (int)ft_strlen(new->format);
-		format_num_field(new, new->field - len);
+		if (new->isl == 2 || new->isj)
+			num = va_arg(ap, long long);
+		else if (new->isl == 1 || !(new->islower) || new->isz)
+			num = va_arg(ap, long);
+		else
+			num = va_arg(ap, int);
 	}
 	else
-		format_ptr(new);
-	if (is_deci(new) && new->ispace && ft_isdigit(new->format[0]))
 	{
-		if (new->format[1] && new->format[0] == '0')
-			new->format[0] = ' ';
+		if (new->isl == 2 || new->isz)
+			num = va_arg(ap, unsigned long long);
+		else if (new->isj)
+			num = va_arg(ap, long long);
+		else if (new->arg == 'U' || new->isl == 1 || new->arg == 'O')
+			num = va_arg(ap, unsigned long);
 		else
-			new->format = ft_strrjoin(" ", new->format);
+			num = va_arg(ap, unsigned int);
 	}
+	return (num);
+}
+
+static void				get_base(long long int num, t_arg *new, char *basef)
+{
+	int		baseto;
+
+	baseto = 10;
+	if (is_octal(new) || is_hexa(new))
+		baseto = (is_octal(new) ? 8 : 16);
+	if (is_deci(new))
+	{
+		if (new->isl == 2 || new->isj)
+			new->format = ft_lltoa(num);
+		else if (new->isl == 1 || !(new->islower) || new->isz)
+			new->format = ft_ltoa(num);
+		else
+			new->format = ft_itoa(num);
+	}
+	else
+	{
+		if (new->isl == 2 || new->isz)
+			new->format = ft_ulltoabase(num, baseto, basef);
+		else if (new->isj)
+			new->format = ft_ulltoabase(num, baseto, basef);
+		else if (new->arg == 'U' || new->isl == 1 || is_octal(new))
+			new->format = ft_ultoabase(num, baseto, basef);
+		else
+			new->format = ft_itoabase(num, baseto, basef);
+	}
+}
+
+void				switch_num(t_arg *new, va_list ap)
+{
+	long long int	num;
+
+	if (new->arg == 'p')
+	{
+		new->isl = 2;
+		new->ishtg = 1;
+	}
+	num = get_num(new, ap, !(is_deci(new)));
+	if (new->ish == 1 && new->arg != 'U')
+		num = is_deci(new) && new->islower ? (short)num : (unsigned short)num;
+	if (new->ish == 2 && !(ft_strchri("DOU", new->arg) > -1))
+		num = is_deci(new) && new->islower ? (signed char)num :
+			(unsigned char)num;
+	get_base(num, new, new->islower ? "0123456789abcdef" : "0123456789ABCDEF");
 }

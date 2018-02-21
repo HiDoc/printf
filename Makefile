@@ -107,10 +107,14 @@ SRC_NAME  = ft_strdup2.c \
 			printf_convptr.c \
 			printf_convstr.c \
 			printf_convhtg.c \
+			printf_convflt.c \
 			printf_flag.c \
 			printf_flag2.c \
 			printf_flags.c \
 			printf_format.c \
+			printf_format_wildcards.c \
+			printf_format_char.c \
+			printf_format_num.c \
 			printf_print.c \
 			printf_print_wchar.c \
 			printf_struct.c \
@@ -162,7 +166,7 @@ test :
 	@make all
 	@gcc main.c $(INC) -L ./ -lftprintf 
 	@echo test :
-	@./a.out
+	@./a.out $(TEST)
 
 lldb : 
 	@gcc -g main.c $(SRC) $(INC)
