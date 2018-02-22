@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/21 21:14:23 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/22 12:56:03 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	set_format(t_arg *new, va_list ap)
 		switch_char(new, ap);
 	else if (new->arg == 'f' || new->arg == 'F')
 		format_float(new, ap);
+	else if (new->arg == 'e' || new->arg == 'E')
+		format_sci(new, ap);
+	else if (new->arg == 'g' || new->arg == 'G')
+		format_gen(new, ap);
 	else if (new->arg == '%')
 		format_htg(new);
 }

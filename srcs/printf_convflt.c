@@ -6,13 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:36:51 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/21 21:13:46 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/22 13:29:22 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static char	*befor_dot(double num)
+char	*befor_dot(double num)
 {
 	long long before;
 
@@ -20,7 +20,7 @@ static char	*befor_dot(double num)
 	return (ft_strljoin(ft_lltoa(before), "."));
 }
 
-static char	*after_dot(double num, size_t count)
+char	*after_dot(double num, size_t count)
 {
 	double		after;
 	char		*tmp;
@@ -47,7 +47,7 @@ static char	*after_dot(double num, size_t count)
 	return (ft_lltoa((long long)after));
 }
 
-void		format_float(t_arg *arg, va_list ap)
+void	format_float(t_arg *arg, va_list ap)
 {
 	double		num;
 	size_t		count;

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 12:36:55 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/21 20:49:42 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/22 12:50:28 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <limits.h>
@@ -14,10 +14,11 @@
 #include <time.h>
 #include "libftprintf.h"
 
-int		test_f(float f)
+int		test_f(double f)
 {
 	char	std1[5000];
 	char	std2[5000];
+	
 	printf("TEST float : \n");
 	int a = ft_printf("%f\n", f);
 	int b = printf("%f\n", f);
@@ -29,6 +30,7 @@ int		test_d(double f)
 {
 	char	std1[5000];
 	char	std2[5000];
+	
 	printf("TEST double : \n");
 	int a = ft_printf("%F\n", f);
 	int b = printf("%F\n", f);
@@ -36,7 +38,43 @@ int		test_d(double f)
 	return (a != b && !ft_strcmp(std1, std2));
 }
 
-void 	launch_test(int num)
+int		test_e(double f)
+{
+	char	std1[5000];
+	char	std2[5000];
+	
+	printf("TEST expos : \n");
+	int a = ft_printf("%e\n", f);
+	int b = printf("%e\n", f);
+	printf("return a : %d, return b : %d\n\n", a, b);
+	return (a != b && !ft_strcmp(std1, std2));
+}
+
+int		test_E(double f)
+{
+	char	std1[5000];
+	char	std2[5000];
+	
+	printf("TEST expos : \n");
+	int a = ft_printf("%E\n", f);
+	int b = printf("%E\n", f);
+	printf("return a : %d, return b : %d\n\n", a, b);
+	return (a != b && !ft_strcmp(std1, std2));
+}
+
+int		test_g(double f)
+{
+	char	std1[5000];
+	char	std2[5000];
+	
+	printf("TEST gen : \n");
+	int a = ft_printf("%g\n", f);
+	int b = printf("%g\n", f);
+	printf("return a : %d, return b : %d\n\n", a, b);
+	return (a != b && !ft_strcmp(std1, std2));
+}
+
+void 	launch_test(int num, int (*f)(double))
 {
 	int		count;
 	int		error;
@@ -50,9 +88,8 @@ void 	launch_test(int num)
 	srand((unsigned int)time(NULL));
 	while (count < num)
 	{
-		random_f = ((double)rand()/(double)(RAND_MAX/a));
-		error += test_f(random_f);
-		error += test_d(random_f);
+		random_f = ((double)rand()/(double)(RAND_MAX/a) * rand());
+		error += f(random_f);
 		count++;
 	}	
 	printf("%s\n", !error ? "Aucune erreur" : "Erreur");
@@ -63,6 +100,6 @@ int		main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	if (argc > 1)
-		launch_test(ft_atoi(argv[1]));
+		launch_test(ft_atoi(argv[1]), &test_g);
 	return (0);
 }

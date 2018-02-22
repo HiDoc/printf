@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 17:06:06 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/21 13:01:35 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/22 12:53:54 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int		is_flag(char c)
 
 int		is_flag_bonus(char c)
 {
-	return (ft_strchri("*fF", c) > -1);
+	return (ft_strchri("*fFeEgG", c) > -1);
 }

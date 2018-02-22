@@ -108,6 +108,8 @@ SRC_NAME  = ft_strdup2.c \
 			printf_convstr.c \
 			printf_convhtg.c \
 			printf_convflt.c \
+			printf_convsci.c \
+			printf_convgen.c \
 			printf_flag.c \
 			printf_flag2.c \
 			printf_flags.c \

@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:00:12 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/21 13:01:23 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/02/22 12:53:42 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ int		is_arg(t_arg *new)
 
 int		is_charg(char c)
 {
-	return (ft_strchri("diouxDIOUXsScCpfF", c) > -1);
+	return (ft_strchri("diouxDIOUXsScCpfFeEgG", c) > -1);
 }
