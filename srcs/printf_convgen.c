@@ -6,13 +6,13 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 12:05:52 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/22 13:25:47 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/03/16 14:32:38 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static double	to_exp(t_arg *arg, int exp, va_list ap)
+static double	to_gen(t_arg *arg, int exp, va_list ap)
 {
 	if (exp < -4 || ABS(exp) >= arg->preci)
 	{
