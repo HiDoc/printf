@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:36:51 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/22 13:29:22 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/03/16 16:32:28 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*after_dot(double num, size_t count)
 	char		*tmp;
 	size_t		count_zero;
 
+	tmp = NULL;
 	count_zero = 0;
 	after = num - (long int)num;
 	while (count > 0)
@@ -38,7 +39,7 @@ char	*after_dot(double num, size_t count)
 	after = ABS(after);
 	if (!(ABS((after - (long int)after)) * 10 < 5))
 		after++;
-	if (count_zero - 1)
+	if (count_zero - 1 > 0)
 	{
 		tmp = ft_strnew(count_zero - 1);
 		ft_strset(tmp, '0', count_zero - 1);

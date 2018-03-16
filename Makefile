@@ -164,13 +164,4 @@ fclean: clean
 	$(cleaning)
 	@echo "**************************************"
 
-test :
-	@make all
-	@gcc main.c $(INC) -L ./ -lftprintf 
-	@echo test :
-	@./a.out $(TEST)
-
-lldb : 
-	@gcc -g main.c $(SRC) $(INC)
-
 re: fclean all
