@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/22 12:56:21 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/27 18:53:30 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 # define SPEED 750
 # include "libft.h"
 # include <stdarg.h>
+
+# define FLAGS_ZEROPAD   (1U <<  0U)
+# define FLAGS_LEFT      (1U <<  1U)
+# define FLAGS_PLUS      (1U <<  2U)
+# define FLAGS_SPACE     (1U <<  3U)
+# define FLAGS_HASH      (1U <<  4U)
+# define FLAGS_UPPERCASE (1U <<  5U)
+# define FLAGS_CHAR      (1U <<  6U)
+# define FLAGS_SHORT     (1U <<  7U)
+# define FLAGS_LONG      (1U <<  8U)
+# define FLAGS_LONG_LONG (1U <<  9U)
+# define FLAGS_PRECISION (1U << 10U)
+# define FLAGS_WIDTH     (1U << 11U)
 
 typedef struct			s_arg
 {
