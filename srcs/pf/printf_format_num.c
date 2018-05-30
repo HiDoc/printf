@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:43:56 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/30 11:36:22 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 20:11:55 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 static void	format_num_setchar(t_arg *new, int len, char *tmp)
 {
-	if (new->preci > 0 && new->preci > len && is_num(new))
+	int		minus;
+	int		space;
+
+	minus = (new->format && new->format[0] == '-') ? 1 : 0;
+	space = (new->isplus == 1 || new->ispace == 0 || minus == 1 ? 0 : 1);
+	if (new->preci > 0 && (new->preci + minus + space) > len && is_num(new))
 	{
-		tmp = ft_strnew(new->preci - len + (new->format[0] == '-'));
-		ft_strset(tmp, '0', new->preci - len + (new->format[0] == '-'));
-		if (new->format[0] == '-' || new->format[0] == '+')
+		tmp = ft_strnew(new->preci - len + minus + space);
+		ft_strset(tmp, '0', new->preci - len + minus + space);
+		if ((new->format[0] == '-' || new->format[0] == '+'))
 		{
 			tmp[0] = new->format[0];
 			new->format[0] = '0';
@@ -31,6 +36,8 @@ static void	format_num_setchar(t_arg *new, int len, char *tmp)
 				new->format[0] = new->islower ? 'x' : 'X';
 			new->format[1] = '0';
 		}
+		if (space == 1)
+			tmp[0] = ' ';
 		new->format = ft_strdjoin(tmp, new->format);
 	}
 }
@@ -72,7 +79,7 @@ static void	format_num_field(t_arg *new, int diff)
 			tmp[1] = new->arg == 'x' ? 'x' : 'X';
 		}
 		else if ((new->format[0] == '-' || new->format[0] == '+')
-				&& (tmp[0] != ' ' || !new->isplus))
+				&& (tmp[0] != ' '))
 		{
 			tmp[0] = new->format[0];
 			new->format[0] = '0';

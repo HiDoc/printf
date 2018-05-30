@@ -177,5 +177,7 @@ fclean: clean
 
 lldb :
 	gcc -g $(SRC_FT) $(SRC_PF) $(INC) main.c
-
+test : $(NAME)
+	@gcc -g $(OBJ) $(INC) $(NAME) main.c
+	@./a.out
 re: fclean all

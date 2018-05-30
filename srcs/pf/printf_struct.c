@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/30 12:32:37 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 20:25:17 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ static t_arg	*zero_arg(void)
 	new->next = NULL;
 	zero_arg_plus(new);
 	return (new);
+}
+
+static t_arg	*new_arg_percent(char *str)
+{
+	t_arg	*new;
+
+	if ((new = zero_arg()) == NULL)
+		return (NULL);
+	new->error = 0;
+	new->format = ft_strdup(++str);
+	return (new);	
 }
 
 t_arg			*new_arg(char *str, va_list ap)
@@ -91,7 +102,10 @@ t_arg			*map_arg(char **store, va_list ap)
 	{
 		if (iter->error == 1)
 			return (first);
-		iter->next = new_arg(store[count], ap);
+		if (iter->arg == '%')
+			iter->next = new_arg_percent(store[count]);
+		else
+			iter->next = new_arg(store[count], ap);
 		iter = iter->next;
 		free(store[count]);
 		count++;

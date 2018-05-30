@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:06:16 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/30 12:30:47 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 19:55:36 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 t_arg	*set_format(t_arg *new, va_list ap)
 {
 	set_wildcards(new, ap);
+	if (new->ismins)
+		new->is0 = 0;
+	if (new->isplus)
+		new->ispace = 0;
 	if (new->isl && (is_char(new) || is_str(new)))
 		new->islower = 0;
 	if (is_num(new))
