@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:43:56 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/15 16:21:08 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 11:36:22 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void		format_num(t_arg *new, va_list ap)
 	{
 		len = (int)ft_strlen(new->format);
 		format_num_precision(new, len);
-		len = (int)ft_strlen(new->format);
+		len = new->format ? (int)ft_strlen(new->format) : 0;
 		format_num_field(new, new->field - len);
 	}
 	else

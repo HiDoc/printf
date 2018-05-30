@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 13:38:43 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/27 18:53:30 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 11:49:34 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void					switch_num(t_arg *arg, va_list ap);
 t_arg					*new_arg(char *str, va_list ap);
 t_arg					*map_arg(char **store, va_list ap);
 
-void					set_arg(t_arg *arg, char *str);
-void					set_format(t_arg *arg, va_list ap);
+t_arg					*set_arg(t_arg *arg, char *str);
+t_arg					*set_format(t_arg *arg, va_list ap);
 void					set_wildcards(t_arg *arg, va_list ap);
 
 int						ft_printf(const char *format, ...);

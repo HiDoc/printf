@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 13:34:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/27 19:03:06 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 11:50:30 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,16 @@ static void		if_arg(t_arg *new, char c, int count)
 	if_arg_specialcases(new, c, count);
 }
 
-static void		get_field_preci(t_arg *new, char *str)
+static t_arg	*get_field_preci(t_arg *new, char *str)
 {
 	if (new->field > 0 && new->field < new->wildfield)
 		new->field = 0;
 	new->field = new->field ? ft_atoi(&str[new->field]) : 0;
 	new->preci = new->preci ? ft_atoi(&str[new->preci]) : 0;
+	return (new);
 }
 
-void			set_arg(t_arg *new, char *str)
+t_arg			*set_arg(t_arg *new, char *str)
 {
 	int		count;
 
@@ -81,5 +82,6 @@ void			set_arg(t_arg *new, char *str)
 		new->format = ft_strdup("%");
 		new->hformat = ft_strdup2(&str[1]);
 	}
-	get_field_preci(new, str);
+	new = get_field_preci(new, str);
+	return (new);
 }

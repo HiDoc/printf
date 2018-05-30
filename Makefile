@@ -130,8 +130,8 @@ SRC_PF_NAME =	printf_convchr.c \
 OBJ_FT_NAME = $(SRC_FT_NAME:.c=.o)
 OBJ_PF_NAME = $(SRC_PF_NAME:.c=.o)
 
-SRC_PF = $(addprefix $(SRC_PF_PATH), $(SRC_FT_NAME))
-SRC_FT = $(addprefix $(SRC_FT_PATH), $(SRC_PF_NAME))
+SRC_PF = $(addprefix $(SRC_PF_PATH), $(SRC_PF_NAME))
+SRC_FT = $(addprefix $(SRC_FT_PATH), $(SRC_FT_NAME))
 SRC = $(SRC_PF) $(SRC_FT)
 
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_FT_NAME))
@@ -175,7 +175,7 @@ fclean: clean
 	$(cleaning)
 	@echo "**************************************"
 
-test :
-	gcc main.c $(NAME) $(INC)
+lldb :
+	gcc -g $(SRC_FT) $(SRC_PF) $(INC) main.c
 
 re: fclean all

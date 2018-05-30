@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/07 16:18:53 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/05/30 12:32:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void		zero_arg_plus(t_arg *new)
 	new->is0 = 0;
 	new->arg = 0;
 	new->char0 = 0;
-	new->wildpreci = 0;
-	new->wildfield = 0;
+	new->wildpreci = -1;
+	new->wildfield = -1;
 }
 
 static t_arg	*zero_arg(void)
@@ -58,8 +58,8 @@ t_arg			*new_arg(char *str, va_list ap)
 	new->error = 0;
 	if (str[0] == '%')
 	{
-		set_arg(new, str);
-		set_format(new, ap);
+		new = set_arg(new, str);
+		new = set_format(new, ap);
 		if (new->arg != '%')
 			if (new->index < (int)ft_strlen(str) && str[new->index + 1])
 			{
