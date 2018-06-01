@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:43:56 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/30 20:11:55 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/01 15:56:11 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	format_num_setchar(t_arg *new, int len, char *tmp)
 				new->format[0] = new->islower ? 'x' : 'X';
 			new->format[1] = '0';
 		}
-		if (space == 1)
+		if (space == 1 && (new->ismins != 1))
 			tmp[0] = ' ';
 		new->format = ft_strdjoin(tmp, new->format);
 	}
