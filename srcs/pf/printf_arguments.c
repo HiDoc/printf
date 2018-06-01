@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 13:34:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/01 13:42:00 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/01 14:41:21 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ t_arg			*set_arg(t_arg *new, char *str)
 	else
 	{
 		new->arg = '%';
-		if (new->format)
-			free(new->format);
 		new->format = ft_strdup2("%");
 	}
 	new = get_field_preci(new, str);

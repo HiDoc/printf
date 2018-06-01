@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:48:38 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/28 11:07:25 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/01 14:41:25 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	format_char(t_arg *new)
 {
 	char	*tmp;
 
+	tmp = NULL;
 	if (!new->islower)
 	{
 		if (new->char0 > 0xFFFF)

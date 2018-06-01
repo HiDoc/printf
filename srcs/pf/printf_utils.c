@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:00:23 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/01 13:41:53 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/01 14:20:46 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ int		free_error(t_arg *list)
 	t_arg *to_free;
 
 	if (list->format != NULL)
-		nfree(list->format);
+		;//nfree(list->format);
+	list->next = NULL;
 	if (list->next)
 	{
 		to_free = list->next;
-		list->next = NULL;
 		while (to_free)
 		{
 			list = to_free;
@@ -84,6 +84,8 @@ void	free_list(t_arg *list)
 		list = iter;
 		if (list->format)
 			nfree(list->format);
+		if (list->hformat)
+			nfree(list->hformat);
 		if (is_str(iter) && !iter->islower)
 		{
 			if (iter->wformat != NULL)

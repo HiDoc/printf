@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/01 12:47:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/01 14:39:41 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int			print_buffer(char *str, int freestr)
 {
-	char	buffer[SPEED];
+	char	buffer[SPEED + 2];
 	size_t	len;
 	size_t	count;
 
 	(void)(freestr);
+	buffer[SPEED + 1] = '\0';
 	len = 0;
 	if (str)
 	{
@@ -27,7 +28,7 @@ int			print_buffer(char *str, int freestr)
 		ft_bzero(buffer, SPEED);
 		while (count < len)
 		{
-			ft_bzero(buffer, count);
+			ft_bzero(buffer, SPEED);
 			write(1, buffer, ft_strlcpy(buffer, &str[count], SPEED - 1));
 			count += SPEED - 1;
 		}

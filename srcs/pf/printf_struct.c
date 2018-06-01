@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 10:50:32 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/01 12:09:42 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/01 14:38:37 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static t_arg	*new_arg_percent(char *str)
 	new->error = 0;
 	new->arg = 1;
 	new->format = ft_strdup(++str);
-	return (new);	
+	return (new);
 }
 
 t_arg			*new_arg(char *str, va_list ap)
@@ -76,7 +76,7 @@ t_arg			*new_arg(char *str, va_list ap)
 			if (new->index < (int)ft_strlen(str) && str[new->index + 1])
 			{
 				tmp = ft_strsub(str, new->index + 1, ft_strlen(str));
-				new->format = (new->format != NULL) ? ft_strljoin(new->format, tmp)
+				new->format = (new->format) ? ft_strljoin(new->format, tmp)
 					: ft_strdup(tmp);
 				free(tmp);
 			}
