@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 12:21:29 by fmadura           #+#    #+#             */
-/*   Updated: 2018/03/19 11:00:16 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/01 13:41:32 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,5 @@ int			print_bigstr(t_arg *arg)
 	len = iter_print(arg, 0, len, 0);
 	if (arg->field - size > 0 && arg->hformat && arg->ismins)
 		len += print_buffer(arg->hformat, 1);
-	if (arg->format)
-		len += print_buffer(arg->format, 1);
 	return (len);
 }

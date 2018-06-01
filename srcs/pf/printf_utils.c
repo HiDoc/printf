@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:00:23 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/18 11:45:40 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/01 13:41:53 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,17 @@ int		free_error(t_arg *list)
 void	free_list(t_arg *list)
 {
 	t_arg	*iter;
-	int		percent;
 
 	iter = list;
-	percent = 0;
 	while (iter)
 	{
-		if (iter->arg == '%')
-			percent++;
 		list = iter;
+		if (list->format)
+			nfree(list->format);
 		if (is_str(iter) && !iter->islower)
 		{
 			if (iter->wformat != NULL)
 				nfree(iter->wformat);
-		}
-		if (iter->arg == '%')
-		{
-			if (percent % 2 == 0)
-				nfree(iter->format);
-			else if (iter->hformat)
-				nfree(iter->hformat);
 		}
 		iter = iter->next;
 		nfree(list);

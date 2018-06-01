@@ -177,7 +177,21 @@ fclean: clean
 
 lldb :
 	gcc -g $(SRC_FT) $(SRC_PF) $(INC) main.c
+
 test : $(NAME)
 	@gcc -g $(OBJ) $(INC) $(NAME) main.c
 	@./a.out
+
+valgrind : $(NAME)
+	@gcc -g $(OBJ) $(INC) $(NAME) main.c
+	@valgrind --leak-check=yes ./a.out
+
+fsanitize : $(NAME)
+	@gcc -fsanitize=address  $(OBJ) $(INC) $(NAME) main.c
+	@./a.out
+
+tclean : fclean
+	@rm -f a.out
+	@rm -rf a.out.dSym/
+
 re: fclean all

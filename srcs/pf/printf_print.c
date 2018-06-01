@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:51:57 by fmadura           #+#    #+#             */
-/*   Updated: 2018/05/28 11:04:38 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/01 12:47:58 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int			print_buffer(char *str, int freestr)
 	size_t	len;
 	size_t	count;
 
+	(void)(freestr);
 	len = 0;
 	if (str)
 	{
@@ -29,11 +30,6 @@ int			print_buffer(char *str, int freestr)
 			ft_bzero(buffer, count);
 			write(1, buffer, ft_strlcpy(buffer, &str[count], SPEED - 1));
 			count += SPEED - 1;
-		}
-		if (freestr && str)
-		{
-			free(str);
-			str = NULL;
 		}
 	}
 	return ((int)len);
@@ -71,9 +67,9 @@ static int	print_error(t_arg *arg)
 
 int			print_args(t_arg *arg, size_t len, int percent, int error)
 {
+	(void)percent;
 	while (arg)
 	{
-		percent += (arg->arg == '%');
 		if (is_char(arg))
 		{
 			if ((error = print_wchar(arg)) == -1)
@@ -88,10 +84,7 @@ int			print_args(t_arg *arg, size_t len, int percent, int error)
 					return (print_error(arg));
 				len += print_bigstr(arg);
 			}
-			else if (percent % 2 != 0 || arg->arg != '%')
-				len = print_check_next(arg, len, arg->format);
-			else
-				len = print_check_next(arg, len, arg->hformat);
+			len = print_check_next(arg, len, arg->format);
 		}
 		arg = arg->next;
 	}
