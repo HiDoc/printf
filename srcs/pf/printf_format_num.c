@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:43:56 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/03 19:45:56 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/03 21:29:58 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void		format_num(t_arg *new, va_list ap)
 	}
 	else
 		format_ptr(new);
+	len = ft_strlen(new->format);
 	if (is_deci(new) && new->ispace && ft_isdigit(new->format[0]))
 	{
 		if (new->format[0] != ' ')
@@ -114,5 +115,7 @@ void		format_num(t_arg *new, va_list ap)
 	}
 	len = ft_strlen(new->format);
 	if (len > new->field && new->format[len - 1] == ' ')
+		new->format[len - 1] = 0;
+	if (len > new->field && new->format[len - 1] == '0')
 		new->format[len - 1] = 0;
 }

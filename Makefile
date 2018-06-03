@@ -114,7 +114,7 @@ SRC_PF_NAME =	printf_convchr.c \
 				printf_convgen.c \
 				printf_flag.c \
 				printf_flag2.c \
-				printf_flags.c \
+				printf_flag3.c \
 				printf_format.c \
 				printf_format_wildcards.c \
 				printf_format_char.c \
