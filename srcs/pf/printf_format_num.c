@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:43:56 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/03 21:29:58 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/05 11:55:59 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,24 +98,17 @@ void		format_num(t_arg *new, va_list ap)
 	int		len;
 
 	switch_num(new, ap);
-	if (new->arg != 'p')
+	if (is_deci(new))
+		format_deci(new, ap);
+	else if (new->arg != 'p')
 	{
 		len = (int)ft_strlen(new->format);
 		format_num_precision(new, len);
 		len = new->format ? (int)ft_strlen(new->format) : 0;
+		if (new->ispace && new->hpreci && new->preci)
+			new->field--;
 		format_num_field(new, new->field - len);
 	}
 	else
 		format_ptr(new);
-	len = ft_strlen(new->format);
-	if (is_deci(new) && new->ispace && ft_isdigit(new->format[0]))
-	{
-		if (new->format[0] != ' ')
-			new->format = ft_strrjoin(" ", new->format);
-	}
-	len = ft_strlen(new->format);
-	if (len > new->field && new->format[len - 1] == ' ')
-		new->format[len - 1] = 0;
-	if (len > new->field && new->format[len - 1] == '0')
-		new->format[len - 1] = 0;
 }

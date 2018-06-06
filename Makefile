@@ -119,6 +119,7 @@ SRC_PF_NAME =	printf_convchr.c \
 				printf_format_wildcards.c \
 				printf_format_char.c \
 				printf_format_num.c \
+				printf_format_deci.c \
 				printf_print.c \
 				printf_print_wchar.c \
 				printf_struct.c \
