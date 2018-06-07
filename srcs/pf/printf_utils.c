@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 16:00:23 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/01 14:20:46 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/07 20:47:26 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int		free_error(t_arg *list)
 {
 	t_arg *to_free;
 
-	if (list->format != NULL)
-		;//nfree(list->format);
 	list->next = NULL;
 	if (list->next)
 	{
