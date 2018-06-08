@@ -6,57 +6,83 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:43:56 by fmadura           #+#    #+#             */
-/*   Updated: 2018/06/07 20:45:15 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/08 11:10:57 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
+static void	format_num_setchar(t_arg *new, int len, char *tmp)
+{
+	int		minus;
+
+	minus = (new->format && new->format[0] == '-') ? 1 : 0;
+	if (new->preci > 0 && (new->preci + minus) > len)
+	{
+		tmp = ft_strnew(new->preci - len + minus);
+		ft_strset(tmp, '0', new->preci - len + minus);
+		if ((new->format[0] == '-' || new->format[0] == '+'))
+		{
+			tmp[0] = new->format[0];
+			new->format[0] = '0';
+		}
+		if (is_hexa(new) && new->ishtg)
+		{
+			if (tmp[1])
+				tmp[1] = new->islower ? 'x' : 'X';
+			else
+				new->format[0] = new->islower ? 'x' : 'X';
+			new->format[1] = '0';
+		}
+		new->format = ft_strdjoin(tmp, new->format);
+	}
+}
+
 static void	format_num_precision(t_arg *new, int len)
 {
 	char	*tmp;
-	char	first;
 
-	(void)len;
-	first = new->format ? new->format[0] : 0;
 	tmp = NULL;
-	if (new->isplus && first != '-')
-		new->format = ft_strrjoin("+", new->format);
-	first = new->format ? new->format[0] : 0;
-	if (first == '-' || first == '+')
+	if (new->format && new->format[0] == '0' && !(new->preci) && new->hpreci)
 	{
-		if (first == '-')
-			new->preci++;
-		new->format[0] = '0';
+		free(new->format);
+		new->format = ft_strdup("");
 	}
-	if (len < new->preci)
+	else if (is_hexa(new) && new->ishtg && new->format[0] != '0')
+		new->format = ft_strrjoin((new->arg == 'X' ? "0X" : "0x"), new->format);
+	if (is_octal(new) && (new->ishtg) && new->format[0] != '0')
 	{
-		tmp = ft_strnew(new->preci - len);
-		ft_strset(tmp, '0', new->preci - len);
-		new->format = ft_strdjoin(tmp, new->format);
+		new->format = ft_strrjoin(("0"), new->format);
+		new->preci--;
 	}
-	if (first == '-' || first == '+')
-		new->format[0] = first;
+	format_num_setchar(new, len, tmp);
 }
 
-static void	format_num_field(t_arg *new, int diff, int zero)
+static void	format_num_field(t_arg *new, int diff)
 {
 	char	*tmp;
-	char	first;
 
-	first = new->format[0];
-	(void)zero;
-	if (new->ismins && new->ispace)
-		diff--;
 	if (diff > 0)
-	{
 		tmp = ft_strnew(diff);
-		ft_strset(tmp, !new->is0 || new->hpreci ? ' ' : '0', diff);
-		if ((first == '+' || first == '-') && new->is0 && !new->hpreci)
+	if (!(new->ismins) && new->is0 && diff > 0)
+	{
+		ft_strset(tmp, (new->hpreci ? ' ' : '0'), diff);
+		if (is_hexa(new) && new->ishtg && new->format[1] && tmp[1] != ' ')
 		{
-			new->format[0] = tmp[0];
-			tmp[0] = first;
+			new->format[1] = '0';
+			tmp[1] = new->arg == 'x' ? 'x' : 'X';
 		}
+		else if ((new->format[0] == '-' || new->format[0] == '+')
+				&& (tmp[0] != ' '))
+		{
+			tmp[0] = new->format[0];
+			new->format[0] = '0';
+		}
+		new->format = ft_strdjoin(tmp, new->format);
+	}
+	else if (diff > 0)
+	{
+		ft_strset(tmp, ' ', diff);
 		switch_minus(tmp, new);
 	}
 }
@@ -64,27 +90,18 @@ static void	format_num_field(t_arg *new, int diff, int zero)
 void		format_num(t_arg *new, va_list ap)
 {
 	int		len;
-	int		zero;
 
 	switch_num(new, ap);
-	zero = 0;
 	if (is_deci(new))
 		format_deci(new, ap);
 	else if (new->arg != 'p')
 	{
 		len = (int)ft_strlen(new->format);
-		if (len == 1 && new->format[0] == '0')
-		{
-			zero = 1;
-			if (new->hpreci && !new->preci)
-			{
-				free(new->format);
-				new->format = ft_strdup("");
-			}
-		}
 		format_num_precision(new, len);
 		len = new->format ? (int)ft_strlen(new->format) : 0;
-		format_num_field(new, new->field - len, zero);
+		if (new->ispace && new->hpreci && new->preci)
+			new->field--;
+		format_num_field(new, new->field - len);
 	}
 	else
 		format_ptr(new);

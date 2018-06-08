@@ -5,7 +5,7 @@ INC_PATH = ./includes/
 
 NAME = libftprintf.a
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall -g
+CFLAGS = -Werror -Wextra -Wall
 
 complete = @echo "\033[92mComplete\033[0m"
 cleaning = @echo "\033[36mCleaning complete\033[0m"
@@ -69,7 +69,6 @@ SRC_FT_NAME =	ft_strdup2.c \
 				ft_strdel.c \
 				ft_strdjoin.c \
 				ft_strdup.c \
-				ft_strdupcat.c \
 				ft_strequ.c \
 				ft_strins.c \
 				ft_striter.c \

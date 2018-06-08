@@ -6,7 +6,7 @@
 /*   By: fmadura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 19:39:39 by fmadura           #+#    #+#             */
-/*   Updated: 2018/02/17 12:31:16 by fmadura          ###   ########.fr       */
+/*   Updated: 2018/06/08 11:13:12 by fmadura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strdup(const char *s);
 char			*ft_strdup2(const char *s);
 wchar_t			*ft_wstrdup(const wchar_t *s);
-char			*ft_strdupcat(const char *s1, const char *s2);
 char			*ft_strmap(char const *s, char (*f)(char));
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char			*ft_strncat(char *restrict s1, const char *restrict s2,
